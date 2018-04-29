@@ -32,7 +32,7 @@ class Contact(unittest.TestCase):
         captcha.send_keys("1234")  # captcha
         submit.click()
 
-        assert driver.find_element_by_id("inValid") is None
+        assert driver.find_element_by_id("response") is not None
 
     def tearDown(self):
         self.driver.close()
