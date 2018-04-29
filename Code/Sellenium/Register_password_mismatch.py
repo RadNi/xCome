@@ -6,7 +6,7 @@ from selenium.webdriver.common.keys import Keys
 class Register_password_mismatch(unittest.TestCase):
 
     def setUp(self):
-        self.driver = webdriver.Firefox()
+        self.driver = webdriver.Safari()
 
     def test_pass_mismatch(self):
         driver = self.driver
