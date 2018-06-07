@@ -34,6 +34,20 @@ Route::post('/register', [
     "as" => "User.checkRegister"
 ]);
 
+Route::get('/login', [
+    "uses" => "UserController@showLogin",
+    "as" => "User.showLogin"
+]);
+
+Route::post('/login', [
+    "uses" => "UserController@checkLogin",
+    "as" => "User.checkLogin"
+]);
+
+Route::get('/forget', [
+    "uses" => "UserController@showForget",
+    "as" => "User.showForget"
+]);
 
 
 Route::get('/contact', [
@@ -50,3 +64,4 @@ Route::post('/contact', [
 Route::get('/', function () {
     return view('welcome');
 });
+

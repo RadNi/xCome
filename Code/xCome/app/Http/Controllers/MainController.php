@@ -12,7 +12,7 @@ class MainController extends Controller
 
     public function checkContact(Request $request) {
 //        return view("extra.contact", array('check' => 3));
-        return view("extra.contact", array('check' => 2));
+        return view("extra.contact", array('check' => 3));
 
     }
 }
