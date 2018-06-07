@@ -10,7 +10,7 @@ class Register_SQL_injection(unittest.TestCase):
 
     def test_sql_injection(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")

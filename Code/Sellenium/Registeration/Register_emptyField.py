@@ -10,7 +10,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_name(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
         national_id = driver.find_element_by_id("person_id")
@@ -38,7 +38,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_family(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         email = driver.find_element_by_id("email")
         national_id = driver.find_element_by_id("person_id")
@@ -66,7 +66,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_email(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         national_id = driver.find_element_by_id("person_id")
@@ -94,7 +94,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_national_id(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -122,7 +122,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_username(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -150,7 +150,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_password(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -178,7 +178,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_repass(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -206,7 +206,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_cellnum(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -234,7 +234,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_address(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -262,7 +262,7 @@ class Register_emptyField_Test(unittest.TestCase):
 
     def test_empty_captcha(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")

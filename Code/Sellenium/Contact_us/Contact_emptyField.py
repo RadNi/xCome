@@ -10,7 +10,7 @@ class Contact_emptyField_Test(unittest.TestCase):
 
     def test_empty_message(self):
         driver = self.driver
-        driver.get("http://192.168.193.11/contact")
+        driver.get("http://192.168.202.227/contact")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
         name = driver.find_element_by_id("name")
