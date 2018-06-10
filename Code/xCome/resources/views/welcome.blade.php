@@ -69,6 +69,8 @@
         <div class="top-right links">
                 <a href="{{ url('/contact') }}">Contact Us</a>
                 <a href="{{ url('/register') }}">Register</a>
+                <a href="{{ url('/login') }}">Login</a>
+                <a href="{{ url('/forget') }}">Forget</a>
         </div>
 
     <div class="content">

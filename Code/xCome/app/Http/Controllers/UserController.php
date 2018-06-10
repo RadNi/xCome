@@ -6,11 +6,18 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function showLogin() {
 
+    public function showForget() {
+        return view("users.forget", array('check' => false));
+    }
+
+    public function showLogin() {
+        return view("users.login", array('check' => false));
     }
 
     public function checkLogin(Request $request) {
+        $check = true;
+        return view("users.login", array('check' => true));
 
     }
 
