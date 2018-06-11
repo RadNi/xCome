@@ -33,12 +33,12 @@
             {{--<input type="checkbox" class="radio" value="1" name="fooby[2][]" />Cheetah</label>--}}
     {{--</div>--}}
 
-    <input type="checkbox" class="slectOne" data-id="1 selected"/>
-    <input type="checkbox" class="slectOne" data-id="2 selected"/>
-    <input type="checkbox" class="slectOne" data-id="3 selected"/>
+    <input type="checkbox" class="slectOne" data-id="telegram-check"/>
+    <input type="checkbox" class="slectOne" data-id="email-check"/>
+    <input type="checkbox" class="slectOne" data-id="sms-check"/>
 
     <form action="{{ url('/forget') }}" method="post">
-        <input type="number" id="phonenumber" name="phonenumber" placeholder="PhoneNumber"><br>
+        <input type="number" id="phone-number" name="phonenumber" placeholder="PhoneNumber"><br>
         <input type="email" id="email" name="email" placeholder="Email"><br>
         <input id="captcha" type="text" name="captcha" placeholder="captcha"><br>
         <input id="submit" type="submit" value="Submit">
