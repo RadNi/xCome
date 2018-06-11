@@ -29,4 +29,9 @@ class UserController extends Controller
         $check = true;
         return view("users.register", array('check' => true));
     }
+
+    public function profile(Request $request) {
+        $check = true;
+        return view("users.profile", array('check' => true));
+    }
 }

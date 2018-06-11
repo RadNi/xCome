@@ -49,15 +49,14 @@ Route::get('/forget', [
     "as" => "User.showForget"
 ]);
 
-
 Route::get('/contact', [
     "uses" => "MainController@showContact",
     "as" => "Main.showContact"
 ]);
 
-Route::post('/contact', [
-    "uses" => "MainController@checkContact",
-    "as" => "Main.checkContact"
+Route::get('/profile', [
+    "uses" => "UserController@profile",
+    "as" => "User.profile"
 ]);
 
 
