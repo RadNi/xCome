@@ -33,9 +33,9 @@
             {{--<input type="checkbox" class="radio" value="1" name="fooby[2][]" />Cheetah</label>--}}
     {{--</div>--}}
 
-    <input type="checkbox" class="slectOne" data-id="telegram-check"/>
-    <input type="checkbox" class="slectOne" data-id="email-check"/>
-    <input type="checkbox" class="slectOne" data-id="sms-check"/>
+    <input type="checkbox" class="slectOne" id="telegram-check"/>
+    <input type="checkbox" class="slectOne" id="email-check"/>
+    <input type="checkbox" class="slectOne" id="sms-check"/>
 
     <form action="{{ url('/forget') }}" method="post">
         <input type="number" id="phone-number" name="phonenumber" placeholder="PhoneNumber"><br>
