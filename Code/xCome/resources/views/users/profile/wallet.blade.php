@@ -1,4 +1,4 @@
-@extends('users.profile')
+@extends('users.profile.profile')
 
 @section('workplace')
     <div id="wp-wallets">

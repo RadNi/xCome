@@ -65,44 +65,39 @@ Route::get('/', function () {
 });
 
 Route::prefix('profile')->group(function () {
+
     Route::get('exam-reg', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.exam-reg"
-    ],[
-        "method" => "wallet"
     ] );
     Route::get('wallet', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.wallet"
-    ],[
-        "method" => "wallet"
     ] );
 
     Route::get('apply-pay', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.apply-pay"
-    ],[
-        "method" => "wallet"
     ] );
 
     Route::get('or-pay', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.or-pay"
-    ],[
-        "method" => "wallet"
     ] );
 
     Route::get('ret-mon', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.ret-mon"
-    ],[
-        "method" => "wallet"
     ] );
 
         Route::get('int-trans', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
             "as" =>"profile.int-trans"
-    ],[
-        "method" => "wallet"
     ] );
 });
