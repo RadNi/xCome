@@ -60,7 +60,7 @@ Route::prefix('user') -> group(function () {
         "as" =>"User.transactions"
     ] );
 
-    Route::get('information', [
+    Route::any('information', [
         "uses" => "UserController@info",
         "as" =>"User.info"
     ] );
