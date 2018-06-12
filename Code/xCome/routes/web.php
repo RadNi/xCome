@@ -54,17 +54,21 @@ Route::get('/contact', [
     "as" => "Main.showContact"
 ]);
 
-Route::get('/profile/wallet', [
-    "uses" => "UserController@profile",
-    "as" => "User.profile"
-]);
-
+Route::get('/user/information', [
+    "uses" => "UserController@info",
+    "as" =>"User.info"
+] );
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::prefix('profile')->group(function () {
+
+    Route::get('/', [
+        "uses" => "UserController@profile",
+        "as" =>"profile"
+    ] );
 
     Route::get('exam-reg', [
         "middleware" => "App\Http\Middleware\ProfileMiddleWare",

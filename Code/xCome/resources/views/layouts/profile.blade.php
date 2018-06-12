@@ -18,10 +18,10 @@
     <div id="scroll-left">
         <table id="hyperlink-table" cellpadding="20">
             <td id="mainpage">
-                <a href="{{ url("main") }}">Main Page</a>
+                <a href="{{ route("profile") }}">Main Page</a>
             </td>
             <td id="userinfo">
-                <a href="{{ url("userInfo") }}">User information</a>
+                <a href="{{ route("User.info") }}">User information</a>
             </td>
             <td id="transactions">
                 <a href="{{ url("transactions") }}">Transaction History</a>

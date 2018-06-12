@@ -28,7 +28,14 @@ class UserController extends Controller
         return view("users.register", array('check' => true));
     }
 
+    public function info(Request $request) {
+        return view("users.user-info", array('check' => true));
+    }
+
     public function profile(Request $request) {
-        return view("users.profile." . $request->mode, array('check' => true));
+        if ($request->mode) {
+            return view("users.profile." . $request->mode, array('check' => true));
+        }else
+            return view("users.profile.wallet", array('check' => true));
     }
 }
