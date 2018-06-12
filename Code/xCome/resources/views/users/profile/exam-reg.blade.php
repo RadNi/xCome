@@ -1,4 +1,4 @@
-@extends('users.profile.profile')
+@extends('layouts.navbar-profile')
 
 @section('workplace')
     <div id="wp-wallets">

@@ -95,7 +95,7 @@ Route::prefix('profile')->group(function () {
         "as" =>"profile.ret-mon"
     ] );
 
-        Route::any('int-trans', [
+    Route::any('int-trans', [
         "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
             "as" =>"profile.int-trans"
