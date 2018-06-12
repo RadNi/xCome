@@ -9,6 +9,7 @@
                 <td class="rel-price">Real time price</td>
                 <td class="diagram">Price diagram</td>
             </tr>
+            
             <tr class="wallet" onclick="location.href = '#'">
                 <td class="wallet-name">Riall</td>
                 <td class="rel-price">Real time price</td>
