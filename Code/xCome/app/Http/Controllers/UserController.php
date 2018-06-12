@@ -29,7 +29,6 @@ class UserController extends Controller
     }
 
     public function profile(Request $request) {
-
-        return view("users.profile-wallet", array('check' => true));
+        return view("users.profile." . $request->mode, array('check' => true));
     }
 }
