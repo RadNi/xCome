@@ -30,23 +30,27 @@
             <table id="wp-navbar-table">
 
                 <td>
-                    <button id="exam-reg" >Exam Registration</button>
+                    <button id="exam-reg" class="nav-butt" >Exam Registration</button>
                 </td>
 
                 <td>
-                    <button id="apply-pay" >Apply Payment</button>
+                    <button id="apply-pay" class="nav-butt" >Apply Payment</button>
                 </td>
 
                 <td>
-                    <button id="foreign-pay" >Foreign Payment</button>
+                    <button id="foreign-pay" class="nav-butt" >Foreign Payment</button>
                 </td>
 
                 <td>
-                    <button id="retr-mon" >Retrieve Money</button>
+                    <button id="retr-mon" class="nav-butt" >Retrieve Money</button>
                 </td>
 
                 <td>
-                    <button id="int-pay" >Internal Anonymous Transaction</button>
+                    <button id="int-pay" class="nav-butt" >Internal Transaction</button>
+                </td>
+
+                <td>
+                    <button id="int-pay" class="nav-butt" >Wallets</button>
                 </td>
 
             </table>
