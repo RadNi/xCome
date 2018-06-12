@@ -54,10 +54,18 @@ Route::get('/contact', [
     "as" => "Main.showContact"
 ]);
 
-Route::get('/user/information', [
-    "uses" => "UserController@info",
-    "as" =>"User.info"
-] );
+Route::prefix('user') -> group(function () {
+    Route::get('transactions', [
+        "uses" => "UserController@transactions",
+        "as" =>"User.transactions"
+    ] );
+
+    Route::get('information', [
+        "uses" => "UserController@info",
+        "as" =>"User.info"
+    ] );
+
+});
 
 Route::get('/', function () {
     return view('welcome');

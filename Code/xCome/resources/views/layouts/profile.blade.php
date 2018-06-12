@@ -24,7 +24,7 @@
                 <a href="{{ route("User.info") }}">User information</a>
             </td>
             <td id="transactions">
-                <a href="{{ url("transactions") }}">Transaction History</a>
+                <a href="{{ route("User.transactions") }}">Transaction History</a>
             </td>
         </table>
     </div>

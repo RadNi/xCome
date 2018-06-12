@@ -32,6 +32,10 @@ class UserController extends Controller
         return view("users.user-info", array('check' => true));
     }
 
+    public function transactions(Request $request) {
+        return view("users.transaction-history", array('checked' => true));
+    }
+
     public function profile(Request $request) {
         if ($request->mode) {
             return view("users.profile." . $request->mode, array('check' => true));
