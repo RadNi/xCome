@@ -25,75 +25,37 @@
             </td>
         </table>
     </div>
-    <div>
+    <div id="workplace">
         <div id="wp-navbar">
             <table id="wp-navbar-table">
 
-                <td>
-                    <button id="exam-reg" class="nav-butt" >Exam Registration</button>
+                <td class="wp-item">
+                    <button id="exam-reg" class="nav-butt" onclick="location.href = '{{ route("profile.exam-reg") }}'">Exam Registration</button>
                 </td>
 
-                <td>
-                    <button id="apply-pay" class="nav-butt" >Apply Payment</button>
+                <td class="wp-item">
+                    <button id="apply-pay" class="nav-butt" onclick="location.href = '{{ route("profile.apply-pay") }}'">Apply Payment</button>
                 </td>
 
-                <td>
-                    <button id="foreign-pay" class="nav-butt" >Foreign Payment</button>
+                <td class="wp-item">
+                    <button id="foreign-pay" class="nav-butt" onclick="location.href = '{{ route("profile.or-pay") }}'">Foreign Payment</button>
                 </td>
 
-                <td>
-                    <button id="retr-mon" class="nav-butt" >Retrieve Money</button>
+                <td class="wp-item">
+                    <button id="retr-mon" class="nav-butt" onclick="location.href = '{{ route("profile.ret-mon") }}'">Retrieve Money</button>
                 </td>
 
-                <td>
-                    <button id="int-pay" class="nav-butt" >Internal Transaction</button>
+                <td class="wp-item">
+                    <button id="int-pay" class="nav-butt" onclick="location.href = '{{ route("profile.int-trans") }}'">Internal Transaction</button>
                 </td>
 
-                <td>
-                    <button id="int-pay" class="nav-butt" >Wallets</button>
+                <td class="wp-item">
+                    <button id="int-pay" class="nav-butt" onclick="location.href = '{{ route("profile.wallet") }}'" >Wallets</button>
                 </td>
 
             </table>
         </div>
-        <div id="wp-wallets">
-            <table id="wallets-table">
-                <td>
-                    <div class="wallets">
-                        <p class="wallet-name">Sapphire</p>
-                        <p class="rel-price"></p>
-                        <p class="diagram"></p>
-                        <p class="redirection"></p>
-                    </div>
-                </td>
-                <td>
-                    <div class="wallets">
-                        <p class="wallet-name">Riall</p>
-                        <p class="wallet-name">Sapphire</p>
-                        <p class="rel-price"></p>
-                        <p class="diagram"></p>
-                        <p class="redirection"></p>
-                    </div>
-                </td>
-                <td>
-                    <div class="wallets">
-                        <p class="wallet-name">Dollar</p>
-                        <p class="wallet-name">Sapphire</p>
-                        <p class="rel-price"></p>
-                        <p class="diagram"></p>
-                        <p class="redirection"></p>
-                    </div>
-                </td>
-                <td>
-                    <div class="wallets">
-                        <p class="wallet-name">Euro</p>
-                        <p class="wallet-name">Sapphire</p>
-                        <p class="rel-price"></p>
-                        <p class="diagram"></p>
-                        <p class="redirection"></p>
-                    </div>
-                </td>
-            </table>
-        </div>
+        @yield("workplace")
     </div>
 </body>
 </html>

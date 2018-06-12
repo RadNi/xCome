@@ -16,7 +16,6 @@ class UserController extends Controller
     }
 
     public function checkLogin(Request $request) {
-        $check = true;
         return view("users.login", array('check' => true));
 
     }
@@ -26,12 +25,11 @@ class UserController extends Controller
     }
 
     public function checkRegister(Request $request) {
-        $check = true;
         return view("users.register", array('check' => true));
     }
 
     public function profile(Request $request) {
-        $check = true;
-        return view("users.profile", array('check' => true));
+
+        return view("users.profile-wallet", array('check' => true));
     }
 }
