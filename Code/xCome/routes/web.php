@@ -77,25 +77,25 @@ Route::prefix('profile')->group(function () {
         "as" =>"profile.wallet"
     ] );
 
-    Route::get('apply-pay', [
+    Route::any('apply-pay', [
         "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.apply-pay"
     ] );
 
-    Route::get('or-pay', [
+    Route::any('for-pay', [
         "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
-        "as" =>"profile.or-pay"
+        "as" =>"profile.for-pay"
     ] );
 
-    Route::get('ret-mon', [
+    Route::any('ret-mon', [
         "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" =>"profile.ret-mon"
     ] );
 
-        Route::get('int-trans', [
+        Route::any('int-trans', [
         "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
             "as" =>"profile.int-trans"

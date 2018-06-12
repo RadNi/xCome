@@ -38,7 +38,7 @@
                 </td>
 
                 <td class="wp-item">
-                    <button id="foreign-pay" class="nav-butt" onclick="location.href = '{{ route("profile.or-pay") }}'">Foreign Payment</button>
+                    <button id="foreign-pay" class="nav-butt" onclick="location.href = '{{ route("profile.for-pay") }}'">Foreign Payment</button>
                 </td>
 
                 <td class="wp-item">

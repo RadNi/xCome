@@ -14,7 +14,6 @@
         <td>
             <div class="wallets">
                 <p class="wallet-name">Riall</p>
-                <p class="wallet-name">Sapphire</p>
                 <p class="rel-price"></p>
                 <p class="diagram"></p>
                 <p class="redirection"></p>
@@ -23,7 +22,6 @@
         <td>
             <div class="wallets">
                 <p class="wallet-name">Dollar</p>
-                <p class="wallet-name">Sapphire</p>
                 <p class="rel-price"></p>
                 <p class="diagram"></p>
                 <p class="redirection"></p>
@@ -32,7 +30,6 @@
         <td>
             <div class="wallets">
                 <p class="wallet-name">Euro</p>
-                <p class="wallet-name">Sapphire</p>
                 <p class="rel-price"></p>
                 <p class="diagram"></p>
                 <p class="redirection"></p>
