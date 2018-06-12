@@ -4,7 +4,7 @@
     <div id="wp-wallets">
     <table id="wallets-table" cellpadding="10px">
         <tbody>
-            <tr class="wallet" onclick="location.href = '/'">
+            <tr class="wallet" onclick="location.href = '#'">
                 <td class="wallet-name">Sapphire</td>
                 <td class="rel-price">Real time price</td>
                 <td class="diagram">Price diagram</td>
