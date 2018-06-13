@@ -3,6 +3,7 @@ import unittest
 from selenium import webdriver
 from test_utility import static_data
 
+
 class UserPage(unittest.TestCase):
 
     def setUp(self):
