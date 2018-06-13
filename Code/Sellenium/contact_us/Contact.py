@@ -2,16 +2,17 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
+
 # assume captcha is 1234
 
-class Contact_captcha(unittest.TestCase):
+class Contact(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_sql_injection(self):
+    def test_contact(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/contact")
+        driver.get("http://192.168.202.227/contact")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
         name = driver.find_element_by_id("name")
@@ -28,10 +29,10 @@ class Contact_captcha(unittest.TestCase):
         username.send_keys("smjfas")  # username
         cellphone_number.send_keys("09398604014")  # cellnum
         message.send_keys("this is a test message from Sellenium")  # address
-        captcha.send_keys("7736")  # captcha
+        captcha.send_keys("1234")  # captcha
         submit.click()
-        
-        assert driver.find_element_by_id("inValid") is not None
+
+        assert driver.find_element_by_id("response") is not None
 
     def tearDown(self):
         self.driver.close()

@@ -3,16 +3,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-# assuming captcha is 76A32y2
-
-class Register_captcha_miss_match(unittest.TestCase):
+class Register_SQL_injection(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_miss_match_captcha(self):
+    def test_sql_injection(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -27,7 +25,7 @@ class Register_captcha_miss_match(unittest.TestCase):
 
         # empty name
         name.send_keys("smjfas")
-        family_name.send_keys("feyzabadisani")  # family name
+        family_name.send_keys("select * from user_table")  # family name
         email.send_keys("sm.com")  # email
         national_id.send_keys("0123456789")  # national id
         username.send_keys("smjfas")  # username
@@ -37,7 +35,7 @@ class Register_captcha_miss_match(unittest.TestCase):
         address.send_keys("10th number baker street")  # address
         captcha.send_keys("778536")  # captcha
         submit.click()
-        assert driver.find_element_by_id("inValid") is None
+        assert driver.find_element_by_id("inValid") is not None
 
     def tearDown(self):
         self.driver.close()

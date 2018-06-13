@@ -3,14 +3,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-class Register_incorrect_email_format(unittest.TestCase):
+class Register_password_mismatch(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_email_incorrect_format(self):
+    def test_pass_mismatch(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/register")
+        driver.get("http://192.168.202.227/register")
         name = driver.find_element_by_id("name")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
@@ -29,7 +29,7 @@ class Register_incorrect_email_format(unittest.TestCase):
         email.send_keys("sm.com")  # email
         national_id.send_keys("0123456789")  # national id
         username.send_keys("smjfas")  # username
-        password.send_keys("hello123")  # pass
+        password.send_keys("hdaf;ksjgello123")  # pass
         repass.send_keys("hello123")  # repass
         cellphone_number.send_keys("09398604014")  # cellnum
         address.send_keys("10th number baker street")  # address

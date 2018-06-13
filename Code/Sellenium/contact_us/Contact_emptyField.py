@@ -10,7 +10,7 @@ class Contact_emptyField_Test(unittest.TestCase):
 
     def test_empty_message(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/contact")
+        driver.get("http://192.168.202.227/contact")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
         name = driver.find_element_by_id("name")
@@ -35,7 +35,7 @@ class Contact_emptyField_Test(unittest.TestCase):
 
     def test_empty_captcha(self):
         driver = self.driver
-        driver.get("http://172.20.10.6/contact")
+        driver.get("http://192.168.193.11/contact")
         family_name = driver.find_element_by_id("family")
         email = driver.find_element_by_id("email")
         name = driver.find_element_by_id("name")
@@ -52,9 +52,10 @@ class Contact_emptyField_Test(unittest.TestCase):
         username.send_keys("smjfas")  # username
         cellphone_number.send_keys("09398604014")  # cellnum
         message.send_keys("this is a test message from Sellenium")  # message
-
         # captcha.send_keys("7736")  # captcha
         submit.click()
+
+        assert driver.find_element_by_id("inValid") is not None
 
     def tearDown(self):
         self.driver.close()
