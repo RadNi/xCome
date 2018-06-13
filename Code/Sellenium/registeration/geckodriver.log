@@ -1,0 +1,3 @@
+1528875604154	geckodriver	INFO	geckodriver 0.20.1
+1528875604158	geckodriver	INFO	Listening on 127.0.0.1:54740
+1528875605161	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.AxcQWqaDonQ7"
