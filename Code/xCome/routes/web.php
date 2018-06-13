@@ -49,19 +49,72 @@ Route::get('/forget', [
     "as" => "User.showForget"
 ]);
 
-
 Route::get('/contact', [
     "uses" => "MainController@showContact",
     "as" => "Main.showContact"
 ]);
 
-Route::post('/contact', [
-    "uses" => "MainController@checkContact",
-    "as" => "Main.checkContact"
+Route::any('/criticism', [
+    "uses" => "MainController@criticism",
+    "as" => "Main.criticism"
 ]);
 
+Route::prefix('user') -> group(function () {
+    Route::get('transactions', [
+        "uses" => "UserController@transactions",
+        "as" =>"User.transactions"
+    ] );
+
+    Route::any('information', [
+        "uses" => "UserController@info",
+        "as" =>"User.info"
+    ] );
+
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('profile')->group(function () {
+
+    Route::get('/', [
+        "uses" => "UserController@profile",
+        "as" =>"profile"
+    ] );
+
+    Route::get('exam-reg', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@profile",
+        "as" =>"profile.exam-reg"
+    ] );
+    Route::get('wallet', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@profile",
+        "as" =>"profile.wallet"
+    ] );
+
+    Route::any('apply-pay', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@profile",
+        "as" =>"profile.apply-pay"
+    ] );
+
+    Route::any('for-pay', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@profile",
+        "as" =>"profile.for-pay"
+    ] );
+
+    Route::any('ret-mon', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@profile",
+        "as" =>"profile.ret-mon"
+    ] );
+
+    Route::any('int-trans', [
+        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@profile",
+            "as" =>"profile.int-trans"
+    ] );
+});

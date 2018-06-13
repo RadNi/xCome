@@ -8,7 +8,7 @@
         <input id="password" type="password" name="password" placeholder="password"><br>
         <input id="username" type="text" name="username" placeholder="Username"><br>
         <input id="captcha" type="text" name="captcha" placeholder="captcha"><br>
-        <input id="button" type="submit" value="Login">
+        <input id="login" type="submit" value="Login">
     </form>
 
     <button id="forget" onclick="location.href=' {{ url("/forget") }}' " type="button">
