@@ -34,6 +34,11 @@
             <td >
                 <input id="email" name="email" placeholder="email" type="email">
             </td>
+
+            <td >
+                <input id="wallet-addr"  name="wallet-address" placeholder="5458192738123912">
+            </td>
+
         </table>
         <button id="change">Change</button>
     </form>

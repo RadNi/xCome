@@ -1,4 +1,4 @@
-@extends('layouts.navbar-profile')
+@extends('layouts.user.navbar-profile')
 
 @section('workplace-div')
     <div id="wp-ret-mon">

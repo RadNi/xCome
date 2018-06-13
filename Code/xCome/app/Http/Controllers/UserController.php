@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use function Sodium\add;
 
 class UserController extends Controller
 {
@@ -31,7 +30,7 @@ class UserController extends Controller
 
     public function info(Request $request) {
         $arr = explode("/", $request->path());
-        return view("user.user-info", array('type' => $arr[0]));
+        return view($arr[0].".user-info", array('type' => $arr[0]));
     }
 
     public function transactions(Request $request) {
