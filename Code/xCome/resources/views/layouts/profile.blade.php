@@ -16,21 +16,10 @@
         @yield("navbar")
     </div>
     <div id="scroll-left">
-        <table id="hyperlink-table" cellpadding="20">
-            <td id="mainpage">
-                <a href="{{ route("profile") }}">Main Page</a>
-            </td>
-            <td id="userinfo">
-                <a href="{{ route("User.info") }}">User information</a>
-            </td>
-            <td id="transactions">
-                <a href="{{ route("User.transactions") }}">Transaction History</a>
-            </td>
-        </table>
+        @yield('scroll-left')
     </div>
     <div id="workplace">
-
-        @yield("workplace")
+        @yield('workplace')
     </div>
 </body>
 </html>

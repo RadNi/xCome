@@ -1,4 +1,4 @@
-@extends("layouts.profile")
+@extends("layouts.user.profile")
 
 @section("workplace")
     <form method="post" action="#">

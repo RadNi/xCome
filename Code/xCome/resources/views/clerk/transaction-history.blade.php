@@ -1,4 +1,4 @@
-@extends('layouts.navbar-profile')
+@extends('layouts.clerk.profile')
 
 @section('workplace')
     <input id="search" name="searchbox" placeholder="Search here">
@@ -6,7 +6,6 @@
         <thead>
         <tr>
             <th>Type</th>
-            <th>Currency Type</th>
             <th>From</th>
             <th>To</th>
             <th>Calender</th>
@@ -17,7 +16,6 @@
         <tbody>
         <tr>
             <td class="type">Type (real value)</td>
-            <td class="currency">Currency (real value)</td>
             <td class="from">From (real value)</td>
             <td class="to">To (real value)</td>
             <td class="calender">Calende (real value)</td>
@@ -26,7 +24,6 @@
         </tr>
         <tr>
             <td class="type">Type (real value)</td>
-            <td class="currency">Currency (real value)</td>
             <td class="from">From (real value)</td>
             <td class="to">To (real value)</td>
             <td class="calender">Calende (real value)</td>
