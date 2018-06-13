@@ -39,5 +39,5 @@
         </tbody>
     </table>
     <button id="active-butt">Active Users</button>
-    <button id="active-butt">Deactivate Users</button>
+    <button id="deactivate-butt">Deactivate Users</button>
     @stop

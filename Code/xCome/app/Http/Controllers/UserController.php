@@ -38,10 +38,16 @@ class UserController extends Controller
         return view($arr[0].".transaction-history", array('type' => $arr[0]));
     }
 
-    public function getTable(Request $request) {
+    public function getUsersTable(Request $request) {
         $arr = explode("/", $request->path());
 
         return view("extra.users-table", array('type' => $arr[0]));
+    }
+
+    public function getClerksTable(Request $request) {
+        $arr = explode("/", $request->path());
+
+        return view("extra.clerks-table", array('type' => $arr[0]));
     }
 
     public function profile(Request $request) {

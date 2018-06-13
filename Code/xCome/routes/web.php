@@ -30,8 +30,18 @@ Route::get('/register', [
 ]);
 
 Route::get('/clerk/users-table', [
-    "uses" => "UserController@getTable",
+    "uses" => "UserController@getUsersTable",
     "as" => "users-table"
+]);
+
+Route::get('/boss/users-table', [
+    "uses" => "UserController@getUsersTable",
+    "as" => "users-table"
+]);
+
+Route::get('/boss/clerk-table', [
+    "uses" => "UserController@getClerksTable",
+    "as" => "clerk-table"
 ]);
 
 Route::post('/register', [
@@ -142,6 +152,62 @@ Route::prefix('clerk') -> group(function () {
             "middleware" => "App\Http\Middleware\ProfileMiddleWare",
             "uses" => "UserController@profile",
             "as" => "clerk.profile.ret-mon"
+        ]);
+    });
+
+});
+
+Route::prefix('boss') -> group(function () {
+    Route::get('transactions', [
+        "uses" => "UserController@transactions",
+        "as" =>"boss.transactions"
+    ] );
+
+    Route::any('information', [
+        "uses" => "UserController@info",
+        "as" =>"boss.info"
+    ] );
+
+    Route::prefix('profile') -> group(function () {
+
+        Route::get('/', [
+            "uses" => "UserController@profile",
+            "as" => "boss.profile"
+        ]);
+
+        Route::get('exam-reg', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "boss.profile.exam-reg"
+        ]);
+        Route::get('wallet', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "boss.profile.wallet"
+        ]);
+
+        Route::any('apply-pay', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "boss.profile.apply-pay"
+        ]);
+
+        Route::any('for-pay', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "boss.profile.for-pay"
+        ]);
+
+        Route::any('ret-mon', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "boss.profile.ret-mon"
+        ]);
+
+        Route::any('int-trans', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "boss.profile.int-trans"
         ]);
     });
 
