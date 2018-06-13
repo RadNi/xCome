@@ -2,7 +2,7 @@
 
 @section('workplace-div')
     <div id="wp-ret-mon">
-        <form method="post" action="{{ route("profile.apply-pay") }}">
+        <form method="post" action="{{ route("user.profile.ret-mon") }}">
             {{ csrf_field() }}
             <input id="payee-id" name="payee-id" placeholder="Payee credit card" type="number">
             <input id="price" name="price" placeholder="price" type="number">$

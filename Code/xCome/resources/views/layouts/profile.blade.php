@@ -17,14 +17,16 @@
     </div>
     <div id="scroll-left">
         <table id="hyperlink-table" cellpadding="20">
+            {{--<a href="{{ route($type.'.profile') }}">hi</a>--}}
+
             <td id="mainpage">
-                <a href="{{ route("profile") }}">Main Page</a>
+                <a href="{{ route($type.'.profile') }}">Main Page</a>
             </td>
             <td id="userinfo">
-                <a href="{{ route("User.info") }}">User information</a>
+                <a href="{{ route($type.".info") }}">User information</a>
             </td>
             <td id="transactions">
-                <a href="{{ route("User.transactions") }}">Transaction History</a>
+                <a href="{{ route($type.".transactions") }}">Transaction History</a>
             </td>
         </table>
     </div>

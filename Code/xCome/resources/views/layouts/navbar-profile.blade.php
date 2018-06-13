@@ -4,27 +4,27 @@
     <table id="wp-navbar-table">
 
         <td class="wp-item">
-            <button id="exam-reg" class="nav-butt" onclick="location.href = '{{ route("profile.exam-reg") }}'">Exam Registration</button>
+            <button id="exam-reg" class="nav-butt" onclick="location.href = '{{ route("user.profile.exam-reg") }}'">Exam Registration</button>
         </td>
 
         <td class="wp-item">
-            <button id="apply-pay" class="nav-butt" onclick="location.href = '{{ route("profile.apply-pay") }}'">Apply Payment</button>
+            <button id="apply-pay" class="nav-butt" onclick="location.href = '{{ route("user.profile.apply-pay") }}'">Apply Payment</button>
         </td>
 
         <td class="wp-item">
-            <button id="foreign-pay" class="nav-butt" onclick="location.href = '{{ route("profile.for-pay") }}'">Foreign Payment</button>
+            <button id="foreign-pay" class="nav-butt" onclick="location.href = '{{ route("user.profile.for-pay") }}'">Foreign Payment</button>
         </td>
 
         <td class="wp-item">
-            <button id="retr-mon" class="nav-butt" onclick="location.href = '{{ route("profile.ret-mon") }}'">Retrieve Money</button>
+            <button id="retr-mon" class="nav-butt" onclick="location.href = '{{ route("user.profile.ret-mon") }}'">Retrieve Money</button>
         </td>
 
         <td class="wp-item">
-            <button id="int-pay" class="nav-butt" onclick="location.href = '{{ route("profile.int-trans") }}'">Internal Transaction</button>
+            <button id="int-pay" class="nav-butt" onclick="location.href = '{{ route("user.profile.int-trans") }}'">Internal Transaction</button>
         </td>
 
         <td class="wp-item">
-            <button id="wallet" class="nav-butt" onclick="location.href = '{{ route("profile.wallet") }}'" >Wallets</button>
+            <button id="wallet" class="nav-butt" onclick="location.href = '{{ route("user.profile.wallet") }}'" >Wallets</button>
         </td>
 
     </table>

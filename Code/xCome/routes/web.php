@@ -62,59 +62,87 @@ Route::any('/criticism', [
 Route::prefix('user') -> group(function () {
     Route::get('transactions', [
         "uses" => "UserController@transactions",
-        "as" =>"User.transactions"
+        "as" =>"user.transactions"
     ] );
 
     Route::any('information', [
         "uses" => "UserController@info",
-        "as" =>"User.info"
+        "as" =>"user.info"
     ] );
 
+    Route::prefix('profile') -> group(function () {
+
+        Route::get('/', [
+            "uses" => "UserController@profile",
+            "as" => "user.profile"
+        ]);
+
+        Route::get('exam-reg', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "user.profile.exam-reg"
+        ]);
+        Route::get('wallet', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "user.profile.wallet"
+        ]);
+
+        Route::any('apply-pay', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "user.profile.apply-pay"
+        ]);
+
+        Route::any('for-pay', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "user.profile.for-pay"
+        ]);
+
+        Route::any('ret-mon', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "user.profile.ret-mon"
+        ]);
+
+        Route::any('int-trans', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "user.profile.int-trans"
+        ]);
+    });
+
 });
+
+Route::prefix('clerk') -> group(function () {
+    Route::get('transactions', [
+        "uses" => "UserController@transactions",
+        "as" =>"clerk.transactions"
+    ] );
+
+    Route::any('information', [
+        "uses" => "UserController@info",
+        "as" =>"clerk.info"
+    ] );
+
+    Route::prefix('profile') -> group(function () {
+
+        Route::get('/', [
+            "uses" => "UserController@profile",
+            "as" => "clerk.profile"
+        ]);
+
+        Route::get('wallet', [
+            "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+            "uses" => "UserController@profile",
+            "as" => "clerk.profile.wallet"
+        ]);
+    });
+
+});
+
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::prefix('profile')->group(function () {
-
-    Route::get('/', [
-        "uses" => "UserController@profile",
-        "as" =>"profile"
-    ] );
-
-    Route::get('exam-reg', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-        "as" =>"profile.exam-reg"
-    ] );
-    Route::get('wallet', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-        "as" =>"profile.wallet"
-    ] );
-
-    Route::any('apply-pay', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-        "as" =>"profile.apply-pay"
-    ] );
-
-    Route::any('for-pay', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-        "as" =>"profile.for-pay"
-    ] );
-
-    Route::any('ret-mon', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-        "as" =>"profile.ret-mon"
-    ] );
-
-    Route::any('int-trans', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-            "as" =>"profile.int-trans"
-    ] );
 });

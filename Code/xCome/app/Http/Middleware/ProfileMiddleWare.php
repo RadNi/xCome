@@ -17,8 +17,9 @@ class ProfileMiddleWare
     {
 //        $request->mode = ;
         $url = $request->url();
-        $url = explode("/", $url)[4];
-        $request -> mode = $url;
+        $url = explode("/", $url);
+        $request -> mode = $url[5];
+        $request -> userType = $url[3];
 //        dd($url);
         return $next($request);
     }
