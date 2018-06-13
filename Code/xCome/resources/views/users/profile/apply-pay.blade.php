@@ -1,6 +1,6 @@
 @extends('layouts.navbar-profile')
 
-@section('workplace')
+@section('workplace-div')
     <div id="wp-apply-pay">
         <form method="post" action="{{ route("profile.apply-pay") }}">
             {{ csrf_field() }}

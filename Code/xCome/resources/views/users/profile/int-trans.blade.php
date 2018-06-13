@@ -1,8 +1,8 @@
 @extends('layouts.navbar-profile')
 
 
-@section('workplace')
-    <div id="wp-apply-pay">
+@section('workplace-div')
+    <div id="wp-int-trans">
         <form method="post" action="{{ route("profile.apply-pay") }}">
             {{ csrf_field() }}
             <input id="payee-id" name="payee-id" placeholder="Payee credit card" type="number">

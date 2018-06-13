@@ -1,7 +1,7 @@
 @extends('layouts.navbar-profile')
 
-@section('workplace')
-    <div id="wp-wallets">
+@section('workplace-div')
+    <div id="wp-exam-reg">
         <table id="exams-table">
             <td>
                 <div id="exam1" class="exam">

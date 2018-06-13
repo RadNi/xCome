@@ -8,7 +8,7 @@
                 <input id="phonenumber" name="phonenumber" placeholder="Phone Number">
             </td>
             <td >
-                <input id="pid" name="pid" placeholder="Person ID">
+                <p id="pid" name="pid">Person ID</p>
             </td>
 
             <td >
@@ -24,11 +24,11 @@
             </td>
 
             <td >
-                <input id="name" name="name" placeholder="Name">
+                <p id="name" name="name" >Name</p>
             </td>
 
             <td >
-                <input id="family" name="family" placeholder="family">
+                <p id="family" name="family">Family Name</p>
             </td>
 
             <td >

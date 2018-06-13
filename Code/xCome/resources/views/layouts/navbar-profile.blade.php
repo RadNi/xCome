@@ -31,5 +31,9 @@
 @stop
 
 @section('workplace')
-    @yield('workplace')
+
+    <p>current credit is: </p>
+    <p id="credit"></p>
+    <button id="charge">Charge</button>
+    @yield('workplace-div')
 @stop
