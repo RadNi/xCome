@@ -1,7 +1,7 @@
 import unittest
 
 from selenium import webdriver
-
+from test_utility import static_data, fields
 
 # These Test could be also used by foreign payment, retrieve money
 
@@ -13,25 +13,29 @@ class ApplyPayment(unittest.TestCase):
 
     def test_app_pay_price_format(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/profile/apply-pay")
-        payee_id = driver.find_element_by_id("payee-id")
-        price = driver.find_element_by_id("price")
-        submit = driver.find_element_by_id("submit")
-        payee_id.send_keys("111122234444")
-        price.send_keys("100s0")
-        submit.click()
+        driver.get(static_data.base_url + "user/profile/apply-pay")
+        fields.get_components_by_name(driver, ["payee-id=1111222233334444", "price=1S000", "submit"])[2].click()
 
         assert driver.find_element_by_id("inValid") is not None
 
-    def test_app_pay_price_range(self):
+    def test_app_pay_price_too_much(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/profile/apply-pay")
-        payee_id = driver.find_element_by_id("payee-id")
-        price = driver.find_element_by_id("price")
-        submit = driver.find_element_by_id("submit")
-        payee_id.send_keys("111122234444")
-        price.send_keys("-10")
-        submit.click()
+        driver.get(static_data.base_url + "user/profile/apply-pay")
+        fields.get_components_by_name(driver, ["payee-id=1111222233334444", "price=1000000000", "submit"])[2].click()
+
+        assert driver.find_element_by_id("inValid") is not None
+
+    def test_app_pay_price_negative(self):
+        driver = self.driver
+        driver.get(static_data.base_url + "user/profile/apply-pay")
+        fields.get_components_by_name(driver, ["payee-id=1111222233334444", "price=-1000", "submit"])[2].click()
+
+        assert driver.find_element_by_id("inValid") is not None
+
+    def test_app_pay_price_too_low(self):
+        driver = self.driver
+        driver.get(static_data.base_url + "user/profile/apply-pay")
+        fields.get_components_by_name(driver, ["payee-id=1111222233334444", "price=1", "submit"])[2].click()
 
         assert driver.find_element_by_id("inValid") is not None
 

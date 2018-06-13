@@ -1,6 +1,7 @@
 import unittest
 
 from selenium import webdriver
+from test_utility import fields, static_data
 
 
 # These Test could be also used by foreign payment, retrieve money
@@ -10,23 +11,17 @@ class ApplyPayment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_app_pay_empty_payee(self):
+    def test_app_pay_empty_card_number(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/profile/apply-pay")
-        price = driver.find_element_by_id("price")
-        submit = driver.find_element_by_id("submit")
-        price.send_keys("1000")
-        submit.click()
+        driver.get(static_data.base_url + "user/profile/apply-pay")
+        fields.get_components_by_name(driver, ["price=1000", "submit"])[1].click()
 
         assert driver.find_element_by_id("inValid") is not None
 
     def test_app_pay_empty_price(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/profile/apply-pay")
-        payee_id = driver.find_element_by_id("payee-id")
-        submit = driver.find_element_by_id("submit")
-        payee_id.send_keys("1111222233334444")
-        submit.click()
+        driver.get(static_data.base_url + "user/profile/apply-pay")
+        fields.get_components_by_name(driver, ["payee-id=1111222233334444", "submit"])[1].click()
 
         assert driver.find_element_by_id("inValid") is not None
 
