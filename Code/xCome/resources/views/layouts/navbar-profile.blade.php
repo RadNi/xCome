@@ -38,7 +38,7 @@
     <div hidden>
         <h4>Write amount you need</h4>
         <input id="amount" type="number" placeholder="Toman">
-        <button id="charge" data-dismiss="modal">Buy</button>
+        <button id="buy" data-dismiss="modal">Buy</button>
     </div>
     @yield('workplace-div')
 @stop
