@@ -38,6 +38,12 @@ class UserController extends Controller
         return view($arr[0].".transaction-history", array('type' => $arr[0]));
     }
 
+    public function getTable(Request $request) {
+        $arr = explode("/", $request->path());
+
+        return view("extra.users-table", array('type' => $arr[0]));
+    }
+
     public function profile(Request $request) {
         $arr = explode("/", $request->path());
         $str = '';
@@ -47,6 +53,7 @@ class UserController extends Controller
             $str.=$ar.".";
         }
         $str = substr($str, 0, strlen($str)-1);
+//        dd($str);
         return view($str, array('type' => $arr[0]));
 
     }

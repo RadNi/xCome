@@ -29,6 +29,11 @@ Route::get('/register', [
     "as" => "User.showRegister"
 ]);
 
+Route::get('/clerk/users-table', [
+    "uses" => "UserController@getTable",
+    "as" => "users-table"
+]);
+
 Route::post('/register', [
     "uses" => "UserController@checkRegister",
     "as" => "User.checkRegister"
@@ -133,10 +138,10 @@ Route::prefix('clerk') -> group(function () {
             "as" => "clerk.profile"
         ]);
 
-        Route::get('wallet', [
+        Route::any('ret-mon', [
             "middleware" => "App\Http\Middleware\ProfileMiddleWare",
             "uses" => "UserController@profile",
-            "as" => "clerk.profile.wallet"
+            "as" => "clerk.profile.ret-mon"
         ]);
     });
 

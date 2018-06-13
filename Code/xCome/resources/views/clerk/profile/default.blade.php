@@ -1,6 +1,6 @@
-@extends('layouts.clerk.navbar-profile')
+@extends('layouts.clerk.profile')
 
-@section('workplace')
+@section('workplace-div')
     <div id="wp-trans-table">
         <input id="search" name="searchbox" placeholder="Search here">
 

@@ -1,9 +1,9 @@
-@extends('layouts.user.navbar-profile')
+@extends('layouts.user.profile')
 
 @section('workplace-div')
     <div id="wp-wallets">
-    <table id="wallets-table" cellpadding="10px">
-        <tbody>
+        <table id="wallets-table" cellpadding="10px">
+            <tbody>
             <tr class="wallet" onclick="location.href = '#'">
                 <td class="wallet-name">Sapphire</td>
                 <td class="rel-price">Real time price</td>
@@ -25,9 +25,8 @@
                 <td class="rel-price">Real time price</td>
                 <td class="diagram">Price diagram</td>
             </tr>
-        </tbody>
-    </table>
-</div>
-@stop
-
+            </tbody>
+        </table>
+    </div>
+    @stop
 

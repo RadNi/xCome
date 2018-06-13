@@ -1,10 +1,8 @@
-@extends('layouts.user.profile')
+@extends('layouts.clerk.profile')
 
-
-
-@section('workplace-div')
-    <div id="wp-for-pay">
-        <form method="post" action="{{ route("user.profile.for-pay") }}">
+@section('workplace')
+    <div id="wp-ret-mon">
+        <form method="post" action="{{ route("clerk.profile.ret-mon") }}">
             {{ csrf_field() }}
             <input id="payee-id" name="payee-id" placeholder="Payee credit card" type="number">
             <input id="price" name="price" placeholder="price" type="number">$
