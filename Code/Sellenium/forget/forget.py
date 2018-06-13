@@ -1,62 +1,45 @@
 import unittest
 
 from selenium import webdriver
+from test_utility import static_data, fields
 
 
-# assume captcha is 1234
+# Assume captcha is 1234
 
 class Forget(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_forgot_telegram(self):
+    def test_forget_telegram(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/forget")
-        telegram_check = driver.find_element_by_id("telegram-check")
-        phone_number = driver.find_element_by_id("phone-number")
-        email = driver.find_element_by_id("email")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-        telegram_check.click()
-        phone_number.send_keys("09398604014")
-        email.send_keys("smjfas@gmail.com")
-        captcha.send_keys("1234")
-        submit.click()
+        driver.get(static_data.base_url + "forget")
+        components = fields.get_components_by_name(driver, ["telegram-check", "phone-number=09398604014",
+                                                            "email=smjfas@gmail.com", "captcha=1234", "submit"])
+        components[0].click()
+        components[4].click()
 
-        assert driver.find_element_by_id("accept") is not None
+        assert driver.find_element_by_id("successful") is not None
 
-    def test_forgot_sms(self):
+    def test_forget_sms(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/forget")
-        sms_check = driver.find_element_by_id("sms-check")
-        phone_number = driver.find_element_by_id("phone-number")
-        email = driver.find_element_by_id("email")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-        sms_check.click()
-        phone_number.send_keys("09398604014")
-        email.send_keys("smjfas@gmail.com")
-        captcha.send_keys("1234")
-        submit.click()
+        driver.get(static_data.base_url + "forget")
+        components = fields.get_components_by_name(driver, ["sms-check", "phone-number=09398604014",
+                                                            "email=smjfas@gmail.com", "captcha=1234", "submit"])
+        components[0].click()
+        components[4].click()
 
-        assert driver.find_element_by_id("accept") is not None
+        assert driver.find_element_by_id("successful") is not None
 
-    def test_forgot_email(self):
+    def test_forget_email(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/forget")
-        email_check = driver.find_element_by_id("email-check")
-        phone_number = driver.find_element_by_id("phone-number")
-        email = driver.find_element_by_id("email")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-        email_check.click()
-        phone_number.send_keys("09398604014")
-        email.send_keys("smjfas@gmail.com")
-        captcha.send_keys("1234")
-        submit.click()
+        driver.get(static_data.base_url + "forget")
+        components = fields.get_components_by_name(driver, ["email-check", "phone-number=09398604014",
+                                                            "email=smjfas@gmail.com", "captcha=1234", "submit"])
+        components[0].click()
+        components[4].click()
 
-        assert driver.find_element_by_id("accept") is not None
+        assert driver.find_element_by_id("successful") is not None
 
     def tearDown(self):
         self.driver.close()

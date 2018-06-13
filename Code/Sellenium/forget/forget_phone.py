@@ -1,44 +1,33 @@
 import unittest
 
 from selenium import webdriver
+from test_utility import static_data, fields
 
 
-# assume captcha is 1234
+# Assume captcha is 1234
 
 class Forget(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_forgot_phone_character(self):
+    def test_forget_phone_character(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/forget")
-        sms_check = driver.find_element_by_id("sms-check")
-        email = driver.find_element_by_id("email")
-        phone_number = driver.find_element_by_id("phone-number")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-        sms_check.click()
-        phone_number.send_keys("0939a604014")
-        email.send_keys("smjfas@gmail.com")
-        captcha.send_keys("1234")
-        submit.click()
+        driver.get(static_data.base_url + "forget")
+        components = fields.get_components_by_name(driver, ["telegram-check", "phone-number=093a8604014",
+                                                            "email=smjfas@gmail.com", "captcha=1234", "submit"])
+        components[0].click()
+        components[4].click()
 
         assert driver.find_element_by_id("inValid") is not None
 
-    def test_forgot_phone_length(self):
+    def test_forget_phone_length(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/forget")
-        sms_check = driver.find_element_by_id("sms-check")
-        email = driver.find_element_by_id("email")
-        phone_number = driver.find_element_by_id("phone-number")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-        sms_check.click()
-        phone_number.send_keys("09398014")
-        email.send_keys("smjfas@gmail.com")
-        captcha.send_keys("1234")
-        submit.click()
+        driver.get(static_data.base_url + "forget")
+        components = fields.get_components_by_name(driver, ["telegram-check", "phone-number=093986040140",
+                                                            "email=smjfas@gmail.com", "captcha=1234", "submit"])
+        components[0].click()
+        components[4].click()
 
         assert driver.find_element_by_id("inValid") is not None
 
