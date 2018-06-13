@@ -35,5 +35,10 @@
     <p>current credit is: </p>
     <p id="credit"></p>
     <button id="charge">Charge</button>
+    <div hidden>
+        <h4>Write amount you need</h4>
+        <input id="amount" type="number" placeholder="Toman">
+        <button id="charge" data-dismiss="modal">Buy</button>
+    </div>
     @yield('workplace-div')
 @stop
