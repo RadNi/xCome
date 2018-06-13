@@ -71,7 +71,9 @@
                 <a href="{{ url('/register') }}">Register</a>
                 <a href="{{ url('/login') }}">Login</a>
                 <a href="{{ url('/forget') }}">Forget</a>
-                <a href="{{ url('/user/profile') }}">Profile</a>
+                <a href="{{ url('/user/profile') }}">User</a>
+                <a href="{{ url('/clerk/profile') }}">Clerk</a>
+                <a href="{{ url('/boss/profile') }}">Boss</a>
                 <a href="{{ url('/criticism') }}">Criticism</a>
         </div>
 

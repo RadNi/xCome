@@ -56,5 +56,7 @@
             <button id="buy" data-dismiss="modal">Buy</button>
         </div>
     </div>
-    @yield('workplace-div')
+    <div id="workplace-div">
+        @yield('workplace-div')
+    </div>
 @stop

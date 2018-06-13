@@ -8,24 +8,24 @@ class UserController extends Controller
 {
 
     public function showForget() {
-        return view("user.forget", array('check' => false));
+        return view("extra.forget", array('check' => false));
     }
 
     public function showLogin() {
-        return view("user.login", array('check' => false));
+        return view("extra.login", array('check' => false));
     }
 
     public function checkLogin(Request $request) {
-        return view("user.login", array('check' => true));
+        return view("extra.login", array('check' => true));
 
     }
 
     public function showRegister(Request $request) {
-        return view("user.register", array('check' => false));
+        return view("extra.register", array('check' => false));
     }
 
     public function checkRegister(Request $request) {
-        return view("user.register", array('check' => true));
+        return view("extra.register", array('check' => true));
     }
 
     public function info(Request $request) {
@@ -38,10 +38,16 @@ class UserController extends Controller
         return view($arr[0].".transaction-history", array('type' => $arr[0]));
     }
 
-    public function getTable(Request $request) {
+    public function getUsersTable(Request $request) {
         $arr = explode("/", $request->path());
 
         return view("extra.users-table", array('type' => $arr[0]));
+    }
+
+    public function getClerksTable(Request $request) {
+        $arr = explode("/", $request->path());
+
+        return view("extra.clerks-table", array('type' => $arr[0]));
     }
 
     public function profile(Request $request) {
