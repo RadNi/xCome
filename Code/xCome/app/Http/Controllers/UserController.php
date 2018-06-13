@@ -8,24 +8,24 @@ class UserController extends Controller
 {
 
     public function showForget() {
-        return view("user.forget", array('check' => false));
+        return view("extra.forget", array('check' => false));
     }
 
     public function showLogin() {
-        return view("user.login", array('check' => false));
+        return view("extra.login", array('check' => false));
     }
 
     public function checkLogin(Request $request) {
-        return view("user.login", array('check' => true));
+        return view("extra.login", array('check' => true));
 
     }
 
     public function showRegister(Request $request) {
-        return view("user.register", array('check' => false));
+        return view("extra.register", array('check' => false));
     }
 
     public function checkRegister(Request $request) {
-        return view("user.register", array('check' => true));
+        return view("extra.register", array('check' => true));
     }
 
     public function info(Request $request) {
