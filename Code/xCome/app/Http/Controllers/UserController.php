@@ -36,12 +36,10 @@ class UserController extends Controller
 
     public function transactions(Request $request) {
         $arr = explode("/", $request->path());
-//        dd($arr);
-        return view("user.transaction-history", array('type' => $arr[0]));
+        return view($arr[0].".transaction-history", array('type' => $arr[0]));
     }
 
     public function profile(Request $request) {
-//        dd($request->path());
         $arr = explode("/", $request->path());
         $str = '';
         if (sizeof($arr) == 2)
@@ -50,7 +48,6 @@ class UserController extends Controller
             $str.=$ar.".";
         }
         $str = substr($str, 0, strlen($str)-1);
-//        dd($str);
         return view($str, array('type' => $arr[0]));
 
     }
