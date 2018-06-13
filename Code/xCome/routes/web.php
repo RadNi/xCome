@@ -54,6 +54,11 @@ Route::get('/contact', [
     "as" => "Main.showContact"
 ]);
 
+Route::any('/criticism', [
+    "uses" => "MainController@criticism",
+    "as" => "Main.criticism"
+]);
+
 Route::prefix('user') -> group(function () {
     Route::get('transactions', [
         "uses" => "UserController@transactions",

@@ -31,14 +31,15 @@
 @stop
 
 @section('workplace')
-
-    <p>current credit is: </p>
-    <p id="credit"></p>
-    <button id="charge">Charge</button>
-    <div hidden>
-        <h4>Write amount you need</h4>
-        <input id="amount" type="number" placeholder="Toman">
-        <button id="charge" data-dismiss="modal">Buy</button>
+    <div id="account-div">
+        <p>current credit is: </p>
+        <p id="credit"></p>
+        <button id="charge" onclick="popup.hidden = false">Charge</button>
+        <div id="popup" hidden>
+            <h4>Write amount you need</h4>
+            <input id="amount" type="number" placeholder="Toman">
+            <button id="buy" data-dismiss="modal">Buy</button>
+        </div>
     </div>
     @yield('workplace-div')
 @stop

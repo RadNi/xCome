@@ -15,4 +15,12 @@ class MainController extends Controller
         return view("extra.contact", array('check' => 3));
 
     }
+
+    public function criticism(Request $request) {
+        if ($request->method() == 'GET')
+            return view("extra.criticism", array('check' => 1));
+        else
+            return view("extra.criticism", array('check' => 2));
+
+    }
 }
