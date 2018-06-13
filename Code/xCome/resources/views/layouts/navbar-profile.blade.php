@@ -24,7 +24,7 @@
         </td>
 
         <td class="wp-item">
-            <button id="int-pay" class="nav-butt" onclick="location.href = '{{ route("profile.wallet") }}'" >Wallets</button>
+            <button id="wallet" class="nav-butt" onclick="location.href = '{{ route("profile.wallet") }}'" >Wallets</button>
         </td>
 
     </table>
