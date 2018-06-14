@@ -31,12 +31,12 @@ Route::get('/register', [
 
 Route::get('/clerk/users-table', [
     "uses" => "UserController@getUsersTable",
-    "as" => "users-table"
+    "as" => "clerk-users-table"
 ]);
 
 Route::get('/boss/users-table', [
     "uses" => "UserController@getUsersTable",
-    "as" => "users-table"
+    "as" => "boss-users-table"
 ]);
 
 Route::get('/boss/clerk-table', [
