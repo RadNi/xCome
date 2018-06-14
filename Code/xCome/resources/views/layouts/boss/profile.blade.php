@@ -48,6 +48,9 @@
         <td id="transactions">
             <a href="{{ route("clerk-table") }}">Clerks Table</a>
         </td>
+        <td id="transactions">
+            <a href="{{ route("boss.contact-us") }}">Contact Us</a>
+        </td>
     </table>
 @endsection
 
