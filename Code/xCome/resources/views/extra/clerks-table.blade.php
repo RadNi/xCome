@@ -23,7 +23,7 @@
 
     </div>
     <input id="search" name="searchbox" placeholder="Search here">
-    <table id="users-table" cellpadding="10px" border="2px">
+    <table id="clerks-table" cellpadding="10px" border="2px">
         <thead>
             <tr>
                 <th>Name</th>
