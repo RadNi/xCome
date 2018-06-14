@@ -1,37 +1,25 @@
 import unittest
+
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from test_utility import static_data, fields
 
 
-class Contact_email_format(unittest.TestCase):
+#   Assume captcha is 1234
+
+class Contact(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_incorrect_message(self):
+    def test_contact_email(self):
         driver = self.driver
-        driver.get("http://192.168.202.227/contact")
-        family_name = driver.find_element_by_id("family")
-        email = driver.find_element_by_id("email")
-        name = driver.find_element_by_id("name")
-        username = driver.find_element_by_id("username")
-        cellphone_number = driver.find_element_by_id("cellphone")
-        message = driver.find_element_by_id("message")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-
-        # incorrect email
-        name.send_keys("feyz")
-        family_name.send_keys("feyzabadisani")  # family name
-        email.send_keys("dfgmail.c@om")  # email
-        username.send_keys("smjfas")  # username
-        cellphone_number.send_keys("09398604014")  # cellnum
-        message.send_keys("this is a test message from Sellenium")  # address
-        captcha.send_keys("7736")  # captcha
-        submit.click()
+        driver.get(static_data.base_url + "contact")
+        fields.get_components_by_name(driver, ["name=smj", "family=feyz", "username=smjfas",
+                                               "email=smjfgmail.com", "cellphone=09398604014",
+                                               "message=this is a test.", "captcha=1234",
+                                               "submit"])[7].click()
 
         assert driver.find_element_by_id("inValid") is not None
 
     def tearDown(self):
         self.driver.close()
-

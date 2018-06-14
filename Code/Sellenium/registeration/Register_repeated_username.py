@@ -1,72 +1,25 @@
 import unittest
 
-import selenium
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
+from test_utility import fields, static_data
 
 
-class Register_re(unittest.TestCase):
+# Assume smjfas is a registered username
+
+class Register(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
 
     def test_repeated_username(self):
         driver = self.driver
-        driver.get("http://192.168.202.227/register")
-        name = driver.find_element_by_id("name")
-        family_name = driver.find_element_by_id("family")
-        email = driver.find_element_by_id("email")
-        national_id = driver.find_element_by_id("person_id")
-        username = driver.find_element_by_id("username")
-        password = driver.find_element_by_id("password")
-        repass = driver.find_element_by_id("repass")
-        cellphone_number = driver.find_element_by_id("cellphone")
-        address = driver.find_element_by_id("address")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-
-        # empty name
-        name.send_keys("smjfas")
-        family_name.send_keys("feyzabadisani")  # family name
-        email.send_keys("sm.com")  # email
-        national_id.send_keys("0123456789")  # national id
-        username.send_keys("smjfas")  # username
-        password.send_keys("hello123")  # pass
-        repass.send_keys("hello123")  # repass
-        cellphone_number.send_keys("09398604014")  # cellnum
-        address.send_keys("10th number baker street")  # address
-        captcha.send_keys("778536")  # captcha
-        submit.click()
-        assert len(driver.find_elements_by_id("inValid")) < 1   # register successfully
-
-        driver.get("http://172.20.10.6/register")
-        name = driver.find_element_by_id("name")
-        family_name = driver.find_element_by_id("family")
-        email = driver.find_element_by_id("email")
-        national_id = driver.find_element_by_id("person_id")
-        username = driver.find_element_by_id("username")
-        password = driver.find_element_by_id("password")
-        repass = driver.find_element_by_id("repass")
-        cellphone_number = driver.find_element_by_id("cellphone")
-        address = driver.find_element_by_id("address")
-        captcha = driver.find_element_by_id("captcha")
-        submit = driver.find_element_by_id("submit")
-
-        # empty name
-        name.send_keys("smjfas")
-        family_name.send_keys("feyzabadisani")  # family name
-        email.send_keys("sm.com")  # email
-        national_id.send_keys("0123456789")  # national id
-        username.send_keys("smjfas")  # username
-        password.send_keys("hello123")  # pass
-        repass.send_keys("hello123")  # repass
-        cellphone_number.send_keys("09398604014")  # cellnum
-        address.send_keys("10th number baker street")  # address
-        captcha.send_keys("778536")  # captcha
-        submit.click()
+        driver.get(static_data.base_url + "register")
+        fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
+                                               "person_id=1234565987", "username=smjfas", "password=hello123",
+                                               "repass=hello123", "cellphone=09398604014",
+                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
 
         assert driver.find_element_by_id("inValid") is not None
-
 
     def tearDown(self):
         self.driver.close()

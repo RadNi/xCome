@@ -1,6 +1,7 @@
 import unittest
 
 from selenium import webdriver
+from test_utility import static_data
 
 
 class Login(unittest.TestCase):
@@ -8,12 +9,11 @@ class Login(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
 
-    def test_login_forgot_password(self):
+    def test_login_forget_password(self):
         driver = self.driver
-        driver.get("http://192.168.201.238/login")
-        forgot_password = driver.find_element_by_id("forget")
+        driver.get(static_data.base_url + "login")
+        driver.find_element_by_id("forget").click()
 
-        forgot_password.click()
         assert "forget" in driver.current_url
 
     def tearDown(self):

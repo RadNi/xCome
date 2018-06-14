@@ -7,8 +7,8 @@
         <input id="email" type="email" name="email" placeholder="Email"><br>
         <input id="name" type="name" name="name" placeholder="Name"><br>
         <input id="family" type="name" name="familyName" placeholder="Family"><br>
-        <input id="message"  name="messageTopic" placeholder="Question Topic">
-        <input id="message"  name="messageBody" placeholder="Question Body">
+        <input id="message_topic"  name="messageTopic" placeholder="Question Topic">
+        <input id="message_body"  name="messageBody" placeholder="Question Body">
         <input id="captcha"  name="captcha" placeholder="captcha"><br>
         <input id="phonenumber" type="text" name="message" placeholder="Phone Number">
         <input id="submit" type="submit" value="register">
