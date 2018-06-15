@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
+
+    public function allContact() {
+        return view("extra.all-contact", array("type" => "boss"));
+    }
+
     public function showContact(){
         return view("extra.contact", array('check' => 1));
     }

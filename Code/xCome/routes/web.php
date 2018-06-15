@@ -168,6 +168,11 @@ Route::prefix('boss') -> group(function () {
         "as" =>"boss.info"
     ] );
 
+    Route::any('contact', [
+        "uses" => "MainController@allContact",
+        "as" =>"boss.contact-us"
+    ] );
+
     Route::prefix('profile') -> group(function () {
 
         Route::get('/', [

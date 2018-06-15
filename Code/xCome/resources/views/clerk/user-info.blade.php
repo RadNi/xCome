@@ -8,6 +8,9 @@
                 <input id="phonenumber" name="phonenumber" placeholder="Phone Number">
             </td>
             <td >
+                <p id="income">Income</p>
+            </td>
+            <td >
                 <p id="pid" name="pid">Person ID</p>
             </td>
 
