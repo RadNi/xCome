@@ -3,6 +3,7 @@ import unittest
 from selenium import webdriver
 from test_utility import fields, static_data
 
+
 # assume captcha is 1234
 # Assume a user smjfas with pass 123 is not registered in system
 
