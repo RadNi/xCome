@@ -46,10 +46,10 @@ class UserPage(unittest.TestCase):
 
     def test_profile_wallet(self):
         driver = self.driver
-        driver.get("http://127.0.0.1:8000/profile")
+        driver.get(static_data.base_url + "user/profile")
         user_wallet = driver.find_element_by_id("wallet")
         user_wallet.click()
-        assert "http://127.0.0.1:8000/profile/wallet" == driver.current_url
+        assert (static_data.base_url + "user/profile/wallet") == driver.current_url
 
     def tearDown(self):
         self.driver.close()

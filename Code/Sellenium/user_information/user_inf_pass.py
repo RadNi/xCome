@@ -10,7 +10,7 @@ class UserInformation(unittest.TestCase):
         self.driver = webdriver.Firefox()
 
     def test_user_inf_pass_mismatch(self):
-        driver = self.driverثبث
+        driver = self.driver
         driver.get(static_data.base_url + "user/information")
         fields.get_components_by_name(driver, ["phonenumber=09398604014", "avatar=m.jpg", "password=1234",
                                                "ret-password=12234", "email=smjfas@gmail.com",
