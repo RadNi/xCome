@@ -13,7 +13,7 @@
             <input id="name" type="name" name="name" placeholder="Name"><br>
             <input id="family" type="name" name="familyName" placeholder="Family"><br>
             <input id="username" type="name" name="username" placeholder="Username"><br>
-            {{--<input id="" type="age" name="age" placeholder="age"><br>--}}
+            <input id="income" type="number" name="income" placeholder="income"><br>
             <input id="address" type="address" name="address" placeholder="address"><br>
             <input id="captcha" type="text" name="captcha" placeholder="captcha"><br>
             <input id="person_id" type="text" name="PersonID" placeholder="Person ID"><br>
@@ -33,7 +33,9 @@
                 <th>Email</th>
                 <th>Phone number</th>
                 <th>Condition</th>
+                <th>Address</th>
                 <th>Bank Account Number</th>
+                <th>Income</th>
                 <th>Check</th>
             </tr>
         </thead>
@@ -46,7 +48,9 @@
                 <td class="email">email</td>
                 <td class="phonenumber">Phone number</td>
                 <td class="condition">Active or Deactivate</td>
+                <td class="address">Clerk Address</td>
                 <td class="bank-account">Bank account Number</td>
+                <td class="income"><input id="income" type="number" placeholder="839123"></td>
                 <td class="checkbox"><input type="checkbox"></td>
             </tr>
             <tr>
@@ -57,7 +61,9 @@
                 <td class="email">email</td>
                 <td class="phonenumber">Phone number</td>
                 <td class="condition">Active or De-active</td>
+                <td class="address">Clerk Address</td>
                 <td class="bank-account">Bank account Number</td>
+                <td class="income"><input id="income" type="number" placeholder="839123"></td>
                 <td class="checkbox"><input type="checkbox"></td>
             </tr>
         </tbody>
@@ -65,4 +71,5 @@
     <button id="active-butt">Active Clerks</button>
     <button id="deactivate-butt">Deactivate Clerks</button>
     <button id="remove-butt">Delete Clerks</button>
+    <button id="save">Save</button>
     @stop

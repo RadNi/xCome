@@ -12,8 +12,11 @@
         <td id="transactions">
             <a href="{{ route($type.".transactions") }}">Transaction History</a>
         </td>
-        <td id="transactions">
+        <td id="users-table">
             <a href="{{ route($type."-users-table") }}">Users Table</a>
+        </td>
+        <td id="send-message">
+            <a href="{{ route($type.".send-message") }}">Send Message</a>
         </td>
     </table>
 @endsection

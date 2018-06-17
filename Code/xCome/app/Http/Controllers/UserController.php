@@ -11,6 +11,14 @@ class UserController extends Controller
         return view("extra.forget", array('check' => false));
     }
 
+    public function showMessages() {
+        return view("boss.clerk-messages", array("type" => "boss"));
+    }
+
+    public function sendMessage() {
+        return view("clerk.send-message", array("type" => "clerk"));
+    }
+
     public function showLogin() {
         return view("extra.login", array('check' => false));
     }

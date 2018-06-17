@@ -38,6 +38,8 @@
             </tr>
         </tbody>
     </table>
-    <button id="active-butt">Active Users</button>
-    <button id="deactivate-butt">Deactivate Users</button>
+    @if(strcmp($type, "boss") == 0)
+        <button id="active-butt">Active Users</button>
+        <button id="deactivate-butt">Deactivate Users</button>
+    @endif
     @stop

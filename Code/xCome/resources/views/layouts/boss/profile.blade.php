@@ -7,26 +7,6 @@
             <button id="exam-reg" class="nav-butt" onclick="location.href = '{{ route("boss.profile.exam-reg") }}'">Exam Registration</button>
         </td>
 
-        <td class="wp-item">
-            <button id="apply-pay" class="nav-butt" onclick="location.href = '{{ route("boss.profile.apply-pay") }}'">Apply Payment</button>
-        </td>
-
-        <td class="wp-item">
-            <button id="foreign-pay" class="nav-butt" onclick="location.href = '{{ route("boss.profile.for-pay") }}'">Foreign Payment</button>
-        </td>
-
-        <td class="wp-item">
-            <button id="retr-mon" class="nav-butt" onclick="location.href = '{{ route("boss.profile.ret-mon") }}'">Retrieve Money</button>
-        </td>
-
-        <td class="wp-item">
-            <button id="int-pay" class="nav-butt" onclick="location.href = '{{ route("boss.profile.int-trans") }}'">Internal Transaction</button>
-        </td>
-
-        <td class="wp-item">
-            <button id="wallet" class="nav-butt" onclick="location.href = '{{ route("boss.profile.wallet") }}'" >Wallets</button>
-        </td>
-
     </table>
 @stop
 
@@ -42,14 +22,17 @@
         <td id="transactions">
             <a href="{{ route($type.".transactions") }}">Transaction History</a>
         </td>
-        <td id="transactions">
+        <td id="users-table">
             <a href="{{ route($type."-users-table") }}">Users Table</a>
         </td>
-        <td id="transactions">
+        <td id="clerk-table">
             <a href="{{ route("clerk-table") }}">Clerks Table</a>
         </td>
-        <td id="transactions">
+        <td id="contact-us">
             <a href="{{ route("boss.contact-us") }}">Contact Us</a>
+        </td>
+        <td id="clerk-message">
+            <a href="{{ route("boss.clerk-messages") }}">Clerk Messages</a>
         </td>
     </table>
 @endsection
