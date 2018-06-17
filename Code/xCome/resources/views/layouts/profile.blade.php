@@ -660,7 +660,7 @@
                 <option value="ZMW">ZMW</option>
 
             </select>
-            <button onclick="getCurrencyUsingJQuery()" class="button postfix">Convert</button>
+            <button id="convert" onclick="getCurrencyUsingJQuery()" class="button postfix">Convert</button>
             <input type="text" id="CURR_VAL" readonly="" placeholder="Press Convert button" style="background-color: #eee; font-weight: bold;">
         </div>
     </div>
