@@ -34,6 +34,15 @@
             <td >
                 <input id="email" name="email" placeholder="email" type="email">
             </td>
+
+            <td >
+                <div id="reportMethod">
+                    Choose Report method:<br>
+                    SMS <input id="smsReport" class="report" name="sms" type="checkbox">
+                    Telegram <input id="tgReport" class="report" name="tg"  type="checkbox">
+                    Email <input id="emailReport" class="report" name="email" type="checkbox">
+                </div>
+            </td>
         </table>
         <button id="change">Change</button>
     </form>
