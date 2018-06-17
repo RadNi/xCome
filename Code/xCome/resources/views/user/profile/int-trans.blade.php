@@ -5,7 +5,7 @@
     <div id="wp-int-trans">
         <form method="post" action="{{ route("user.profile.int-trans") }}">
             {{ csrf_field() }}
-            <input id="payee-id" name="payee-id" placeholder="Payee credit card" type="number">
+            <input id="payee-id" name="payee-id" placeholder="Payee wallet address" type="number">
             <input id="price" name="price" placeholder="price" type="number">
             <input id="type" name="type" placeholder="Transaction Type">
             <p id="fee">fee for this transaction</p>

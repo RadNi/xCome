@@ -141,6 +141,11 @@ Route::prefix('clerk') -> group(function () {
         "as" =>"clerk.info"
     ] );
 
+    Route::any('send-message', [
+        "uses" => "UserController@sendMessage",
+        "as" =>"clerk.send-message"
+    ] );
+
     Route::prefix('profile') -> group(function () {
 
         Route::get('/', [
@@ -172,6 +177,12 @@ Route::prefix('boss') -> group(function () {
         "uses" => "MainController@allContact",
         "as" =>"boss.contact-us"
     ] );
+
+    Route::any('messages', [
+        "uses" => "UserController@showMessages",
+        "as" =>"boss.clerk-messages"
+    ] );
+
 
     Route::prefix('profile') -> group(function () {
 
