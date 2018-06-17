@@ -30,10 +30,10 @@
         <div id="walletInfo" hidden>
             <p class="address"> wallet address: </p>
             <p class="currency-amount">your amount: </p>
-            <input class="buy-currency" placeholder="amount">
-            <input type="submit" value="Buy">
-            <input class="sell-currency" placeholder="amount">
-            <input type="submit" value="Sell">
+            <input id="buy-currency" class="buy-currency" placeholder="amount">
+            <input id="buy" type="submit" value="Buy">
+            <input id="sell-currency" class="sell-currency" placeholder="amount">
+            <input id="sell" type="submit" value="Sell">
         </div>
     </div>
     <script>
