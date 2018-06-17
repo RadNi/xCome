@@ -39,7 +39,7 @@
             </td>
 
             <td >
-                <input id="wallet-addr"  name="wallet-address" placeholder="5458192738123912">
+                <p id="wallet-addr"  name="wallet-address">5458192738123912</p>
             </td>
 
         </table>
