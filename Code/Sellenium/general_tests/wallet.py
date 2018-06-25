@@ -16,7 +16,7 @@ class Wallet(unittest.TestCase):
         driver.get(static_data.base_url + self.address)
         driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
             find_element_by_class_name("diagram").click()
-        assert driver.find_element_by_id("address").is_displayed()
+        assert driver.find_element_by_class_name("address").is_displayed()
 
     def test_wallet_exchange_buy(self):
         driver = self.driver

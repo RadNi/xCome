@@ -1,3 +1,4 @@
+import time
 import unittest
 
 from selenium import webdriver
@@ -16,7 +17,7 @@ class Boss(unittest.TestCase):
         users = driver.find_element_by_id("users-table").find_elements_by_tag_name('tr')
         for i in range(1, len(users), 2):
             users[i].find_element_by_class_name("checkbox").find_element_by_tag_name('input').click()
-
+        time.sleep(2)
         driver.find_element_by_id("active-butt").click()
 
         assert driver.find_element_by_id("successful") is not None

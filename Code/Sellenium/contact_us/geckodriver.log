@@ -209,3 +209,178 @@ console.error: PushService:
   stateChangeProcessEnqueue: Error transitioning state
   UnknownError
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529328523774	geckodriver	INFO	geckodriver 0.20.1
+1529328523800	geckodriver	INFO	Listening on 127.0.0.1:52998
+1529328524781	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.2t9xHqiQNqf0"
+1529328528062	Marionette	INFO	Listening on port 38666
+1529328528091	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529328528509	addons.xpi	WARN	Exception running bootstrap method shutdown on activity-stream@mozilla.org: [Exception... "Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIObserverService.removeObserver]"  nsresult: "0x80004005 (NS_ERROR_FAILURE)"  location: "JS frame :: resource://activity-stream/lib/SnippetsFeed.jsm :: uninit :: line 185"  data: no] Stack trace: uninit()@resource://activity-stream/lib/SnippetsFeed.jsm:185
+onAction()@resource://activity-stream/lib/SnippetsFeed.jsm:201
+_middleware/</<()@resource://activity-stream/lib/Store.jsm:49
+Store/this[method]()@resource://activity-stream/lib/Store.jsm:28
+uninit()@resource://activity-stream/lib/Store.jsm:151
+uninit()@resource://activity-stream/lib/ActivityStream.jsm:300
+uninit()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:73
+shutdown()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:169
+callBootstrapMethod()@resource://gre/modules/addons/XPIProvider.jsm:4436
+observe()@resource://gre/modules/addons/XPIProvider.jsm:2287
+GeckoDriver.prototype.quit()@driver.js:3300
+despatch()@server.js:293
+execute()@server.js:267
+onPacket/<()@server.js:242
+onPacket()@server.js:241
+_onJSONObjectReady/<()@transport.js:500
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+console.error: PushService: 
+  clearOriginData: Error clearing origin data:
+  UnknownError
+console.error: PushService: 
+  stateChangeProcessEnqueue: Error transitioning state
+  UnknownError
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529328544468	geckodriver	INFO	geckodriver 0.20.1
+1529328544471	geckodriver	INFO	Listening on 127.0.0.1:49430
+1529328545474	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.LpolmR0kwA9e"
+1529328549245	Marionette	INFO	Listening on port 36524
+1529328549285	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529328549711	addons.xpi	WARN	Exception running bootstrap method shutdown on activity-stream@mozilla.org: [Exception... "Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIObserverService.removeObserver]"  nsresult: "0x80004005 (NS_ERROR_FAILURE)"  location: "JS frame :: resource://activity-stream/lib/SnippetsFeed.jsm :: uninit :: line 185"  data: no] Stack trace: uninit()@resource://activity-stream/lib/SnippetsFeed.jsm:185
+onAction()@resource://activity-stream/lib/SnippetsFeed.jsm:201
+_middleware/</<()@resource://activity-stream/lib/Store.jsm:49
+Store/this[method]()@resource://activity-stream/lib/Store.jsm:28
+uninit()@resource://activity-stream/lib/Store.jsm:151
+uninit()@resource://activity-stream/lib/ActivityStream.jsm:300
+uninit()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:73
+shutdown()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:169
+callBootstrapMethod()@resource://gre/modules/addons/XPIProvider.jsm:4436
+observe()@resource://gre/modules/addons/XPIProvider.jsm:2287
+GeckoDriver.prototype.quit()@driver.js:3300
+despatch()@server.js:293
+execute()@server.js:267
+onPacket/<()@server.js:242
+onPacket()@server.js:241
+_onJSONObjectReady/<()@transport.js:500
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+console.error: PushService: 
+  clearOriginData: Error clearing origin data:
+  UnknownError
+console.error: PushService: 
+  stateChangeProcessEnqueue: Error transitioning state
+  UnknownError
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529328562489	geckodriver	INFO	geckodriver 0.20.1
+1529328562503	geckodriver	INFO	Listening on 127.0.0.1:38874
+1529328563500	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.gAICaYe2J8PF"
+1529328567248	Marionette	INFO	Listening on port 35584
+1529328567317	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529328567723	addons.xpi	WARN	Exception running bootstrap method shutdown on activity-stream@mozilla.org: [Exception... "Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIObserverService.removeObserver]"  nsresult: "0x80004005 (NS_ERROR_FAILURE)"  location: "JS frame :: resource://activity-stream/lib/SnippetsFeed.jsm :: uninit :: line 185"  data: no] Stack trace: uninit()@resource://activity-stream/lib/SnippetsFeed.jsm:185
+onAction()@resource://activity-stream/lib/SnippetsFeed.jsm:201
+_middleware/</<()@resource://activity-stream/lib/Store.jsm:49
+Store/this[method]()@resource://activity-stream/lib/Store.jsm:28
+uninit()@resource://activity-stream/lib/Store.jsm:151
+uninit()@resource://activity-stream/lib/ActivityStream.jsm:300
+uninit()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:73
+shutdown()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:169
+callBootstrapMethod()@resource://gre/modules/addons/XPIProvider.jsm:4436
+observe()@resource://gre/modules/addons/XPIProvider.jsm:2287
+GeckoDriver.prototype.quit()@driver.js:3300
+despatch()@server.js:293
+execute()@server.js:267
+onPacket/<()@server.js:242
+onPacket()@server.js:241
+_onJSONObjectReady/<()@transport.js:500
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+console.error: PushService: 
+  clearOriginData: Error clearing origin data:
+  UnknownError
+console.error: PushService: 
+  stateChangeProcessEnqueue: Error transitioning state
+  UnknownError
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529328584161	geckodriver	INFO	geckodriver 0.20.1
+1529328584166	geckodriver	INFO	Listening on 127.0.0.1:34888
+1529328585168	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.qxUkKO6HREjf"
+1529328589115	Marionette	INFO	Listening on port 38412
+1529328589203	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529328589772	addons.xpi	WARN	Exception running bootstrap method shutdown on activity-stream@mozilla.org: [Exception... "Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIObserverService.removeObserver]"  nsresult: "0x80004005 (NS_ERROR_FAILURE)"  location: "JS frame :: resource://activity-stream/lib/SnippetsFeed.jsm :: uninit :: line 185"  data: no] Stack trace: uninit()@resource://activity-stream/lib/SnippetsFeed.jsm:185
+onAction()@resource://activity-stream/lib/SnippetsFeed.jsm:201
+_middleware/</<()@resource://activity-stream/lib/Store.jsm:49
+Store/this[method]()@resource://activity-stream/lib/Store.jsm:28
+uninit()@resource://activity-stream/lib/Store.jsm:151
+uninit()@resource://activity-stream/lib/ActivityStream.jsm:300
+uninit()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:73
+shutdown()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:169
+callBootstrapMethod()@resource://gre/modules/addons/XPIProvider.jsm:4436
+observe()@resource://gre/modules/addons/XPIProvider.jsm:2287
+GeckoDriver.prototype.quit()@driver.js:3300
+despatch()@server.js:293
+execute()@server.js:267
+onPacket/<()@server.js:242
+onPacket()@server.js:241
+_onJSONObjectReady/<()@transport.js:500
+Query failed: Error: Unable to initialize search service.
+Query failed: Error: Unable to initialize search service.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+console.error: PushService: 
+  clearOriginData: Error clearing origin data:
+  UnknownError
+console.error: PushService: 
+  stateChangeProcessEnqueue: Error transitioning state
+  UnknownError
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529328591912	geckodriver	INFO	geckodriver 0.20.1
+1529328591918	geckodriver	INFO	Listening on 127.0.0.1:41265
+1529328592917	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.BPqgK2bL1BEZ"
+1529328596669	Marionette	INFO	Listening on port 34721
+1529328596733	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529328597156	addons.xpi	WARN	Exception running bootstrap method shutdown on activity-stream@mozilla.org: [Exception... "Component returned failure code: 0x80004005 (NS_ERROR_FAILURE) [nsIObserverService.removeObserver]"  nsresult: "0x80004005 (NS_ERROR_FAILURE)"  location: "JS frame :: resource://activity-stream/lib/SnippetsFeed.jsm :: uninit :: line 185"  data: no] Stack trace: uninit()@resource://activity-stream/lib/SnippetsFeed.jsm:185
+onAction()@resource://activity-stream/lib/SnippetsFeed.jsm:201
+_middleware/</<()@resource://activity-stream/lib/Store.jsm:49
+Store/this[method]()@resource://activity-stream/lib/Store.jsm:28
+uninit()@resource://activity-stream/lib/Store.jsm:151
+uninit()@resource://activity-stream/lib/ActivityStream.jsm:300
+uninit()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:73
+shutdown()@resource://gre/modules/addons/XPIProvider.jsm -> jar:file:///usr/lib/firefox/browser/features/activity-stream@mozilla.org.xpi!/bootstrap.js:169
+callBootstrapMethod()@resource://gre/modules/addons/XPIProvider.jsm:4436
+observe()@resource://gre/modules/addons/XPIProvider.jsm:2287
+GeckoDriver.prototype.quit()@driver.js:3300
+despatch()@server.js:293
+execute()@server.js:267
+onPacket/<()@server.js:242
+onPacket()@server.js:241
+_onJSONObjectReady/<()@transport.js:500
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection is not open.
+console.error: PushService: 
+  clearOriginData: Error clearing origin data:
+  UnknownError
+console.error: PushService: 
+  stateChangeProcessEnqueue: Error transitioning state
+  UnknownError
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping

@@ -1,3 +1,4 @@
+import time
 import unittest
 
 from selenium import webdriver
@@ -17,6 +18,7 @@ class Clerk(unittest.TestCase):
         for i in range(1, len(transactions), 2):
             transactions[i].find_element_by_class_name("mark").find_element_by_tag_name('input').click()
 
+        time.sleep(2)
         driver.find_element_by_id("accept-but").click()
 
         assert driver.find_element_by_id("successful") is not None

@@ -413,3 +413,11 @@ onPacket/<()@server.js:242
 onPacket()@server.js:241
 _onJSONObjectReady/<()@transport.js:500
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529329182094	geckodriver	INFO	geckodriver 0.20.1
+1529329182199	geckodriver	INFO	Listening on 127.0.0.1:36904
+1529329183105	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.jOdMkFvf6VFr"
+1529329187429	Marionette	INFO	Listening on port 33487
+1529329187540	Marionette	WARN	TLS certificate errors will be ignored for this session
+1529329212799	addons.productaddons	WARN	Failed downloading XML, status: 0, reason: error
+1529329212817	addons.productaddons	WARN	Failed downloading via XHR, status: 0, reason: error
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping

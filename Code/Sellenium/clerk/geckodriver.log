@@ -206,3 +206,15 @@ onPacket/<()@server.js:242
 onPacket()@server.js:241
 _onJSONObjectReady/<()@transport.js:500
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529329030911	geckodriver	INFO	geckodriver 0.20.1
+1529329030934	geckodriver	INFO	Listening on 127.0.0.1:58042
+1529329031918	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.Jp9e3ObYwyiR"
+1529329036430	Marionette	INFO	Listening on port 35653
+1529329036558	Marionette	WARN	TLS certificate errors will be ignored for this session
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1529329073439	geckodriver	INFO	geckodriver 0.20.1
+1529329073450	geckodriver	INFO	Listening on 127.0.0.1:55357
+1529329074451	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.EAdNdwse0ucz"
+1529329078650	Marionette	INFO	Listening on port 45765
+1529329078674	Marionette	WARN	TLS certificate errors will be ignored for this session
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
