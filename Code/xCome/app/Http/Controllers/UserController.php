@@ -20,6 +20,7 @@ class UserController extends Controller
     }
 
     public function showLogin() {
+
         return view("extra.login", array('check' => false));
     }
 
