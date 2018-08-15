@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateXUsersTable extends Migration
+class CreateContactMessageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,18 @@ class CreateXUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('x_users', function (Blueprint $table) {
-            $table->increments('id');
+        Schema::create('contact_message', function (Blueprint $table) {
+            $table->string('message_id', '25');
             $table->string('name', 25);
             $table->string('family_name', 20);
-            $table->string('username', 25)->unique();
-            $table->string('password', 25);
+            $table->string('username', 25);
             $table->string('email', 25);
             $table->string('phonenumber', 15);
-            $table->string('national_id', 12)->unique();
-            $table->text('address');
-            $table->enum('name', ['user', 'clerk', 'manager']);
+            $table->text('message', 250);
+            $table->primary(['message_id']);
             $table->timestamps();
         });
+
     }
 
     /**
@@ -35,6 +34,6 @@ class CreateXUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('x_users');
+        Schema::dropIfExists('contact_message');
     }
 }
