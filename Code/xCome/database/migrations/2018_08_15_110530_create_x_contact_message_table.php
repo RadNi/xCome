@@ -14,14 +14,13 @@ class CreateXContactMessageTable extends Migration
     public function up()
     {
         Schema::create('contact_message', function (Blueprint $table) {
-            $table->string('message_id', '25');
-            $table->string('name', 25);
-            $table->string('family_name', 20);
-            $table->string('username', 25);
-            $table->string('email', 25);
-            $table->string('phoneNumber', 15);
+            $table->increments('message_id');
+            $table->string('name', 25)->nullable();
+            $table->string('family_name', 20)->nullable();
+            $table->string('username', 25)->nullable();
+            $table->string('email', 25)->nullable();
+            $table->string('phoneNumber', 15)->nullable();
             $table->text('message', 250);
-            $table->primary(['message_id']);
             $table->timestamps();
         });
 

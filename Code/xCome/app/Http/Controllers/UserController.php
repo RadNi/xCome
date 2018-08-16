@@ -23,6 +23,10 @@ class UserController extends Controller
         return view("extra.forget", array('check' => false));
     }
 
+    public function checkForget(Request $request){
+        //todo
+    }
+
     public function showMessages() {
         return view("boss.clerk-messages", array("type" => "boss"));
     }

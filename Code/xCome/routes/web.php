@@ -54,7 +54,7 @@ Route::get('/boss/clerk-table', [
 Route::post('/register', [
     "uses" => "UserController@checkRegister",
     "as" => "User.checkRegister",
-//    "middleware" => 'validator:App\Http\Controllers\register_verifier',
+    "middleware" => 'validator:App\Http\Controllers\register_verifier',
 ]);
 
 Route::get('/login', [
@@ -64,12 +64,19 @@ Route::get('/login', [
 
 Route::post('/login', [
     "uses" => "UserController@checkLogin",
-    "as" => "User.checkLogin"
+    "as" => "User.checkLogin",
+    "middleware" => 'validator:App\Http\Controllers\login_verifier',
 ]);
 
 Route::get('/forget', [
     "uses" => "UserController@showForget",
     "as" => "User.showForget"
+]);
+
+Route::post('/forget', [
+    "uses" => "UserController@checkForget",
+    "as" => "User.checkForget",
+    "middleware" => 'validator:App\Http\Controllers\forget_verifier',
 ]);
 
 Route::get('/contact', [
@@ -183,7 +190,8 @@ Route::prefix('boss') -> group(function () {
 
     Route::any('contact', [
         "uses" => "MainController@allContact",
-        "as" =>"boss.contact-us"
+        "as" =>"boss.contact-us",
+        "middleware" => 'validator:App\Http\Controllers\contact_us_verifier',
     ] );
 
     Route::any('messages', [
