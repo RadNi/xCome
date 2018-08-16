@@ -8,6 +8,7 @@ use App\x_cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\VarDumper\Cloner\Data;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -138,16 +139,30 @@ class UserController extends Controller
     }
 
     public function profile(Request $request) {
-        $arr = explode("/", $request->path());
-        $str = '';
-        if (sizeof($arr) == 2)
-            $arr = array_add($arr, 3,"default");
-        foreach($arr as $ar){
-            $str.=$ar.".";
-        }
-        $str = substr($str, 0, strlen($str)-1);
-//        dd($str);
-        return view($str, array('type' => $arr[0]));
+        $id = $request->x_user_id;
+        $user = $this->x_user->where('id', '=', $id)->first();
+        if ($user != null){
+//            dd($user->type);
+            $sending_data = array();
+            switch ($user->type){
+                case "user":
+                    $wallets = $this->x_wallet->select('type', 'cash')
+                        ->where('user_id', '=', $id)->get();
+                    foreach ($wallets as $wallet){
+                        array_push($sending_data,
+                            array((string)$wallet->type => (string)$wallet->cash));
+                    }
+                    return json_encode($sending_data);
+                    break;
+                case "clerk":
 
+                    break;
+                case "boss":
+
+                    break;
+            }
+        } else {
+            return \response("You need to login again", 401);
+        }
     }
 }
