@@ -54,7 +54,7 @@ Route::get('/boss/clerk-table', [
 Route::post('/register', [
     "uses" => "UserController@checkRegister",
     "as" => "User.checkRegister",
-//    "middleware" => 'validator:App\Http\Controllers\register_verifier',
+    "middleware" => 'validator:App\Http\Controllers\register_verifier',
 ]);
 
 Route::get('/login', [
@@ -76,7 +76,7 @@ Route::get('/forget', [
 Route::post('/forget', [
     "uses" => "UserController@checkForget",
     "as" => "User.checkForget",
-    ""
+    "middleware" => 'validator:App\Http\Controllers\forget_verifier',
 ]);
 
 Route::get('/contact', [
