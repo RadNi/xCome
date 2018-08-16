@@ -23,6 +23,13 @@
 //]);
 
 
+//Route::get('/test', 'testValidation@testshow');
+//
+//Route::post('/test', [
+//    'uses' => 'testValidation@test',
+//    'middleware' => 'validator:App\Http\Controllers\testValidation'
+//])->name('testRoute');
+
 
 Route::get('/register', [
     "uses" => "UserController@showRegister",
@@ -46,7 +53,8 @@ Route::get('/boss/clerk-table', [
 
 Route::post('/register', [
     "uses" => "UserController@checkRegister",
-    "as" => "User.checkRegister"
+    "as" => "User.checkRegister",
+    "middleware" => 'validator:App\Http\Controllers\register_verifier',
 ]);
 
 Route::get('/login', [
