@@ -103,6 +103,7 @@ Route::prefix('user') -> group(function () {
     Route::prefix('profile') -> group(function () {
 
         Route::get('/', [
+            "middleware" => "App\Http\Middleware\\XCookie",
             "uses" => "UserController@profile",
             "as" => "user.profile"
         ]);
