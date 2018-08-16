@@ -7,8 +7,6 @@ use App\x_wallet;
 use App\x_cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\VarDumper\Cloner\Data;
-use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -19,6 +17,7 @@ class UserController extends Controller
 
     function __construct(x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie)
     {
+        $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
         $this->x_wallet = $x_wallet;
         $this->x_cookie = $x_cookie;
@@ -49,6 +48,8 @@ class UserController extends Controller
 //        dd($request);
 
         $user = $this->x_user->where("username", $request->username)->get()->first();
+        if ($user == null)
+            return redirect(route('User.showLogin'));
         $pass = $user -> password;
         if (strcmp(md5($request->password), $pass) == 0) {
 //            echo 'Authentication succeeded';
@@ -57,7 +58,7 @@ class UserController extends Controller
 
             $token = str_random(25);
 //            dd(date ("Y-m-d H:i:s", time()));
-            $response->withCookie(cookie('x_user_cookie', $token, time()));
+            $response->withCookie(cookie('x_user_cookie', $token, 1));
 
             $this->x_cookie->where('user_id' , $token)->delete();
             $this->x_cookie->create([
@@ -139,7 +140,22 @@ class UserController extends Controller
     }
 
     public function profile(Request $request) {
+
+
+//        $arr = explode("/", $request->path());
+//        $str = '';
+//        if (sizeof($arr) == 2)
+//            $arr = array_add($arr, 3,"default");
+//        foreach($arr as $ar) {
+//            $str .= $ar . ".";
+//        }
+//        $str = substr($str, 0, strlen($str)-1);
+//        //        dd($arr[0]);
+//        return view($str, array('type' => $arr[0]));
+
+
         $id = $request->x_user_id;
+        echo $id;
         $user = $this->x_user->where('id', '=', $id)->first();
         if ($user != null){
 //            dd($user->type);

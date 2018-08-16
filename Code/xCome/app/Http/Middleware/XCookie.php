@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route;
 
 class XCookie
 {
@@ -24,6 +25,11 @@ class XCookie
 //            dd($entry);
             $request->x_user_id = $entry->user_id;
         }
+
+//        else {
+////            dd($request);
+//            return redirect(route("User.showLogin"));
+//        }
 
 
         return $next($request);
