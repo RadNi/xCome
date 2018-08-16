@@ -24,7 +24,6 @@ class CreateXUsersTable extends Migration
             $table->string('national_id', 12)->unique();
             $table->text('address');
             $table->enum('type', ['user', 'clerk', 'manager']);
-            $table->primary(['id']);
             $table->timestamps();
         });
     }

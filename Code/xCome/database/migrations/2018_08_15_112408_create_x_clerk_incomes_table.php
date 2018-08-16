@@ -14,8 +14,8 @@ class CreateXClerkIncomesTable extends Migration
     public function up()
     {
         Schema::create('x_clerk_incomes', function (Blueprint $table) {
-            $table->integer('clerk_id');
             $table->string('value', 20);
+            $table->unsignedInteger('clerk_id');
             $table->foreign('clerk_id')->references('id')->on('users');
             $table->primary(['clerk_id']);
             $table->timestamps();

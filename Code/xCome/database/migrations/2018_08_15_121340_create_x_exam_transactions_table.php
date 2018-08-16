@@ -14,6 +14,7 @@ class CreateXExamTransactionsTable extends Migration
     public function up()
     {
         Schema::create('x_exam_transactions', function (Blueprint $table) {
+            $table->unsignedInteger('transaction_id');
             $table->foreign('transaction_id')->references('transaction_id')->on('x_transactions');
             $table->primary(['transaction_id']);
             $table->string('fee', 20);
@@ -21,6 +22,7 @@ class CreateXExamTransactionsTable extends Migration
             $table->string('from', 25);
             $table->string('to', 25);
             $table->boolean('done');
+            $table->unsignedInteger('clerk_id');
             $table->foreign('clerk_id')->references('id')->on('x_users');
             $table->timestamps();
         });

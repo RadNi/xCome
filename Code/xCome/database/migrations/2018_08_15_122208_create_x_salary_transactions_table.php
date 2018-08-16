@@ -14,7 +14,8 @@ class CreateXSalaryTransactionsTable extends Migration
     public function up()
     {
         Schema::create('x_salary_transactions', function (Blueprint $table) {
-            $table->foreign('transaction_id')->references('x_transactions')->on('transaction_id');
+            $table->unsignedInteger('transaction_id');
+            $table->foreign('transaction_id')->references('transaction_id')->on('x_transactions');
             $table->primary(['transaction_id']);
             $table->string('from', 25);
             $table->string('too', 25);
