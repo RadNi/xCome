@@ -4,19 +4,23 @@ namespace App\Http\Controllers;
 
 use App\x_user;
 use App\x_wallet;
+use App\x_cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class UserController extends Controller
 {
 
     protected $x_user;
     protected $x_wallet;
+    protected $x_cookie;
 
-    function __construct(x_user $x_user, x_wallet $x_wallet)
+    function __construct(x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie)
     {
         $this->x_user = $x_user;
         $this->x_wallet = $x_wallet;
+        $this->x_cookie = $x_cookie;
     }
 
     public function showForget() {
@@ -43,13 +47,27 @@ class UserController extends Controller
     public function checkLogin(Request $request) {
 //        dd($request);
 
-        $pass = $this->x_user->where("username", $request->username)->get()->first();
-//        dd($user->password );
-        if (md5($request->password == $pass)) {
-            echo 'Authentication succeeded';
-            $response = new Response('Hello World');
-            $response->withCookie(cookie('name', $request->username, time()));
-            dd($response);
+        $user = $this->x_user->where("username", $request->username)->get()->first();
+        $pass = $user -> password;
+        if (strcmp(md5($request->password), $pass) == 0) {
+//            echo 'Authentication succeeded';
+
+            $response = new Response('Authentication succeeded');
+
+            $token = str_random(25);
+//            dd(date ("Y-m-d H:i:s", time()));
+            $response->withCookie(cookie('x_user_cookie', $token, time()));
+
+            $this->x_cookie->where('user_id' , $token)->delete();
+            $this->x_cookie->create([
+                'token' => $token,
+                'ip' => $request->ip(),
+                'exp_date' => date ("Y-m-d H:i:s", time()+5000),
+                'user_id' => $user->id
+                ]);
+
+//            dd($response);
+            return $response;
         }
         return view("extra.login", array('check' => true));
 
@@ -72,6 +90,8 @@ class UserController extends Controller
         unset($data['PersonID']);
 //        dd($data);
         $data['password'] = md5($data['password']);
+        $data['type'] = 'user';
+
 //        dd($data);
 
         $this->makeWallets($this->x_user->create($data)->getKey());
