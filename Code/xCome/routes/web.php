@@ -73,6 +73,12 @@ Route::get('/forget', [
     "as" => "User.showForget"
 ]);
 
+Route::post('/forget', [
+    "uses" => "UserController@checkForget",
+    "as" => "User.checkForget",
+    ""
+]);
+
 Route::get('/contact', [
     "uses" => "MainController@showContact",
     "as" => "Main.showContact"
@@ -184,7 +190,8 @@ Route::prefix('boss') -> group(function () {
 
     Route::any('contact', [
         "uses" => "MainController@allContact",
-        "as" =>"boss.contact-us"
+        "as" =>"boss.contact-us",
+        "middleware" => 'validator:App\Http\Controllers\contact_us_verifier',
     ] );
 
     Route::any('messages', [
