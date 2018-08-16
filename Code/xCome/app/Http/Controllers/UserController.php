@@ -126,8 +126,7 @@ class UserController extends Controller
             $str.=$ar.".";
         }
         $str = substr($str, 0, strlen($str)-1);
-//        dd($str);
+//        dd($arr[0]);
         return view($str, array('type' => $arr[0]));
-
     }
 }
