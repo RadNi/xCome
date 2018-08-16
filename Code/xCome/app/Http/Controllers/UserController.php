@@ -3,15 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\x_user;
+use App\x_wallet;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
 
     protected $x_user;
-    function __construct(x_user $x_user)
+    protected $x_wallet;
+
+    function __construct(x_user $x_user, x_wallet $x_wallet)
     {
         $this->x_user = $x_user;
+        $this->x_wallet = $x_wallet;
     }
 
     public function showForget() {
@@ -32,6 +37,16 @@ class UserController extends Controller
     }
 
     public function checkLogin(Request $request) {
+//        dd($request);
+
+        $pass = $this->x_user->where("username", $request->username)->get()->first();
+//        dd($user->password );
+        if (md5($request->password == $pass)) {
+            echo 'Authentication succeeded';
+            $response = new Response('Hello World');
+            $response->withCookie(cookie('name', $request->username, time()));
+            dd($response);
+        }
         return view("extra.login", array('check' => true));
 
     }
@@ -54,7 +69,8 @@ class UserController extends Controller
 //        dd($data);
         $data['password'] = md5($data['password']);
 //        dd($data);
-        $this->x_user->create($data);
+
+        $this->makeWallets($this->x_user->create($data)->getKey());
 
 
 
@@ -62,8 +78,17 @@ class UserController extends Controller
 //        return view("extra.register", array('check' => true));
     }
 
-    private function makeWallets($user_id) {
 
+
+    private function makeWallets($user) {
+        foreach (['dollar', 'euro', 'rial'] as $t) {
+            $wallet = new x_wallet();
+            $wallet->user_id = $user;
+            $wallet->address = str_random(24);
+            $wallet->cash = '0';
+            $wallet->type = $t;
+            $wallet->save();
+        }
     }
 
     public function info(Request $request) {
