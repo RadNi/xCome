@@ -64,7 +64,8 @@ Route::get('/login', [
 
 Route::post('/login', [
     "uses" => "UserController@checkLogin",
-    "as" => "User.checkLogin"
+    "as" => "User.checkLogin",
+    "middleware" => 'validator:App\Http\Controllers\login_verifier',
 ]);
 
 Route::get('/forget', [

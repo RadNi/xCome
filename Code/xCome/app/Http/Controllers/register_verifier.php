@@ -12,7 +12,7 @@ class register_verifier extends Controller
             'password' => 'required|min:5|confirmed',
             'name' => 'required',
             'familyName' => 'required',
-            'username' => 'required|unique',
+            'username' => 'required|unique:x_users',
             'address' => 'required',
             'PersonID' => 'required|size:10',
             'CellPhone' => 'required|regex:/(\+98|0)?9\d{9}/'

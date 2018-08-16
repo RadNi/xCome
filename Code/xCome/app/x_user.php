@@ -10,9 +10,9 @@ class x_user extends Model
         return $this -> belongsToMany(X_Transaction::class);
     }
 
-    public function rules(\Illuminate\Http\Request $request){
-        return [
-            'name' => 'min:10',
-        ];
-    }
+//    public function rules(\Illuminate\Http\Request $request){
+//        return [
+//            'name' => 'min:10',
+//        ];
+//    }
 }
