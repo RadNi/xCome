@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\x_user;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    protected $x_user;
+    function __construct(x_user $x_user)
+    {
+        $this->x_user = $x_user;
+    }
 
     public function showForget() {
         return view("extra.forget", array('check' => false));
@@ -30,11 +37,33 @@ class UserController extends Controller
     }
 
     public function showRegister(Request $request) {
+
         return view("extra.register", array('check' => false));
     }
 
     public function checkRegister(Request $request) {
-        return view("extra.register", array('check' => true));
+
+        $data = $request -> except(["captcha", "password_confirmation"]);
+
+        $data['family_name'] = $data['familyName'];
+        unset($data['familyName']);
+        $data['phonenumber'] = $data['CellPhone'];
+        unset($data['CellPhone']);
+        $data['national_id'] = $data['PersonID'];
+        unset($data['PersonID']);
+//        dd($data);
+        $data['password'] = md5($data['password']);
+//        dd($data);
+        $this->x_user->create($data);
+
+
+
+
+//        return view("extra.register", array('check' => true));
+    }
+
+    private function makeWallets($user_id) {
+
     }
 
     public function info(Request $request) {

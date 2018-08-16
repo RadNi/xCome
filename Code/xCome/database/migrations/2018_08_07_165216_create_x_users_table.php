@@ -18,7 +18,7 @@ class CreateXUsersTable extends Migration
             $table->string('name', 25);
             $table->string('family_name', 20);
             $table->string('username', 25)->unique();
-            $table->string('password', 25);
+            $table->string('password', 50);
             $table->string('email', 25);
             $table->string('phoneNumber', 15);
             $table->string('national_id', 12)->unique();
