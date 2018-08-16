@@ -15,7 +15,6 @@ class CreateXExamsTable extends Migration
     {
         Schema::create('x_exams', function (Blueprint $table) {
             $table->increments('exam_id');
-            $table->primary(['exam_id']);
             $table->dateTime('exam_date');
             $table->string('fee', 20);
             $table->string('price', 20);

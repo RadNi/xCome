@@ -14,7 +14,8 @@ class CreateXResetPasswordsTable extends Migration
     public function up()
     {
         Schema::create('x_reset_passwords', function (Blueprint $table) {
-            $table->foreign('user_id')->references('x_users_table')->on('id');
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('x_users');
             $table->string('token', 20)->unique();
             $table->dateTime('expire_time');
             $table->timestamps();

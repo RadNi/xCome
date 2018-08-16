@@ -15,7 +15,6 @@ class CreateXTransactionsTable extends Migration
     {
         Schema::create('x_transactions', function (Blueprint $table) {
             $table->increments('transaction_id');
-            $table->primary(['transaction_id']);
             $table->string('value', 20);
             $table->dateTime('calender');
             $table->timestamps();

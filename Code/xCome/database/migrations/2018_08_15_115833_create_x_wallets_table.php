@@ -14,6 +14,7 @@ class CreateXWalletsTable extends Migration
     public function up()
     {
         Schema::create('x_wallets', function (Blueprint $table) {
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('x_users');
             $table->string('address', 25)->primary();
             $table->string('cash', 20);

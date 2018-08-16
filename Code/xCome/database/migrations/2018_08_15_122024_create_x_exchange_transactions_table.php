@@ -14,8 +14,8 @@ class CreateXExchangeTransactionsTable extends Migration
     public function up()
     {
         Schema::create('x_exchange_transactions', function (Blueprint $table) {
-            $table->foreign('transaction_id')->references('x_transactions')->on('transaction_id');
-            $table->primary(['transaction_id']);
+            $table->unsignedInteger('transaction_id');
+            $table->foreign('transaction_id')->references('transaction_id')->on('x_transactions');
             $table->enum('from_type', ['dollar', 'euro', 'rial']);
             $table->enum('to_type', ['dollar', 'euro', 'rial']);
             $table->string('fee', 25);

@@ -15,7 +15,7 @@ class CreateXMessagesTable extends Migration
     {
         Schema::create('x_messages', function (Blueprint $table) {
             $table->increments('message_id');
-            $table->primary(['message_id']);
+            $table->unsignedInteger('creator_id');
             $table->foreign('creator_id')->references('id')->on('x_users');
             $table->text('message');
             $table->timestamps();

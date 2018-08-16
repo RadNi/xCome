@@ -17,6 +17,7 @@ class CreateXCookiesTable extends Migration
             $table->string('token', '25');
             $table->ipAddress('ip');
             $table->dateTime('exp_date');
+            $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('x_users');
             $table->primary(['token', 'ip', 'exp_date']);
             $table->timestamps();
