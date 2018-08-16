@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateXCookiesTable extends Migration
+class CreateXResetPasswordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateXCookiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('x_cookies', function (Blueprint $table) {
-            $table->string('token', '25');
-            $table->ipAddress('ip');
-            $table->dateTime('exp_date');
-            $table->foreign('user_id')->references('id')->on('x_users');
-            $table->primary(['token', 'ip', 'exp_date']);
+        Schema::create('x_reset_passwords', function (Blueprint $table) {
+            $table->foreign('user_id')->references('x_users_table')->on('id');
+            $table->string('token', 20)->unique();
+            $table->dateTime('expire_time');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateXCookiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('x_cookies');
+        Schema::dropIfExists('x_reset_passwords');
     }
 }
