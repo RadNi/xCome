@@ -60,7 +60,7 @@ class UserController extends Controller
 //            dd(date ("Y-m-d H:i:s", time()));
             $response->withCookie(cookie('x_user_cookie', $token, 1));
 
-            $this->x_cookie->where('user_id' , $token)->delete();
+            $this->x_cookie->where('user_id' , $user->id)->delete();
             $this->x_cookie->create([
                 'token' => $token,
                 'ip' => $request->ip(),
@@ -80,6 +80,12 @@ class UserController extends Controller
         return view("extra.register", array('check' => false));
     }
 
+    private function makeBoss($data) {
+        $data['type'] = 'manager';
+        $boss = $this->x_user->create($data)->getKey();
+        $this->makeWallets($boss);
+    }
+
     public function checkRegister(Request $request) {
 
         $data = $request -> except(["captcha", "password_confirmation"]);
@@ -94,9 +100,15 @@ class UserController extends Controller
         $data['password'] = md5($data['password']);
         $data['type'] = 'user';
 
+
 //        dd($data);
 
-        $this->makeWallets($this->x_user->create($data)->getKey());
+//        $this->makeBoss($data);
+
+        $user = $this->x_user->create($data)->getKey();
+
+
+        $this->makeWallets($user);
 
 
 
