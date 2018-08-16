@@ -8,7 +8,7 @@
         <input id="name" type="name" name="name" placeholder="Name"><br>
         <input id="family" type="name" name="familyName" placeholder="Family"><br>
         <input id="username" type="name" name="username" placeholder="Username"><br>
-        <input id="captcha" type="text" name="captcha" placeholder="captcha"><br>
+        {{--<input id="captcha" type="text" name="captcha" placeholder="captcha"><br>--}}
         <input id="message" type="text" name="message" placeholder="Type your message here">
         <input id="cellphone" type="text" name="message" placeholder="Phone Number">
         <input id="submit" type="submit" value="register">
