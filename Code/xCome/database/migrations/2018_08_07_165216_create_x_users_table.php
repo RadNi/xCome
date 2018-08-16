@@ -20,10 +20,11 @@ class CreateXUsersTable extends Migration
             $table->string('username', 25)->unique();
             $table->string('password', 25);
             $table->string('email', 25);
-            $table->string('phonenumber', 15);
+            $table->string('phoneNumber', 15);
             $table->string('national_id', 12)->unique();
             $table->text('address');
-            $table->enum('name', ['user', 'clerk', 'manager']);
+            $table->enum('type', ['user', 'clerk', 'manager']);
+            $table->primary(['id']);
             $table->timestamps();
         });
     }

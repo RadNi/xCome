@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateXCookiesTable extends Migration
+class CreateXMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateXCookiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('x_cookies', function (Blueprint $table) {
-            $table->string('token', '25');
-            $table->ipAddress('ip');
-            $table->dateTime('exp_date');
-            $table->foreign('user_id')->references('id')->on('x_users');
-            $table->primary(['token', 'ip', 'exp_date']);
+        Schema::create('x_messages', function (Blueprint $table) {
+            $table->increments('message_id');
+            $table->primary(['message_id']);
+            $table->foreign('creator_id')->references('id')->on('x_users');
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateXCookiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('x_cookies');
+        Schema::dropIfExists('x_messages');
     }
 }

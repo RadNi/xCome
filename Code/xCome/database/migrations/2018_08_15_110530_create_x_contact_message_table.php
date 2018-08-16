@@ -19,7 +19,7 @@ class CreateContactMessageTable extends Migration
             $table->string('family_name', 20);
             $table->string('username', 25);
             $table->string('email', 25);
-            $table->string('phonenumber', 15);
+            $table->string('phoneNumber', 15);
             $table->text('message', 250);
             $table->primary(['message_id']);
             $table->timestamps();
