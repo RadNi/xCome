@@ -58,7 +58,7 @@ class UserController extends Controller
 
             $token = str_random(25);
 //            dd(date ("Y-m-d H:i:s", time()));
-            $response->withCookie(cookie('x_user_cookie', $token, 1));
+            $response->withCookie(cookie('x_user_cookie', $token, 1, null, null, false, false));
 
             $this->x_cookie->where('user_id' , $user->id)->delete();
             $this->x_cookie->create([
@@ -68,7 +68,7 @@ class UserController extends Controller
                 'user_id' => $user->id
                 ]);
 
-//            dd($response);
+            dd($response);
             return $response;
         }
         return view("extra.login", array('check' => true));
