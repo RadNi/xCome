@@ -7,6 +7,8 @@ use App\x_wallet;
 use App\x_cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use function MongoDB\BSON\toJSON;
+use function Sodium\add;
 
 class UserController extends Controller
 {
@@ -58,18 +60,19 @@ class UserController extends Controller
 
             $token = str_random(25);
 //            dd(date ("Y-m-d H:i:s", time()));
-            $response->withCookie(cookie('x_user_cookie', $token, 1, null, null, false, false));
+//            $response->withCookie(cookie('x_user_cookie', $token, 1, null, null, false, false));
 
             $this->x_cookie->where('user_id' , $user->id)->delete();
             $this->x_cookie->create([
                 'token' => $token,
                 'ip' => $request->ip(),
-                'exp_date' => date ("Y-m-d H:i:s", time()+5000),
+                'exp_date' => date ("Y-m-d H:i:s", time()+60000),
                 'user_id' => $user->id
                 ]);
 
 //            dd($response);
-            return $response;
+            return redirect('profile')->withCookie(cookie('x_user_cookie', $token, 60, null, null, false, false));
+//            return $response;
         }
         return view("extra.login", array('check' => true));
 
@@ -165,6 +168,8 @@ class UserController extends Controller
 //        //        dd($arr[0]);
 //        return view($str, array('type' => $arr[0]));
 
+//        return view('profile');
+
 
         $id = $request->x_user_id;
         echo $id;
@@ -178,9 +183,29 @@ class UserController extends Controller
                         ->where('user_id', '=', $id)->get();
                     foreach ($wallets as $wallet){
                         array_push($sending_data,
-                            array((string)$wallet->type => (string)$wallet->cash));
+                            [
+                                'name' => (string)$wallet->type,
+                                'amount' => (string)$wallet->cash
+                            ]);
+//                            array((string)$wallet->type => (string)$wallet->cash));
                     }
-                    return json_encode($sending_data);
+//                    dd(array('data' => json_encode($sending_data)));
+//                    dd($sending_data);
+//                    $sending_data = array_add($sending_data, {'type':'user'});
+                    $wallets = $sending_data;
+//                    dd(json_encode($wallets));
+//                    $sending_data = array('wallets' => $sending_data);
+                    $sending_data = [
+                        'wallets'=> $sending_data,
+                        'type' => 'user'
+                    ];
+//                    array_push($sending_data, 'type' => 'user');
+//                    dd($sending_data);
+//                    dd(array('type' => 'user'));
+                    $arr = array('x_data' => json_encode($sending_data));
+//                    $arr = array_add($arr, 'type', 'user');
+//                    dd($arr);
+                    return view('new.default', $arr);
                     break;
                 case "clerk":
 

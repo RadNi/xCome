@@ -23,9 +23,11 @@ class XCookie
 
             $entry = DB::table('x_cookies')->where('token', '=', $request->cookie('x_user_cookie'))->first();
 //            dd($entry);
-            if ($entry->user_id > 0)
+            if ($entry->user_id > 0) {
+//                dd(array(strtotime($entry->exp_date),strtotime(date("Y-m-d H:i:s", time()))));
                 if (strtotime($entry->exp_date) > strtotime(date("Y-m-d H:i:s", time())))
                     $request->x_user_id = $entry->user_id;
+            }
         }
 
 //        else {
