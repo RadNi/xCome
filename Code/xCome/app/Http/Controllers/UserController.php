@@ -68,7 +68,7 @@ class UserController extends Controller
                 'user_id' => $user->id
                 ]);
 
-            dd($response);
+//            dd($response);
             return $response;
         }
         return view("extra.login", array('check' => true));
