@@ -210,7 +210,7 @@ class UserController extends Controller
                     ],
                     [
                         'id' => 'wallet',
-                        'link' => '#',
+                        'link' => route('profile'),
                         'text' => 'Wallets Page'
                     ]
                 ];
@@ -225,7 +225,7 @@ class UserController extends Controller
                 $hyperLinks = [
                     [
                         "id" => "mainpage",
-                        "link" => "#",
+                        "link" => route('profile'),
                         "text" => "Main Page"
                     ],
                     [
@@ -265,8 +265,10 @@ class UserController extends Controller
             ]);
         }
         $data = [
-          'exams' => $exams_data,
-          'type' => $user->type
+            'exams' => $exams_data,
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type)
         ];
 //        dd($data);
 

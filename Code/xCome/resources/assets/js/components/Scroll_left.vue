@@ -35,6 +35,7 @@
             }
         },
         mounted() {
+            console.log(this.x_data);
             this.type = this.x_data.type;
             this.hyperLinks = this.x_data.hyperLinks;
 

@@ -15,9 +15,9 @@
 @stop
 
 @section('navbar')
-        <navbar v-bind:x_data="{{ $x_data }}" v-bind:csrf_field="'{{ csrf_token() }}'">
+    <navbar v-bind:x_data="{{ $x_data }}" v-bind:csrf_field="'{{ csrf_token() }}'">
 
-        </navbar>
+    </navbar>
 @stop
 
 

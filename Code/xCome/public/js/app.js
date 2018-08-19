@@ -43841,6 +43841,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
+        console.log(this.x_data);
         this.type = this.x_data.type;
         this.hyperLinks = this.x_data.hyperLinks;
     },
