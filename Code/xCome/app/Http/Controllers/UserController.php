@@ -8,6 +8,7 @@ use App\x_cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function MongoDB\BSON\toJSON;
+use PhpParser\Node\Expr\List_;
 use function Sodium\add;
 
 class UserController extends Controller
@@ -154,7 +155,94 @@ class UserController extends Controller
         return view("extra.clerks-table", array('type' => $arr[0]));
     }
 
-    public function profile(Request $request) {
+    private function fill_wp_items($type) {
+        $wp_items=[];
+        switch ($type) {
+            case 'user':
+//                $item = [
+//                    'id' => 'exam-reg',
+//                    'link' => '#',
+//                    'text' => 'Exam Registration'
+//                ];
+//                array_push($wp_items, $item);
+                $wp_items = [
+                    [
+                        'id' => 'exam-reg',
+                        'link' => route('profile.exam-reg'),
+                        'text' => 'Exam Registration'
+                    ],
+                    [
+                        'id' => 'apply-pay',
+                        'link' => '#',
+                        'text' => 'Application Payment'
+                    ],
+                    [
+                        'id' => 'foreign-pay',
+                        'link' => '#',
+                        'text' => 'Foreign Payment'
+                    ],
+                    [
+                        'id' => 'apply-pay',
+                        'link' => '#',
+                        'text' => 'Application Payment'
+                    ],
+                    [
+                        'id' => 'retr-mon',
+                        'link' => '#',
+                        'text' => 'Retrieve Money'
+                    ],
+                    [
+                        'id' => 'int-pay',
+                        'link' => '#',
+                        'text' => 'Internal Transaction'
+                    ],
+                    [
+                        'id' => 'wallet',
+                        'link' => '#',
+                        'text' => 'Wallets Page'
+                    ]
+                ];
+        }
+        return $wp_items;
+    }
+
+    private function fill_hyperLinks($type) {
+        $hyperLinks = [];
+        switch ($type) {
+            case "user":
+                $hyperLinks = [
+                    [
+                        "id" => "mainpage",
+                        "link" => "#",
+                        "text" => "Main Page"
+                    ],
+                    [
+                        "id" => "userinfo",
+                        "link" => "#",
+                        "text" => "User Information"
+                    ],
+                    [
+                        "id" => "transactions",
+                        "link" => "#",
+                        "text" => "Transactions History"
+                    ]
+                ];
+        }
+        return $hyperLinks;
+    }
+
+    public function exam_reg(Request $request) {
+
+    }
+
+    private function check_cookie(Request $request) {
+        $id = $request->x_user_id;
+        $user = $this->x_user->where('id', '=', $id)->first();
+        return $user;
+    }
+
+    public function profile(Request $request)
+    {
 
 
 //        $arr = explode("/", $request->path());
@@ -171,51 +259,57 @@ class UserController extends Controller
 //        return view('profile');
 
 
-        $id = $request->x_user_id;
-        echo $id;
-        $user = $this->x_user->where('id', '=', $id)->first();
-        if ($user != null){
+        $user = $this->check_cookie($request);
 //            dd($user->type);
-            $sending_data = array();
-            switch ($user->type){
-                case "user":
-                    $wallets = $this->x_wallet->select('type', 'cash')
-                        ->where('user_id', '=', $id)->get();
-                    foreach ($wallets as $wallet){
-                        array_push($sending_data,
-                            [
-                                'name' => (string)$wallet->type,
-                                'amount' => (string)$wallet->cash
-                            ]);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+        $id = $request->x_user_id;
+        $sending_data = array();
+        switch ($user->type) {
+            case "user":
+                $wallets = $this->x_wallet->select('type', 'cash')
+                    ->where('user_id', '=', $id)->get();
+                foreach ($wallets as $wallet) {
+                    array_push($sending_data,
+                        [
+                            'name' => (string)$wallet->type,
+                            'amount' => (string)$wallet->cash
+                        ]);
 //                            array((string)$wallet->type => (string)$wallet->cash));
-                    }
+                }
 //                    dd(array('data' => json_encode($sending_data)));
 //                    dd($sending_data);
 //                    $sending_data = array_add($sending_data, {'type':'user'});
-                    $wallets = $sending_data;
+                $wallets = $sending_data;
 //                    dd(json_encode($wallets));
 //                    $sending_data = array('wallets' => $sending_data);
-                    $sending_data = [
-                        'wallets'=> $sending_data,
-                        'type' => 'user'
-                    ];
+                $wp_items = $this->fill_wp_items($user->type);
+                $hyperLinks = $this->fill_hyperLinks($user->type);
+
+                $sending_data = [
+                    'wallets' => $sending_data,
+                    'type' => $user->type,
+                    'wp_items' => $wp_items,
+                    'hyperLinks' => $hyperLinks
+                ];
 //                    array_push($sending_data, 'type' => 'user');
 //                    dd($sending_data);
 //                    dd(array('type' => 'user'));
-                    $arr = array('x_data' => json_encode($sending_data));
+                $arr = array('x_data' => json_encode($sending_data));
 //                    $arr = array_add($arr, 'type', 'user');
 //                    dd($arr);
-                    return view('new.default', $arr);
-                    break;
-                case "clerk":
+//                    dd($arr);
+                return view('new.default', $arr);
+                break;
+            case "clerk":
 
-                    break;
-                case "boss":
+                break;
+            case "boss":
 
-                    break;
-            }
-        } else {
-            return \response("You need to login again", 401);
+                break;
         }
     }
+
 }

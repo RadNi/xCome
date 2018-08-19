@@ -60,7 +60,7 @@
 <script>
 
     export default {
-        name: 'profile',
+        name: 'wallets',
         props: ['x_data', 'csrf_field'],
         data() {
             return {

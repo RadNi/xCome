@@ -17,7 +17,10 @@ window.Vue = require('vue');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('login', require('./components/Login.vue'));
-Vue.component('profile', require('./components/Profile.vue'));
+Vue.component('wallets', require('./components/Wallets.vue'));
+Vue.component('scroll_left', require('./components/Scroll_left.vue'));
+Vue.component('navbar', require('./components/Navbar.vue'));
+Vue.component('exam_reg', require('./components/Exam_Registeration.vue'));
 
 const app = new Vue({
     el: '#app'

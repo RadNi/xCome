@@ -19,14 +19,16 @@
 
 </head>
 <body>
-    <div id="wp-navbar">
-        @yield("navbar")
-    </div>
-    <div id="scroll-left">
-        @yield('scroll-left')
-    </div>
-    <div id="workplace">
-        @yield('workplace')
+    <div id="app">
+        <div id="wp-navbar">
+            @yield("navbar")
+        </div>
+        <div id="scroll-left">
+            @yield('scroll-left')
+        </div>
+        <div id="workplace">
+            @yield('workplace')
+        </div>
     </div>
     <div id="footer">
         <div id="exchanger">
@@ -668,3 +670,5 @@
     </div>
 </body>
 </html>
+<script src={{ asset('/js/app.js') }}></script>
+

@@ -120,43 +120,43 @@ Route::any('/messages', [
 
 Route::prefix('profile') -> group(function () {
 
-    Route::get('/', [
+    Route::any('/', [
 //            "middleware" => "App\Http\Middleware\\XCookie",
         "uses" => "UserController@profile",
         "as" => "profile"
     ]);
 
-    Route::get('exam-reg', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
+    Route::any('exam-reg', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@exam_reg",
         "as" => "profile.exam-reg"
     ]);
-    Route::get('wallet', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+    Route::any('wallet', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" => "profile.wallet"
     ]);
 
     Route::any('apply-pay', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" => "profile.apply-pay"
     ]);
 
     Route::any('for-pay', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" => "profile.for-pay"
     ]);
 
     Route::any('ret-mon', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" => "profile.ret-mon"
     ]);
 
     Route::any('int-trans', [
-        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" => "profile.int-trans"
     ]);
