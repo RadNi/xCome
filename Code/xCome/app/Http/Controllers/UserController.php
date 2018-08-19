@@ -8,6 +8,7 @@ use App\x_user;
 use App\x_wallet;
 use App\x_cookie;
 use App\x_exam;
+use App\x_fee_transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function MongoDB\BSON\toJSON;
@@ -27,9 +28,10 @@ class UserController extends Controller
     protected $x_exams;
     protected $x_transaction;
     protected $x_exam_transactions;
+    protected $x_fee_transactions;
 
 
-    function __construct(x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
+    function __construct(x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
@@ -38,6 +40,7 @@ class UserController extends Controller
         $this->x_exams = $x_exam;
         $this->x_transaction = $x_transaction;
         $this->x_exam_transactions = $x_exam_transaction;
+        $this->x_fee_transactions = $x_fee_transactions;
     }
 
     public function showForget() {
@@ -272,6 +275,23 @@ class UserController extends Controller
         ]);
     }
 
+    private function feePayment($value,  $user){
+
+        $boss = $this->x_user->where('type', '=', 'manager')->firstOrFail();
+        $trans = $this->newTransaction($value, date ("Y-m-d H:i:s", time()), [$user->id, $boss->id]);
+
+//        dd($trans);
+        $new_fee_trans = $this->x_fee_transactions->create([
+            'transaction_id' => $trans->transaction_id,
+            'from' =>  $user->id,
+            'too' => $boss->id
+        ]);
+
+        return $new_fee_trans;
+
+    }
+
+
     private function newTransaction($value, $time, array $userID) {
         $trans = $this->x_transaction->create([
             'value' => $value,
@@ -324,6 +344,8 @@ class UserController extends Controller
                 'clerk_id' => null,
             ]);
 
+            $this->feePayment($exam->fee, $user);
+
             return \response('Exam bought successfully');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
 //            dd($request->exam);
@@ -334,10 +356,6 @@ class UserController extends Controller
 
     }
 
-    private function feePayment($value){
-
-
-    }
 
 
     private function getUser(Request $request) {
