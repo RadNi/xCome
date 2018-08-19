@@ -21,7 +21,7 @@ class x_user extends Model
 
 
     public function x_transactions() {
-        return $this -> belongsToMany(X_Transaction::class);
+        return $this -> belongsToMany(X_Transaction::class, 'x_user_x_transaction', 'x_user_id', 'x_transaction_id');
     }
 
 }

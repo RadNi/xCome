@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(55);
+module.exports = __webpack_require__(57);
 
 
 /***/ }),
@@ -1146,6 +1146,9 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+  window.customURLs = {
+    'buyExam': 'http://localhost:8888/profile/buy-exam'
+  };
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
@@ -44066,11 +44069,12 @@ if (false) {
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = null
+var __vue_script__ = __webpack_require__(55)
 /* template */
-var __vue_template__ = null
+var __vue_template__ = __webpack_require__(56)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -44089,11 +44093,202 @@ var Component = normalizeComponent(
 )
 Component.options.__file = "resources/assets/js/components/Exam_Registeration.vue"
 
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5eebf12e", Component.options)
+  } else {
+    hotAPI.reload("data-v-5eebf12e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
 module.exports = Component.exports
 
 
 /***/ }),
 /* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'exam_reg',
+    props: ['x_data', 'csrf_field'],
+    data: function data() {
+        return {
+            exams: [],
+            buyExamURL: '',
+            csrf: ''
+            //                hyperLinks: [],
+            //                type: ''
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.x_data);
+        this.exams = this.x_data.exams;
+        this.csrf = this.csrf_field;
+        this.buyExamURL = window.customURLs.buyExam;
+        //            this.type = this.x_data.type;
+        //            this.hyperLinks = this.x_data.hyperLinks;
+    },
+
+    methods: {
+        //            changeLocation(link) {
+        //                console.log(`going to ${link}`);
+        //                location.href = link;
+        //            },
+    }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+        _c("div", { attrs: { id: "wp-exam-reg" } }, [
+          _c("form", { attrs: { method: "post", action: this.buyExamURL } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.csrf,
+                  expression: "csrf"
+                }
+              ],
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.csrf = $event.target.value
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "table",
+              { attrs: { id: "exams-table" } },
+              _vm._l(this.exams, function(exam) {
+                return _c("td", [
+                  _c("div", { staticClass: "exam", attrs: { id: exam.id } }, [
+                    _c("p", { staticClass: "exam-name" }, [
+                      _vm._v(_vm._s(exam.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "exam-price" }, [
+                      _vm._v(_vm._s(exam.price))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "exam-fee" }, [
+                      _vm._v(_vm._s(exam.fee))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "exam-date" }, [
+                      _vm._v(_vm._s(exam.date))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      attrs: { type: "radio", name: "exam" },
+                      domProps: { value: exam.id }
+                    })
+                  ])
+                ])
+              })
+            ),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { type: "submit", value: "Buy", id: "buy-butt" }
+            })
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5eebf12e", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

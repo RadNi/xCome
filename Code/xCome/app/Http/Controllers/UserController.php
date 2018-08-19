@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\x_exam_transaction;
+use App\x_transaction;
 use App\x_user;
 use App\x_wallet;
 use App\x_cookie;
+use App\x_exam;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use function MongoDB\BSON\toJSON;
@@ -14,16 +17,27 @@ use function Sodium\add;
 class UserController extends Controller
 {
 
+    static protected $BOSS_USER_ID = 4;
+    static protected $COMPANY_WALLET_ADDRESS = 'AAAAAAAAAAAAAAAAAAAAAAAA';
+
+
     protected $x_user;
     protected $x_wallet;
     protected $x_cookie;
+    protected $x_exams;
+    protected $x_transaction;
+    protected $x_exam_transactions;
 
-    function __construct(x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie)
+
+    function __construct(x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
         $this->x_wallet = $x_wallet;
         $this->x_cookie = $x_cookie;
+        $this->x_exams = $x_exam;
+        $this->x_transaction = $x_transaction;
+        $this->x_exam_transactions = $x_exam_transaction;
     }
 
     public function showForget() {
@@ -182,11 +196,6 @@ class UserController extends Controller
                         'text' => 'Foreign Payment'
                     ],
                     [
-                        'id' => 'apply-pay',
-                        'link' => '#',
-                        'text' => 'Application Payment'
-                    ],
-                    [
                         'id' => 'retr-mon',
                         'link' => '#',
                         'text' => 'Retrieve Money'
@@ -232,10 +241,106 @@ class UserController extends Controller
     }
 
     public function exam_reg(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $exams = $this->x_exams->select(['name', 'exam_date', 'exam_id', 'price', 'fee'])->where('exam_date' ,'>=', date ("Y-m-d H:i:s", time()))->get();
+//        dd($exams);
+        $exams_data = [];
+        foreach ($exams as $exam) {
+            array_push($exams_data, [
+                'id' => $exam->exam_id,
+                'name' => $exam->name,
+                'date' => $exam->exam_date,
+                'fee' => $exam->fee,
+                'price' => $exam->price
+            ]);
+        }
+        $data = [
+          'exams' => $exams_data,
+          'type' => $user->type
+        ];
+//        dd($data);
+
+        return view('new.exam-reg', [
+            'x_data' => json_encode($data)
+        ]);
+    }
+
+    private function newTransaction($value, $time, array $userID) {
+        $trans = $this->x_transaction->create([
+            'value' => $value,
+            'calender' => $time
+        ]);
+//        dd($trans);
+        $temp = x_transaction::findOrFail($trans->transaction_id);
+//        dd($temp);
+//        dd(typeOf($temp));
+        $temp->x_users()->attach($userID);
+        $temp->save();
+
+
+//        dd($trans);
+        return $trans;
+    }
+
+    public function buyExam(Request $request) {
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $exam = $this->x_exams->where('exam_id' ,'=', $request->exam)->first();
+
+        if (sizeof($exam)) {
+
+//            dd(sizeof($exam));
+            $rial = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', 'rial')->first();
+
+            if ((integer)$exam->price + (integer)$exam->fee > $rial->cash)
+                return \response('not enough money for this exam. Please charge your Rial wallet'); // TODO for this kind of errors we should make a page
+//                dd('not enough mouney !'. $exam->price. ' '. $rial->cash. ' '. $rial->user_id);
+//            dd($rial);
+            $rial->update([
+                'cash' => (string)((integer)$rial->cash - (integer)$exam->price - (integer)$exam->fee)
+            ]);
+
+            $trans = $this->newTransaction($exam->price, date ("Y-m-d H:i:s", time()), [$user->id]);
+            $new_trans=$this->x_exam_transactions->create([
+                'transaction_id' => $trans->transaction_id,
+                'fee' => $exam->fee,
+                'type' => $exam->name,
+                'from' => $rial->address,
+                'to' => UserController::$COMPANY_WALLET_ADDRESS,
+                'done' => false,
+                'clerk_id' => null,
+            ]);
+
+            return \response('Exam bought successfully');     //TODO or this kind of succeed we should make a page
+//            dd($rial);
+//            dd($request->exam);
+        }
+        else {
+            return \response("Exam not found !!", 401);
+        }
 
     }
 
-    private function check_cookie(Request $request) {
+    private function feePayment($value){
+
+
+    }
+
+
+    private function getUser(Request $request) {
         $id = $request->x_user_id;
         $user = $this->x_user->where('id', '=', $id)->first();
         return $user;
@@ -259,7 +364,7 @@ class UserController extends Controller
 //        return view('profile');
 
 
-        $user = $this->check_cookie($request);
+        $user = $this->getUser($request);
 //            dd($user->type);
 
         if ($user == null){
@@ -269,20 +374,20 @@ class UserController extends Controller
         $sending_data = array();
         switch ($user->type) {
             case "user":
-                $wallets = $this->x_wallet->select('type', 'cash')
+                $wallets = $this->x_wallet->select(['type', 'cash', 'address'])
                     ->where('user_id', '=', $id)->get();
                 foreach ($wallets as $wallet) {
                     array_push($sending_data,
                         [
-                            'name' => (string)$wallet->type,
-                            'amount' => (string)$wallet->cash
+                            'name' => (string)$wallet->type,            //TODO      should add address and other information
+                            'amount' => (string)$wallet->cash,
+                            'address' => $wallet->address
                         ]);
 //                            array((string)$wallet->type => (string)$wallet->cash));
                 }
 //                    dd(array('data' => json_encode($sending_data)));
 //                    dd($sending_data);
 //                    $sending_data = array_add($sending_data, {'type':'user'});
-                $wallets = $sending_data;
 //                    dd(json_encode($wallets));
 //                    $sending_data = array('wallets' => $sending_data);
                 $wp_items = $this->fill_wp_items($user->type);
@@ -294,6 +399,7 @@ class UserController extends Controller
                     'wp_items' => $wp_items,
                     'hyperLinks' => $hyperLinks
                 ];
+//                dd($sending_data);
 //                    array_push($sending_data, 'type' => 'user');
 //                    dd($sending_data);
 //                    dd(array('type' => 'user'));

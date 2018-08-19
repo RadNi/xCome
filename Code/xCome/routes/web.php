@@ -161,6 +161,11 @@ Route::prefix('profile') -> group(function () {
         "as" => "profile.int-trans"
     ]);
 
+    Route::any('buy-exam', [
+       "uses" => "UserController@buyExam",
+       "as" => "profile.buy-exam"
+    ]);
+
 });
 
 
