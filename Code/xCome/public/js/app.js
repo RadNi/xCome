@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(57);
+module.exports = __webpack_require__(63);
 
 
 /***/ }),
@@ -1101,7 +1101,9 @@ Vue.component('login', __webpack_require__(42));
 Vue.component('wallets', __webpack_require__(45));
 Vue.component('scroll_left', __webpack_require__(48));
 Vue.component('navbar', __webpack_require__(51));
-Vue.component('exam_reg', __webpack_require__(54));
+Vue.component('apply_payment', __webpack_require__(54));
+Vue.component('exam_reg', __webpack_require__(57));
+Vue.component('foreign_reg', __webpack_require__(60));
 
 var app = new Vue({
   el: '#app'
@@ -1147,7 +1149,9 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 if (token) {
   window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
   window.customURLs = {
-    'buyExam': 'http://localhost:8888/profile/buy-exam'
+    'buyExam': 'http://localhost:8888/profile/buy-exam',
+    'applyPayURL': 'http://localhost:8888/profile/do-apply-pay',
+    'foreignPayURL': 'http://localhost:8888/profile/do-foreign-pay'
   };
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -44092,6 +44096,234 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
+Component.options.__file = "resources/assets/js/components/Apply_Payment.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3288caee", Component.options)
+  } else {
+    hotAPI.reload("data-v-3288caee", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'apply_payment',
+    props: ['x_data', 'csrf_field'],
+    data: function data() {
+        return {
+            type: '',
+            csrf: '',
+            applyPayURL: '',
+            fee: '',
+            price: ''
+        };
+    },
+    mounted: function mounted() {
+        this.type = this.x_data.type;
+        this.csrf = this.csrf_field;
+        this.fee = this.x_data.fee;
+        this.applyPayURL = window.customURLs.applyPayURL;
+    },
+
+    methods: {
+        getFeePrice: function getFeePrice() {
+
+            var ret = parseFloat(this.fee) * parseFloat(this.price);
+
+            if (!isNaN(ret)) return ret;
+            return 0;
+        }
+    }
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+        _c("div", { attrs: { id: "wp-apply-pay" } }, [
+          _c("form", { attrs: { method: "post", action: this.applyPayURL } }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.csrf,
+                  expression: "csrf"
+                }
+              ],
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.csrf = $event.target.value
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              attrs: {
+                id: "payee-id",
+                name: "payee-id",
+                placeholder: "Payee credit card",
+                type: "number"
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              attrs: {
+                id: "type-rial",
+                name: "type",
+                type: "radio",
+                value: "rial"
+              }
+            }),
+            _vm._v("Rial\n                    "),
+            _c("input", {
+              attrs: {
+                id: "type-dollar",
+                name: "type",
+                type: "radio",
+                value: "dollar"
+              }
+            }),
+            _vm._v("Dollar\n                    "),
+            _c("input", {
+              attrs: {
+                id: "type-euro",
+                name: "type",
+                type: "radio",
+                value: "euro"
+              }
+            }),
+            _vm._v("Euro\n                    "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.price,
+                  expression: "price"
+                }
+              ],
+              attrs: {
+                id: "price",
+                name: "price",
+                placeholder: "price",
+                type: "number"
+              },
+              domProps: { value: _vm.price },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.price = $event.target.value
+                }
+              }
+            }),
+            _vm._v("$\n                    "),
+            _c("p", { attrs: { id: "fee" } }, [
+              _vm._v(" " + _vm._s(_vm.getFeePrice()) + " ")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { id: "submit", name: "submit", type: "submit" }
+            })
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3288caee", module.exports)
+  }
+}
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(58)
+/* template */
+var __vue_template__ = __webpack_require__(59)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
 Component.options.__file = "resources/assets/js/components/Exam_Registeration.vue"
 
 /* hot reload */
@@ -44114,7 +44346,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 55 */
+/* 58 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44204,7 +44436,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 56 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -44289,7 +44521,239 @@ if (false) {
 }
 
 /***/ }),
-/* 57 */
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(61)
+/* template */
+var __vue_template__ = __webpack_require__(62)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Foreign_Payment.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-18a899d8", Component.options)
+  } else {
+    hotAPI.reload("data-v-18a899d8", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'foreign_payment',
+    props: ['x_data', 'csrf_field'],
+    data: function data() {
+        return {
+            type: '',
+            csrf: '',
+            foreignPayURL: '',
+            fee: '',
+            price: ''
+        };
+    },
+    mounted: function mounted() {
+        this.type = this.x_data.type;
+        this.csrf = this.csrf_field;
+        this.fee = this.x_data.fee;
+        this.foreignPayURL = window.customURLs.foreignPayURL;
+    },
+
+    methods: {
+        getFeePrice: function getFeePrice() {
+
+            var ret = parseFloat(this.fee) * parseFloat(this.price);
+
+            if (!isNaN(ret)) return ret;
+            return 0;
+        }
+    }
+});
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+        _c("div", { attrs: { id: "wp-apply-pay" } }, [
+          _c(
+            "form",
+            { attrs: { method: "post", action: this.foreignPayURL } },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.csrf,
+                    expression: "csrf"
+                  }
+                ],
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.csrf = $event.target.value
+                  }
+                }
+              }),
+              _c("br"),
+              _vm._v(" "),
+              _c("input", {
+                attrs: {
+                  id: "payee-id",
+                  name: "payee-id",
+                  placeholder: "Payee credit card",
+                  type: "number"
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                attrs: {
+                  id: "type-rial",
+                  name: "type",
+                  type: "radio",
+                  value: "rial"
+                }
+              }),
+              _vm._v("Rial\n                    "),
+              _c("input", {
+                attrs: {
+                  id: "type-dollar",
+                  name: "type",
+                  type: "radio",
+                  value: "dollar"
+                }
+              }),
+              _vm._v("Dollar\n                    "),
+              _c("input", {
+                attrs: {
+                  id: "type-euro",
+                  name: "type",
+                  type: "radio",
+                  value: "euro"
+                }
+              }),
+              _vm._v("Euro\n                    "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.price,
+                    expression: "price"
+                  }
+                ],
+                attrs: {
+                  id: "price",
+                  name: "price",
+                  placeholder: "price",
+                  type: "number"
+                },
+                domProps: { value: _vm.price },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.price = $event.target.value
+                  }
+                }
+              }),
+              _vm._v("$\n                    "),
+              _c("p", { attrs: { id: "fee" } }, [
+                _vm._v(" " + _vm._s(_vm.getFeePrice()) + " ")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { id: "submit", name: "submit", type: "submit" }
+              })
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-18a899d8", module.exports)
+  }
+}
+
+/***/ }),
+/* 63 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

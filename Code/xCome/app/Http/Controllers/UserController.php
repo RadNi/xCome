@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\x_exam_transaction;
+use App\x_pay_transaction;
 use App\x_transaction;
 use App\x_user;
 use App\x_wallet;
@@ -19,7 +20,13 @@ class UserController extends Controller
 {
 
     static protected $BOSS_USER_ID = 4;
-    static protected $COMPANY_WALLET_ADDRESS = 'AAAAAAAAAAAAAAAAAAAAAAAA';
+    static protected $COMPANY_WALLET_ADDRESS = [        //TODO      still wallet is not real !!
+        'rial' => 'AAAAAAAAAAAAAAAAAAAAAAAA',
+        'dollar' => 'AAAAAAAAAAAAAAAAAAAAAAAB',
+        'euro' => 'AAAAAAAAAAAAAAAAAAAAAAAC'
+    ];
+    static protected $APPLY_PAYMENT_FEE = 0.32;
+    static protected $INTERNAL_TRANSACTION = 0.2;
 
 
     protected $x_user;
@@ -29,9 +36,10 @@ class UserController extends Controller
     protected $x_transaction;
     protected $x_exam_transactions;
     protected $x_fee_transactions;
+    protected $x_pay_transactions;
 
 
-    function __construct(x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
+    function __construct( x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
@@ -41,6 +49,7 @@ class UserController extends Controller
         $this->x_transaction = $x_transaction;
         $this->x_exam_transactions = $x_exam_transaction;
         $this->x_fee_transactions = $x_fee_transactions;
+        $this->x_pay_transactions = $x_pay_transaction;
     }
 
     public function showForget() {
@@ -84,7 +93,7 @@ class UserController extends Controller
             $this->x_cookie->create([
                 'token' => $token,
                 'ip' => $request->ip(),
-                'exp_date' => date ("Y-m-d H:i:s", time()+60000),
+                'exp_date' => date ("Y-m-d H:i:s", time()+3600),
                 'user_id' => $user->id
                 ]);
 
@@ -172,6 +181,205 @@ class UserController extends Controller
         return view("extra.clerks-table", array('type' => $arr[0]));
     }
 
+    public function apply_payment(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'fee' => (string)UserController::$APPLY_PAYMENT_FEE
+        ];
+//        dd($data);
+
+        return view('new.apply-pay', [
+            'x_data' => json_encode($data)
+        ]);
+
+
+
+    }
+
+    public function internal_transaction(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'fee' => (string)UserController::$INTERNAL_TRANSACTION
+        ];
+//        dd($data);
+
+        return view('new.apply-pay', [
+            'x_data' => json_encode($data)
+        ]);
+
+    }
+
+    public function do_foreign_payment(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+//        dd($request);
+
+        $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
+
+        $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
+
+        if ($wallet->cash < $price)
+            return \response('not Enough money in your Wallet');        //TODO error page
+
+        $wallet->update(['cash' => (string)((integer)$wallet->cash - $price)]);
+
+
+
+        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+        $app_trans = $this->x_pay_transactions->create([
+            'transaction_id' => $trans->transaction_id,
+            'from' => $wallet->address,
+            'type' => $request->type,
+            'done' => false,
+            'clerk_id' => null,
+            'fee' => $request->price * UserController::$APPLY_PAYMENT_FEE,
+            'to' => $request->{'payee-id'}
+        ]);
+
+        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
+
+        return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
+//            dd($rial);
+//            dd($request->exam);
+
+
+    }
+
+
+    public function do_apply_payment(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+//        dd($request);
+
+        $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
+
+        $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
+
+        if ($wallet->cash < $price)
+            return \response('not Enough money in your Wallet');        //TODO error page
+
+        $wallet->update(['cash' => (string)((integer)$wallet->cash - $price)]);
+
+
+
+        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+        $app_trans = $this->x_pay_transactions->create([
+            'transaction_id' => $trans->transaction_id,
+            'from' => $wallet->address,
+            'type' => $request->type,
+            'done' => false,
+            'clerk_id' => null,
+            'fee' => $request->price * UserController::$APPLY_PAYMENT_FEE,
+            'to' => $request->{'payee-id'}
+        ]);
+
+        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
+
+        return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
+//            dd($rial);
+//            dd($request->exam);
+
+
+    }
+
+    public function foreign_payment(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'fee' => (string)UserController::$APPLY_PAYMENT_FEE
+        ];
+//        dd($data);
+
+        return view('new.apply-pay', [
+            'x_data' => json_encode($data)
+        ]);
+
+
+
+    }
+
+    public function do_internal_transaction(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+//        dd($request);
+
+        $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
+
+        $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
+
+        if ($wallet->cash < $price)
+            return \response('not Enough money in your Wallet');        //TODO error page
+
+        $wallet->update(['cash' => (string)((integer)$wallet->cash - $price)]);
+
+
+
+        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+        $app_trans = $this->x_pay_transactions->create([
+            'transaction_id' => $trans->transaction_id,
+            'from' => $wallet->address,
+            'type' => $request->type,
+            'done' => false,
+            'clerk_id' => null,
+            'fee' => $request->price * UserController::$APPLY_PAYMENT_FEE,
+            'to' => $request->{'payee-id'}
+        ]);
+
+        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
+
+        return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
+//            dd($rial);
+//            dd($request->exam);
+
+
+    }
+
     private function fill_wp_items($type) {
         $wp_items=[];
         switch ($type) {
@@ -190,17 +398,17 @@ class UserController extends Controller
                     ],
                     [
                         'id' => 'apply-pay',
-                        'link' => '#',
+                        'link' => route('profile.apply-pay'),
                         'text' => 'Application Payment'
                     ],
                     [
                         'id' => 'foreign-pay',
-                        'link' => '#',
+                        'link' => route('profile.foreign-pay'),
                         'text' => 'Foreign Payment'
                     ],
                     [
                         'id' => 'retr-mon',
-                        'link' => '#',
+                        'link' => route('profile.ret-mon'),
                         'text' => 'Retrieve Money'
                     ],
                     [
@@ -341,7 +549,7 @@ class UserController extends Controller
                 'fee' => $exam->fee,
                 'type' => $exam->name,
                 'from' => $rial->address,
-                'to' => UserController::$COMPANY_WALLET_ADDRESS,
+                'to' => UserController::$COMPANY_WALLET_ADDRESS->{$exam->name},
                 'done' => false,
                 'clerk_id' => null,
             ]);
