@@ -114,6 +114,15 @@ class UserController extends Controller
         $data['type'] = 'manager';
         $boss = $this->x_user->create($data)->getKey();
         $this->makeWallets($boss);
+        foreach (UserController::$COMPANY_WALLET_ADDRESS as $k => $v) {
+            $this->x_wallet->create([
+                'user_id' => $boss,
+                'address' => $v,
+                'type' => $k,
+                'primary_cash' => '0',
+                'cash' => '0'
+        ]);
+        }
     }
 
     public function checkRegister(Request $request) {
@@ -136,8 +145,8 @@ class UserController extends Controller
 //        $this->makeBoss($data);
 
         $user = $this->x_user->create($data)->getKey();
-
-
+//
+//
         $this->makeWallets($user);
 
 
@@ -154,6 +163,7 @@ class UserController extends Controller
             $wallet->user_id = $user;
             $wallet->address = str_random(24);
             $wallet->cash = '0';
+            $wallet->primary_cash = '0';
             $wallet->type = $t;
             $wallet->save();
         }
@@ -242,10 +252,10 @@ class UserController extends Controller
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if ($wallet->cash < $price)
+        if ($wallet->primary_cash < $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
-        $wallet->update(['cash' => (string)((integer)$wallet->cash - $price)]);
+        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
 
 
 
@@ -285,10 +295,10 @@ class UserController extends Controller
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if ($wallet->cash < $price)
+        if ($wallet->primary_cash < $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
-        $wallet->update(['cash' => (string)((integer)$wallet->cash - $price)]);
+        $wallet->update(['cash' => (string)((integer)$wallet->primary_cash - $price)]);
 
 
 
@@ -352,10 +362,10 @@ class UserController extends Controller
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if ($wallet->cash < $price)
+        if ($wallet->primary_cash < $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
-        $wallet->update(['cash' => (string)((integer)$wallet->cash - $price)]);
+        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
 
 
 
@@ -535,28 +545,32 @@ class UserController extends Controller
 //            dd(sizeof($exam));
             $rial = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', 'rial')->first();
 
-            if ((integer)$exam->price + (integer)$exam->fee > $rial->cash)
+            if ((integer)$exam->price + (integer)$exam->fee > (integer)$rial->primary_cash)
                 return \response('not enough money for this exam. Please charge your Rial wallet'); // TODO for this kind of errors we should make a page
 //                dd('not enough mouney !'. $exam->price. ' '. $rial->cash. ' '. $rial->user_id);
 //            dd($rial);
             $rial->update([
-                'cash' => (string)((integer)$rial->cash - (integer)$exam->price - (integer)$exam->fee)
+                'primary_cash' => (string)((integer)$rial->primary_cash - (integer)$exam->price - (integer)$exam->fee)
             ]);
 
+//            dd($rial);
+
             $trans = $this->newTransaction($exam->price, date ("Y-m-d H:i:s", time()), [$user->id]);
+//            dd(UserController::$COMPANY_WALLET_ADDRESS);
+//            dd(strtolower($exam->name));
             $new_trans=$this->x_exam_transactions->create([
                 'transaction_id' => $trans->transaction_id,
                 'fee' => $exam->fee,
                 'type' => $exam->name,
                 'from' => $rial->address,
-                'to' => UserController::$COMPANY_WALLET_ADDRESS->{$exam->name},
+                'to' => UserController::$COMPANY_WALLET_ADDRESS['rial'],
                 'done' => false,
                 'clerk_id' => null,
             ]);
 
             $this->feePayment($exam->fee, $user);
 
-            return \response('Exam bought successfully');     //TODO or this kind of succeed we should make a page
+            return \response('Exam bought successfully');     //TODO for this kind of succeed we should make a page
 //            dd($rial);
 //            dd($request->exam);
         }
@@ -602,17 +616,20 @@ class UserController extends Controller
         $sending_data = array();
         switch ($user->type) {
             case "user":
-                $wallets = $this->x_wallet->select(['type', 'cash', 'address'])
+                $wallets = $this->x_wallet->select(['type', 'primary_cash', 'address'])
                     ->where('user_id', '=', $id)->get();
+//                dd($wallets);
                 foreach ($wallets as $wallet) {
+//                    dd($wallet->getAttributeValue('address'));
                     array_push($sending_data,
                         [
                             'name' => (string)$wallet->type,            //TODO      should add address and other information
-                            'amount' => (string)$wallet->cash,
-                            'address' => $wallet->address
+                            'amount' => (string)$wallet->primary_cash,
+                            'address' => $wallet->getAttributes()['address']
                         ]);
 //                            array((string)$wallet->type => (string)$wallet->cash));
                 }
+//                dd($sending_data);
 //                    dd(array('data' => json_encode($sending_data)));
 //                    dd($sending_data);
 //                    $sending_data = array_add($sending_data, {'type':'user'});

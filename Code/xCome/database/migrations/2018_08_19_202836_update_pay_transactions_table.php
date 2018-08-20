@@ -25,7 +25,7 @@ class UpdatePayTransactionsTable extends Migration
             $table->string('from', 25);
             $table->string('to', 25);
             $table->boolean('done');
-            $table->unsignedInteger('clerk_id');
+            $table->unsignedInteger('clerk_id')->nullable();
             $table->foreign('clerk_id')->references('id')->on('x_users');
             $table->timestamps();
         });

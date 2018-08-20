@@ -1151,7 +1151,8 @@ if (token) {
   window.customURLs = {
     'buyExam': 'http://localhost:8888/profile/buy-exam',
     'applyPayURL': 'http://localhost:8888/profile/do-apply-pay',
-    'foreignPayURL': 'http://localhost:8888/profile/do-foreign-pay'
+    'foreignPayURL': 'http://localhost:8888/profile/do-foreign-pay',
+    'internalTransURL': 'http://localhost:8888/profile/do-int-trans'
   };
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -43634,6 +43635,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //            alert(this.x_data);
         this.type = this.x_data.type;
         this.wallets = this.x_data.wallets;
+        //            window.axios.post('http://localhost:8888/profile', {
+        //                headers: {
+        //                    Cookie: document.cookie
+        //                }
+        //            }).then(respond => {
+        //                console.log(respond);
+        //            })
         //            console.log(this.wallets)
         //            for(let w of this.wallets){
         //                console.log(w)
@@ -43641,12 +43649,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        showWalletInfo: function showWalletInfo(walletName, walletAddress, currencyAmount, wallet) {
-            //                walletInfo.getElementsByClassName('address')[0].innerHTML ="wallet address " +walletAddress;
-            //                walletInfo.getElementsByClassName('currency-amount')[0].innerHTML ="your amount " +currencyAmount;
-            //                walletInfo.getElementsByClassName('address')[0].innerHTML ="wallet address " +walletAddress;
-            //                walletInfo.getElementsByClassName('fee')[0].innerHTML = "fee is "+ fee;
-            //                walletInfo.getElementsByClassName('fee')[1].innerHTML = "fee is "+ fee;
+        showWalletInfo: function showWalletInfo(wallet) {
+
+            console.log(this.selected_wallet);
             this.selected_wallet = wallet;
             walletInfo.hidden = false;
         }
@@ -43679,12 +43684,7 @@ var render = function() {
                     {
                       on: {
                         click: function($event) {
-                          _vm.showWalletInfo(
-                            wallet.name,
-                            wallet.address,
-                            wallet.amount,
-                            wallet
-                          )
+                          _vm.showWalletInfo(wallet)
                         }
                       }
                     },
