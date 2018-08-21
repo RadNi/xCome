@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\x_exam_transaction;
+use App\x_exchange_transaction;
 use App\x_pay_transaction;
 use App\x_transaction;
 use App\x_user;
@@ -12,6 +13,7 @@ use App\x_exam;
 use App\x_fee_transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cookie;
 use function MongoDB\BSON\toJSON;
 use PhpParser\Node\Expr\List_;
 use function Sodium\add;
@@ -25,6 +27,17 @@ class UserController extends Controller
         'dollar' => 'AAAAAAAAAAAAAAAAAAAAAAAB',
         'euro' => 'AAAAAAAAAAAAAAAAAAAAAAAC'
     ];
+
+    static protected $EXCHANGE_BUY = [
+        'dollar' => 10.800,
+        'euro' => 13.320,
+    ];
+    static protected $EXCHANGE_SELL = [
+        'dollar' => 11,
+        'euro' => 14.123,
+    ];
+
+
     static protected $APPLY_PAYMENT_FEE = 0.32;
     static protected $INTERNAL_TRANSACTION = 0.2;
 
@@ -37,9 +50,10 @@ class UserController extends Controller
     protected $x_exam_transactions;
     protected $x_fee_transactions;
     protected $x_pay_transactions;
+    protected $x_exchange_transactions;
 
 
-    function __construct( x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
+    function __construct(x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
@@ -50,6 +64,7 @@ class UserController extends Controller
         $this->x_exam_transactions = $x_exam_transaction;
         $this->x_fee_transactions = $x_fee_transactions;
         $this->x_pay_transactions = $x_pay_transaction;
+        $this->x_exchange_transactions = $x_exchange_transaction;
     }
 
     public function showForget() {
@@ -71,6 +86,27 @@ class UserController extends Controller
     public function showLogin() {
 
         return view("extra.login", array('check' => false));
+    }
+
+    public function logout(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $this->x_cookie->where('token', '=', $request->cookie('x_user_cookie'))->delete();
+
+        return \response('You\'ve logout successfully');
+//        return $request->cookie('x_user_cookie');
+//        \Symfony\Component\HttpFoundation\Cookie::forget($request->cookie('x_user_cookie'));
+//        Cookie::forget($request->cookie('x_user_cookie'));
+
+//        return redirect('login')->withCookie()
+
+//        $request->cookie('x_user_cookie')->;
+
     }
 
     public function checkLogin(Request $request) {
@@ -169,16 +205,6 @@ class UserController extends Controller
         }
     }
 
-    public function info(Request $request) {
-        $arr = explode("/", $request->path());
-        return view($arr[0].".user-info", array('type' => $arr[0]));
-    }
-
-    public function transactions(Request $request) {
-        $arr = explode("/", $request->path());
-        return view($arr[0].".transaction-history", array('type' => $arr[0]));
-    }
-
     public function getUsersTable(Request $request) {
         $arr = explode("/", $request->path());
 
@@ -190,6 +216,350 @@ class UserController extends Controller
 
         return view("extra.clerks-table", array('type' => $arr[0]));
     }
+
+
+    private function get_user_transactions_from_table($table_name, $user, $all_transactions) {
+        $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
+
+
+        $transactions = $t_user->x_transactions;
+
+
+        $trans_id = [];
+
+        foreach ($transactions as $trans) {
+            array_push($trans_id, $trans->transaction_id);
+        }
+
+        $trans_id = $this->x_pay_transactions->whereIn("transaction_id", $trans_id)->get();
+
+        $trans_id = $this->x_transaction->join($table_name, $table_name.'.transaction_id', '=', 'x_transactions.transaction_id')->get();
+
+        foreach ($trans_id as $item) {
+            $item->trans_type = $table_name;
+        }
+
+
+        $pay_transactions = $trans_id;
+
+        foreach ($pay_transactions as $item) {
+            array_push($all_transactions, $item);
+        }
+
+        return $all_transactions;
+
+    }
+
+
+    public function buy_currency(Request $request) {
+
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $rial_amount = UserController::$EXCHANGE_BUY[$request->wallet_name] * (int)$request->amount;
+
+        $requested_wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', $request->wallet_name)->first();
+
+        $user_rial_wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', 'rial')->first();
+
+        $boss = $this->x_user->where('type', '=', 'manager')->first();
+
+        $boss_wallet = $this->x_wallet->where('user_id', '=', $boss->getKey())->where('type', '=', $request->wallet_name)->first();
+
+        $boss_rial_wallet = $this->x_wallet->where('user_id', '=', $boss->getKey())->where('type', '=', 'rial')->first();
+
+
+        if ($boss_wallet->primary_cash < $request->amount){
+            return \response('not enough currency in boss requested wallet');
+        }
+
+
+        if ($user_rial_wallet->primary_cash < $rial_amount){
+            return \response('not enough money in your rial wallet');
+        }
+
+        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$user->getKey(), $boss->getKey()]);
+
+
+        $this->x_pay_transactions->create([
+            'transaction_id' => $trans->getKey(),
+            'fee' => 0,
+            'type' => $request->wallet_name,
+            'from' => $boss_wallet->getKey(),
+            'to' => $requested_wallet->getKey(),
+            'done' => true,
+            'clerk_id' => null,
+        ]);
+
+        $boss_wallet->update([
+            'primary_cash' => $boss_wallet->primary_cash - $request->amount,
+            'cash' => $boss_wallet->cash - $request->amount,
+        ]);
+
+
+
+        $requested_wallet->update([
+            'primary_cash' => $requested_wallet->primary_cash + $request->amount,
+            'cash' => $requested_wallet->cash + $request->amount,
+        ]);
+
+        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$boss->getKey(), $user->getKey()]);
+
+
+        $this->x_pay_transactions->create([
+            'transaction_id' => $trans->getKey(),
+            'fee' => 0,
+            'type' => 'rial',
+            'to' => $boss_rial_wallet->getKey(),
+            'from' => $user_rial_wallet->getKey(),
+            'done' => true,
+            'clerk_id' => null,
+        ]);
+
+        $boss_rial_wallet->update([
+            'primary_cash' => $boss_rial_wallet->primary_cash + $rial_amount,
+            'cash' => $boss_rial_wallet->cash + $rial_amount,
+        ]);
+
+        $user_rial_wallet->update([
+            'primary_cash' => $user_rial_wallet->primary_cash - $rial_amount,
+            'cash' => $user_rial_wallet->cash - $rial_amount,
+        ]);
+
+        return \response($boss->getKey());
+
+
+//        if ()
+
+
+
+
+//        return \response($boss_wallet->primary_cash);
+
+    }
+
+
+
+    public function sell_currency(Request $request) {
+
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $rial_amount = UserController::$EXCHANGE_SELL[$request->wallet_name] * (int)$request->amount;
+
+        $requested_wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', $request->wallet_name)->first();
+
+        $user_rial_wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', 'rial')->first();
+
+        if ($requested_wallet->primary_cash < $request->amount){
+            return \response('not enough money in your requested wallet');
+        }
+
+        $boss = $this->x_user->where('type', '=', 'manager')->first();
+
+        $boss_wallet = $this->x_wallet->where('user_id', '=', $boss->getKey())->where('type', '=', $request->wallet_name)->first();
+
+        $boss_rial_wallet = $this->x_wallet->where('user_id', '=', $boss->getKey())->where('type', '=', 'rial')->first();
+
+        if ($boss_rial_wallet->primary_cash < $rial_amount){
+            return \response('not enough money in boss rial wallet');
+        }
+
+        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$user->getKey(), $boss->getKey()]);
+
+
+        $this->x_pay_transactions->create([
+            'transaction_id' => $trans->getKey(),
+            'fee' => 0,
+            'type' => $request->wallet_name,
+            'from' => $requested_wallet->getKey(),
+            'to' => $boss_wallet->getKey(),
+            'done' => true,
+            'clerk_id' => null,
+        ]);
+
+        $boss_wallet->update([
+            'primary_cash' => $boss_wallet->primary_cash + $request->amount,
+            'cash' => $boss_wallet->cash + $request->amount,
+        ]);
+
+
+
+        $requested_wallet->update([
+            'primary_cash' => $requested_wallet->primary_cash - $request->amount,
+            'cash' => $requested_wallet->cash - $request->amount,
+        ]);
+
+        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$boss->getKey(), $user->getKey()]);
+
+
+        $this->x_pay_transactions->create([
+            'transaction_id' => $trans->getKey(),
+            'fee' => 0,
+            'type' => 'rial',
+            'to' => $user_rial_wallet->getKey(),
+            'from' => $boss_rial_wallet->getKey(),
+            'done' => true,
+            'clerk_id' => null,
+        ]);
+
+        $boss_rial_wallet->update([
+            'primary_cash' => $boss_rial_wallet->primary_cash - $rial_amount,
+            'cash' => $boss_rial_wallet->cash - $rial_amount,
+        ]);
+
+        $user_rial_wallet->update([
+            'primary_cash' => $user_rial_wallet->primary_cash + $rial_amount,
+            'cash' => $user_rial_wallet->cash + $rial_amount,
+        ]);
+
+        return \response($boss->getKey());
+
+
+//        if ()
+
+
+
+
+        return \response($boss_wallet->primary_cash);
+
+    }
+
+
+    public function transactions(Request $request) {
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+//        $transactions = $user->with();
+
+
+
+//        $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
+//
+//
+//        $transactions = $t_user->x_transactions;
+//
+//
+//        $trans_id = [];
+//
+//        foreach ($transactions as $trans) {
+//            array_push($trans_id, $trans->transaction_id);
+//        }
+//
+//        $trans_id = $this->x_pay_transactions->whereIn("transaction_id", $trans_id)->get();
+//
+//        $trans_id = $this->x_transaction->join('x_pay_transactions', 'x_pay_transactions.transaction_id', '=', 'x_transactions.transaction_id')->get();
+//
+//        foreach ($trans_id as $item) {
+//            $item->trans_type = 'Pay Transaction';
+//        }
+//
+//        $all_transactions = [];
+//
+//        $pay_transactions = $trans_id;
+//
+//        foreach ($pay_transactions as $item) {
+//            array_push($all_transactions, $item);
+//        }
+
+
+        $all_transactions = [];
+
+
+        $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', $user, $all_transactions);
+        $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', $user, $all_transactions);
+        $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', $user, $all_transactions);
+
+        $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', $user, $all_transactions);
+        $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', $user, $all_transactions);
+        $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', $user, $all_transactions);
+
+
+
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'transactions' => $all_transactions
+//            'fee' => (string)UserController::$APPLY_PAYMENT_FEE
+        ];
+
+        return view('new.transaction-history', ['x_data' => json_encode($data)]);
+    }
+
+    public function charge_credit(Request $request) {
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', 'rial')->first();
+
+        $wallet->update([
+            'cash' => (integer)$wallet->cash + (integer)$request->getContent()
+        ]);
+
+        $wallet->update([
+            'primary_cash' => (integer)$wallet->primary_cash + (integer)$request->getContent()
+        ]);
+
+
+//        return \response($wallet->cash);
+        return \response((integer)$request->getContent());
+
+    }
+
+    public function info(Request $request) {
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'info' => [
+                'national_id' => $user->national_id,
+                'name' => $user->name,
+                'family_name' => $user->family_name
+                ]
+//            'fee' => (string)UserController::$APPLY_PAYMENT_FEE
+        ];
+//        dd($data);
+
+        return view('new.user-info', [
+            'x_data' => json_encode($data)
+        ]);
+
+
+    }
+
 
     public function apply_payment(Request $request) {
         $user = $this->getUser($request);
@@ -207,6 +577,7 @@ class UserController extends Controller
             'fee' => (string)UserController::$APPLY_PAYMENT_FEE
         ];
 //        dd($data);
+
 
         return view('new.apply-pay', [
             'x_data' => json_encode($data)
@@ -418,6 +789,93 @@ class UserController extends Controller
 
     }
 
+    public function register_new_user(Request $request) {
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $data = $request -> except(["wallet_type", "wallet_address", "repass"]);
+
+
+//        $data['family_name'] = $data['familyName'];
+//        unset($data['familyName']);
+//        $data['phonenumber'] = $data['CellPhone'];
+//        unset($data['CellPhone']);
+//        $data['national_id'] = $data['PersonID'];
+//        unset($data['PersonID']);
+//        dd($data);
+        $data['password'] = md5($data['password']);
+        $data['type'] = 'user';
+
+
+//        dd($data);
+
+//        $this->makeBoss($data);
+
+        $user = $this->x_user->create($data)->getKey();
+//
+//
+//        $this->makeWallets($user);
+
+        $arr = ['dollar', 'euro', 'rial'];
+        unset($arr[$request->wallet_type]);
+        foreach ( $arr as $t) {
+            $wallet = new x_wallet();
+            $wallet->user_id = $user;
+            $wallet->address = str_random(24);
+            $wallet->cash = '0';
+            $wallet->primary_cash = '0';
+            $wallet->type = $t;
+            $wallet->save();
+        }
+
+        $wallet = new x_wallet();
+        $wallet->user_id = $user;
+        $wallet->address = $request->wallet_address;
+        $wallet->cash = '0';
+        $wallet->primary_cash = '0';
+        $wallet->type = $request->wallet_type;
+        $wallet->save();
+
+
+        return \response($user);
+
+    }
+
+    public function change_information(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        //      TODO            handle report SMS Telegram Email
+
+
+        $data = $request->getContent();
+
+//        unset($data['repass']);
+//        unset($data['avatar']);
+//        unset($data['repass']);
+
+//        unset($request)
+//
+        $user->update([
+            'password' => md5($request->password),
+            'email' => $request->email,
+            'phonenumber' => $request->phonenumber
+        ]);
+
+        return \response($data);
+
+    }
+
     private function fill_wp_items($type) {
         $wp_items=[];
         switch ($type) {
@@ -476,13 +934,18 @@ class UserController extends Controller
                     ],
                     [
                         "id" => "userinfo",
-                        "link" => "#",
+                        "link" => route("info"),
                         "text" => "User Information"
                     ],
                     [
                         "id" => "transactions",
-                        "link" => "#",
+                        "link" => route('transactions'),
                         "text" => "Transactions History"
+                    ],
+                    [
+                        "id" => "logout",
+                        "link" => route('profile.logout'),
+                        "text" => "Logout"
                     ]
                 ];
         }
@@ -538,6 +1001,7 @@ class UserController extends Controller
         return $new_fee_trans;
 
     }
+
 
 
     private function newTransaction($value, $time, array $userID) {

@@ -126,6 +126,16 @@ Route::prefix('profile') -> group(function () {
         "as" => "profile"
     ]);
 
+    Route::any('change-info', [
+        "uses" => "UserController@change_information",
+        "as" => "profile.change-info"
+    ]);
+
+    Route::any('register-new-user', [
+       "uses" => "UserController@register_new_user",
+       "as" => "profile.reg-new-user"
+    ]);
+
     Route::any('exam-reg', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@exam_reg",
@@ -141,6 +151,30 @@ Route::prefix('profile') -> group(function () {
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@apply_payment",
         "as" => "profile.apply-pay"
+    ]);
+
+    Route::any('charge-credit', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@charge_credit",
+        "as" => "profile.charge-credit"
+    ]);
+
+    Route::any('sell-currency', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@sell_currency",
+        "as" => "profile.sell_currency"
+    ]);
+
+    Route::any('logout', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@logout",
+        "as" => "profile.logout"
+    ]);
+
+    Route::any('buy-currency', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@buy_currency",
+        "as" => "profile.buy_currency"
     ]);
 
     Route::any('do-apply-pay', [

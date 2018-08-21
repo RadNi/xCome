@@ -41,13 +41,13 @@
                     <div id="walletInfo" hidden>
                         <p class="address"> wallet address: {{ selected_wallet.address }}</p>
                         <p class="currency-amount">your amount: {{ selected_wallet.amount }}</p>
-                        <input class="buy-currency" placeholder="buy amount">
+                        <input class="buy-currency" placeholder="buy amount" v-model="buy_amount">
                         <p class="fee"></p>
-                        <input type="submit" value="Buy">
+                        <input type="submit" value="Buy" v-on:click="buy_currency(buy_amount, selected_wallet.name)">
                         <br>
-                        <input class="sell-currency" placeholder="sell amount">
-                        <p class="fee"></p>
-                        <input type="submit" value="Sell">
+                        <input class="sell-currency" placeholder="sell amount" v-model="sell_amount">
+                        <!--<p class="fee"></p>-->
+                        <input type="submit" value="Sell" v-on:click="sell_currency(sell_amount, selected_wallet.name)">
                     </div>
                 </div>
             </div>
@@ -66,10 +66,13 @@
             return {
                 selected_wallet: {
                     address: '',
-                    amount: 0
+                    amount: 0,
+                    name: ''
                 },
                 wallets: [],
-                type: ''
+                type: '',
+                sell_amount: 0,
+                buy_amount: 0
             }
         },
         mounted() {
@@ -93,6 +96,47 @@
 
         },
         methods: {
+
+
+            sell_currency(amount, wallet_name) {
+                window.axios.post('http://localhost:8888/profile/sell-currency', {
+                    'amount': amount,
+                    'wallet_name': wallet_name
+                }, {
+                    Cookie: document.cookie,
+                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+                }).then(respond => {
+
+                    console.log(respond);
+                    console.log(respond.data)
+//                  console.log(JSON.parse(respond));
+
+                }).catch(e => {
+                    console.log(e)
+                })
+            },
+
+            buy_currency(amount, wallet_name) {
+                window.axios.post('http://localhost:8888/profile/buy-currency', {
+                    'amount': amount,
+                    'wallet_name': wallet_name
+                }, {
+                    Cookie: document.cookie,
+                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+                }).then(respond => {
+
+                    console.log(respond);
+                    console.log(respond.data)
+//                  console.log(JSON.parse(respond));
+
+                }).catch(e => {
+                    console.log(e)
+                })
+            },
+
+
             showWalletInfo(wallet) {
 
 //                console.log(this.selected_wallet)
