@@ -232,7 +232,7 @@ class UserController extends Controller
         ];
 //        dd($data);
 
-        return view('new.apply-pay', [
+        return view('new.int-trans', [
             'x_data' => json_encode($data)
         ]);
 
@@ -248,7 +248,10 @@ class UserController extends Controller
 
 //        dd($request);
 
+
         $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
+
+//        return $wallet->address;
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
@@ -358,31 +361,56 @@ class UserController extends Controller
 
 //        dd($request);
 
+//        return (integer)$request->price;
+
         $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
+
+//        return $wallet->getKey();
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
         if ($wallet->primary_cash < $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
-        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
+
+        $payee_wallet = $this->x_wallet->where('address', '=', $request->address)->where('type', '=', $request->type)->first();
+
+        if (sizeof($payee_wallet) == 0) {
+            return \response()->json([
+                'user' => false
+            ]);
+        }
+
+        $payee_wallet->update(['primary_cash' => (string)($request->price + (integer)$payee_wallet->primary_cash)]);
 
 
+        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash) - $request->price*(1+UserController::$INTERNAL_TRANSACTION)]);
 
-        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
 
-        $app_trans = $this->x_pay_transactions->create([
+//
+//        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
+//
+//
+//
+        $trans = $this->newTransaction($request->price, date ("Y-m-d H:i:s", time()), [$user->id, $payee_wallet->user_id]);
+//      TODO  we have a problem here        both users are added to fee transaction !
+
+//        return $trans;
+
+//        return $wallet->getOriginal('address');
+
+        $int_trans = $this->x_pay_transactions->create([
             'transaction_id' => $trans->transaction_id,
-            'from' => $wallet->address,
+            'from' => $wallet->getOriginal('address'),
             'type' => $request->type,
             'done' => false,
             'clerk_id' => null,
-            'fee' => $request->price * UserController::$APPLY_PAYMENT_FEE,
-            'to' => $request->{'payee-id'}
+            'fee' => $request->price * UserController::$INTERNAL_TRANSACTION,
+            'to' => $payee_wallet->getOriginal('address')
         ]);
-
-        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
-
+//
+        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user);
+//
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
 //            dd($request->exam);
@@ -423,7 +451,7 @@ class UserController extends Controller
                     ],
                     [
                         'id' => 'int-pay',
-                        'link' => '#',
+                        'link' => route('profile.int-trans'),
                         'text' => 'Internal Transaction'
                     ],
                     [
@@ -518,6 +546,7 @@ class UserController extends Controller
             'calender' => $time
         ]);
 //        dd($trans);
+//        dd($trans->transaction_id);
         $temp = x_transaction::findOrFail($trans->transaction_id);
 //        dd($temp);
 //        dd(typeOf($temp));

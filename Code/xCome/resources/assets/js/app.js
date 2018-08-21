@@ -23,6 +23,7 @@ Vue.component('navbar', require('./components/Navbar.vue'));
 Vue.component('apply_payment', require('./components/Apply_Payment.vue'));
 Vue.component('exam_reg', require('./components/Exam_Registeration.vue'));
 Vue.component('foreign_reg', require('./components/Foreign_Payment.vue'));
+Vue.component('internal_transaction', require('./components/Internal_Transaction.vue'))
 
 const app = new Vue({
     el: '#app'
