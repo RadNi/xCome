@@ -20,7 +20,9 @@ Vue.component('login', require('./components/Login.vue'));
 Vue.component('wallets', require('./components/Wallets.vue'));
 Vue.component('scroll_left', require('./components/Scroll_left.vue'));
 Vue.component('navbar', require('./components/Navbar.vue'));
+Vue.component('apply_payment', require('./components/Apply_Payment.vue'));
 Vue.component('exam_reg', require('./components/Exam_Registeration.vue'));
+Vue.component('foreign_reg', require('./components/Foreign_Payment.vue'));
 
 const app = new Vue({
     el: '#app'

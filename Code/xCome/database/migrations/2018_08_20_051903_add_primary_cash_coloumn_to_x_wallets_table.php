@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateClerkIdToNullableOnXExamTransactionsTable extends Migration
+class AddPrimaryCashColoumnToXWalletsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class UpdateClerkIdToNullableOnXExamTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('x_exam_transactions', function (Blueprint $table) {
-            $table->unsignedInteger('clerk_id')->nullable()->change();
+
+        Schema::table('x_wallets', function (Blueprint $table) {
+           $table->string('primary_cash', '25')->default('0');
         });
     }
 
@@ -25,8 +26,8 @@ class UpdateClerkIdToNullableOnXExamTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('x_exam_transactions', function (Blueprint $table) {
-            $table->unsignedInteger('clerk_id')->nullable();
+        Schema::table('x_wallets', function (Blueprint $table) {
+            $table->dropColumn(['primary_cash']);
         });
     }
 }

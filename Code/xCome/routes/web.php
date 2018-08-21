@@ -139,25 +139,37 @@ Route::prefix('profile') -> group(function () {
 
     Route::any('apply-pay', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
+        "uses" => "UserController@apply_payment",
         "as" => "profile.apply-pay"
     ]);
 
-    Route::any('for-pay', [
+    Route::any('do-apply-pay', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
-        "as" => "profile.for-pay"
+        "uses" => "UserController@do_apply_payment",
+        "as" => "profile.do-apply-pay"
+    ]);
+
+    Route::any('do-int-trans', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@do_internal_transaction",
+        "as" => "profile.do-int-trans"
+    ]);
+
+    Route::any('foreign-pay', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@foreign_payment",
+        "as" => "profile.foreign-pay"
     ]);
 
     Route::any('ret-mon', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
+        "uses" => "UserController@foreign_payment",
         "as" => "profile.ret-mon"
     ]);
 
     Route::any('int-trans', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
-        "uses" => "UserController@profile",
+        "uses" => "UserController@internal_transaction",
         "as" => "profile.int-trans"
     ]);
 

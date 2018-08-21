@@ -5,7 +5,7 @@
                 <div id="wp-wallets">
                     <table id="wallets-table" cellpadding="10px" border="1px">
                         <tbody>
-                        <tr v-for="wallet in this.wallets"  v-on:click="showWalletInfo(wallet.name, wallet.address, wallet.amount, wallet)">
+                        <tr v-for="wallet in this.wallets"  v-on:click="showWalletInfo(wallet)">
                             <td class="wallet-name">
                                 wallet name is :
                                 {{ wallet.name }}
@@ -79,6 +79,13 @@
 //            alert(this.x_data);
             this.type = this.x_data.type;
             this.wallets = this.x_data.wallets;
+//            window.axios.post('http://localhost:8888/profile', {
+//                headers: {
+//                    Cookie: document.cookie
+//                }
+//            }).then(respond => {
+//                console.log(respond);
+//            })
 //            console.log(this.wallets)
 //            for(let w of this.wallets){
 //                console.log(w)
@@ -86,12 +93,9 @@
 
         },
         methods: {
-            showWalletInfo(walletName, walletAddress, currencyAmount, wallet) {
-//                walletInfo.getElementsByClassName('address')[0].innerHTML ="wallet address " +walletAddress;
-//                walletInfo.getElementsByClassName('currency-amount')[0].innerHTML ="your amount " +currencyAmount;
-//                walletInfo.getElementsByClassName('address')[0].innerHTML ="wallet address " +walletAddress;
-//                walletInfo.getElementsByClassName('fee')[0].innerHTML = "fee is "+ fee;
-//                walletInfo.getElementsByClassName('fee')[1].innerHTML = "fee is "+ fee;
+            showWalletInfo(wallet) {
+
+//                console.log(this.selected_wallet)
                 this.selected_wallet = wallet;
                 walletInfo.hidden = false;
             }
