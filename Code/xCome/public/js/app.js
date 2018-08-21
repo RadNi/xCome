@@ -44491,6 +44491,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44500,9 +44516,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             exams: [],
             buyExamURL: '',
-            csrf: ''
+            csrf: '',
             //                hyperLinks: [],
-            //                type: ''
+            type: '',
+
+            new_exam: {
+                name: '',
+                date: '',
+                fee: '',
+                price: ''
+            }
+
         };
     },
     mounted: function mounted() {
@@ -44510,15 +44534,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.exams = this.x_data.exams;
         this.csrf = this.csrf_field;
         this.buyExamURL = window.customURLs.buyExam;
-        //            this.type = this.x_data.type;
+        this.type = this.x_data.type;
         //            this.hyperLinks = this.x_data.hyperLinks;
     },
 
     methods: {
-        //            changeLocation(link) {
-        //                console.log(`going to ${link}`);
-        //                location.href = link;
-        //            },
+        send_new_exam: function send_new_exam(new_exam) {
+            window.axios.post('http://localhost:8888/profile/add-new-exam', {
+                'new_exam': new_exam
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                console.log(respond);
+                console.log(respond.data);
+                //                  console.log(JSON.parse(respond));
+            }).catch(function (e) {
+                console.log(e);
+            });
+        }
     }
 });
 
@@ -44534,6 +44570,147 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
         _c("div", { attrs: { id: "wp-exam-reg" } }, [
+          _vm.type == "manager"
+            ? _c("div", { attrs: { id: "add-exam" } }, [
+                _c(
+                  "button",
+                  {
+                    attrs: {
+                      id: "addExam",
+                      onclick:
+                        "popupAddExam.hidden = false;addExam.hidden = true;"
+                    }
+                  },
+                  [_vm._v("Add new exam")]
+                ),
+                _vm._v(" "),
+                _c("div", { attrs: { id: "popupAddExam", hidden: "" } }, [
+                  _c("h4", [_vm._v("new Exam Informations")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.new_exam.name,
+                        expression: "new_exam.name"
+                      }
+                    ],
+                    attrs: {
+                      id: "exam-type",
+                      type: "name",
+                      name: "name",
+                      placeholder: "Name"
+                    },
+                    domProps: { value: _vm.new_exam.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.new_exam, "name", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.new_exam.price,
+                        expression: "new_exam.price"
+                      }
+                    ],
+                    attrs: {
+                      id: "exam-price",
+                      type: "number",
+                      name: "price",
+                      placeholder: "Price"
+                    },
+                    domProps: { value: _vm.new_exam.price },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.new_exam, "price", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.new_exam.fee,
+                        expression: "new_exam.fee"
+                      }
+                    ],
+                    attrs: {
+                      id: "exam-fee",
+                      type: "number",
+                      name: "fee",
+                      placeholder: "Fee"
+                    },
+                    domProps: { value: _vm.new_exam.fee },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.new_exam, "fee", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.new_exam.date,
+                        expression: "new_exam.date"
+                      }
+                    ],
+                    attrs: {
+                      id: "exam-date",
+                      type: "date",
+                      name: "date",
+                      placeholder: "Date"
+                    },
+                    domProps: { value: _vm.new_exam.date },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.new_exam, "date", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      attrs: { id: "add", "data-dismiss": "modal" },
+                      on: {
+                        click: function($event) {
+                          _vm.send_new_exam(_vm.new_exam)
+                        }
+                      }
+                    },
+                    [_vm._v("Add")]
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("form", { attrs: { method: "post", action: this.buyExamURL } }, [
             _c("input", {
               directives: [
