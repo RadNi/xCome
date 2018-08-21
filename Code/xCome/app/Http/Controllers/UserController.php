@@ -85,7 +85,7 @@ class UserController extends Controller
 
     public function showLogin() {
 
-        return view("extra.login", array('check' => false));
+        return view("new.login");
     }
 
     public function logout(Request $request) {
@@ -137,7 +137,10 @@ class UserController extends Controller
             return redirect('profile')->withCookie(cookie('x_user_cookie', $token, 60, null, null, false, false));
 //            return $response;
         }
-        return view("extra.login", array('check' => true));
+
+        return view("new.login");
+
+//        return view("extra.login", array('check' => true));
 
     }
 
@@ -879,13 +882,42 @@ class UserController extends Controller
     private function fill_wp_items($type) {
         $wp_items=[];
         switch ($type) {
+            case 'manager':
+                $wp_items = [
+                    [
+                        'id' => 'exam-reg',
+                        'link' => route('profile.exam-reg'),
+                        'text' => 'Exam Registration'
+                    ],
+                    [
+                        'id' => 'apply-pay',
+                        'link' => route('profile.apply-pay'),
+                        'text' => 'Application Payment'
+                    ],
+                    [
+                        'id' => 'foreign-pay',
+                        'link' => route('profile.foreign-pay'),
+                        'text' => 'Foreign Payment'
+                    ],
+                    [
+                        'id' => 'retr-mon',
+                        'link' => route('profile.ret-mon'),
+                        'text' => 'Retrieve Money'
+                    ],
+                    [
+                        'id' => 'int-pay',
+                        'link' => route('profile.int-trans'),
+                        'text' => 'Internal Transaction'
+                    ],
+                    [
+                        'id' => 'wallet',
+                        'link' => route('profile'),
+                        'text' => 'Wallets Page'
+                    ]
+                ];
+                break;
+
             case 'user':
-//                $item = [
-//                    'id' => 'exam-reg',
-//                    'link' => '#',
-//                    'text' => 'Exam Registration'
-//                ];
-//                array_push($wp_items, $item);
                 $wp_items = [
                     [
                         'id' => 'exam-reg',
@@ -925,6 +957,31 @@ class UserController extends Controller
     private function fill_hyperLinks($type) {
         $hyperLinks = [];
         switch ($type) {
+            case "manager":
+                $hyperLinks = [
+                    [
+                        "id" => "mainpage",
+                        "link" => route('profile'),
+                        "text" => "Main Page"
+                    ],
+                    [
+                        "id" => "userinfo",
+                        "link" => route("info"),
+                        "text" => "User Information"
+                    ],
+                    [
+                        "id" => "transactions",
+                        "link" => route('transactions'),
+                        "text" => "Transactions History"
+                    ],
+                    [
+                        "id" => "logout",
+                        "link" => route('profile.logout'),
+                        "text" => "Logout"
+                    ]
+                ];
+                break;
+
             case "user":
                 $hyperLinks = [
                     [
@@ -1002,7 +1059,18 @@ class UserController extends Controller
 
     }
 
+    public function add_new_exam(Request $request) {
 
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        return $request->new_exam;
+
+    }
 
     private function newTransaction($value, $time, array $userID) {
         $trans = $this->x_transaction->create([
@@ -1111,23 +1179,14 @@ class UserController extends Controller
             case "user":
                 $wallets = $this->x_wallet->select(['type', 'primary_cash', 'address'])
                     ->where('user_id', '=', $id)->get();
-//                dd($wallets);
                 foreach ($wallets as $wallet) {
-//                    dd($wallet->getAttributeValue('address'));
                     array_push($sending_data,
                         [
                             'name' => (string)$wallet->type,            //TODO      should add address and other information
                             'amount' => (string)$wallet->primary_cash,
                             'address' => $wallet->getAttributes()['address']
                         ]);
-//                            array((string)$wallet->type => (string)$wallet->cash));
                 }
-//                dd($sending_data);
-//                    dd(array('data' => json_encode($sending_data)));
-//                    dd($sending_data);
-//                    $sending_data = array_add($sending_data, {'type':'user'});
-//                    dd(json_encode($wallets));
-//                    $sending_data = array('wallets' => $sending_data);
                 $wp_items = $this->fill_wp_items($user->type);
                 $hyperLinks = $this->fill_hyperLinks($user->type);
 
@@ -1137,20 +1196,35 @@ class UserController extends Controller
                     'wp_items' => $wp_items,
                     'hyperLinks' => $hyperLinks
                 ];
-//                dd($sending_data);
-//                    array_push($sending_data, 'type' => 'user');
-//                    dd($sending_data);
-//                    dd(array('type' => 'user'));
                 $arr = array('x_data' => json_encode($sending_data));
-//                    $arr = array_add($arr, 'type', 'user');
-//                    dd($arr);
-//                    dd($arr);
                 return view('new.default', $arr);
                 break;
             case "clerk":
 
                 break;
-            case "boss":
+            case "manager":
+                $wallets = $this->x_wallet->select(['type', 'primary_cash', 'address'])
+                    ->where('user_id', '=', $id)->get();
+                foreach ($wallets as $wallet) {
+                    array_push($sending_data,
+                        [
+                            'name' => (string)$wallet->type,            //TODO      should add address and other information
+                            'amount' => (string)$wallet->primary_cash,
+                            'address' => $wallet->getAttributes()['address']
+                        ]);
+                }
+                $wp_items = $this->fill_wp_items($user->type);
+                $hyperLinks = $this->fill_hyperLinks($user->type);
+
+                $sending_data = [
+                    'wallets' => $sending_data,
+                    'type' => $user->type,
+                    'wp_items' => $wp_items,
+                    'hyperLinks' => $hyperLinks
+                ];
+                $arr = array('x_data' => json_encode($sending_data));
+                return view('new.default', $arr);
+                break;
 
                 break;
         }

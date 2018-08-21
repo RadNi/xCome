@@ -171,6 +171,12 @@ Route::prefix('profile') -> group(function () {
         "as" => "profile.logout"
     ]);
 
+    Route::any('add-new-exam', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@add_new_exam",
+        "as" => "profile.add_new_exam"
+    ]);
+
     Route::any('buy-currency', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@buy_currency",
