@@ -385,7 +385,7 @@ class UserController extends Controller
 
 
         $user = $this->getUser($request);
-//            dd($user->type);
+//            dd($user);
 
         if ($user == null){
             return \response("You need to login again", 401);
