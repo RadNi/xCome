@@ -278,12 +278,12 @@ class UserController extends Controller
         $boss_rial_wallet = $this->x_wallet->where('user_id', '=', $boss->getKey())->where('type', '=', 'rial')->first();
 
 
-        if ($boss_wallet->primary_cash < $request->amount){
+        if (min($boss_wallet->primary_cash, $boss_wallet->cash) < $request->amount){
             return \response('not enough currency in boss requested wallet');
         }
 
 
-        if ($user_rial_wallet->primary_cash < $rial_amount){
+        if (min($user_rial_wallet->primary_cash, $user_rial_wallet->cash) < $rial_amount){
             return \response('not enough money in your rial wallet');
         }
 
@@ -366,7 +366,7 @@ class UserController extends Controller
 
         $user_rial_wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', 'rial')->first();
 
-        if ($requested_wallet->primary_cash < $request->amount){
+        if (min($requested_wallet->cash, $requested_wallet->primary_cash) < $request->amount){
             return \response('not enough money in your requested wallet');
         }
 
@@ -376,7 +376,7 @@ class UserController extends Controller
 
         $boss_rial_wallet = $this->x_wallet->where('user_id', '=', $boss->getKey())->where('type', '=', 'rial')->first();
 
-        if ($boss_rial_wallet->primary_cash < $rial_amount){
+        if (min($boss_rial_wallet->cash, $boss_rial_wallet->primary_cash) < $rial_amount){
             return \response('not enough money in boss rial wallet');
         }
 
@@ -435,9 +435,6 @@ class UserController extends Controller
 
 
 
-
-        return \response($boss_wallet->primary_cash);
-
     }
 
 
@@ -450,37 +447,6 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-//        $transactions = $user->with();
-
-
-
-//        $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
-//
-//
-//        $transactions = $t_user->x_transactions;
-//
-//
-//        $trans_id = [];
-//
-//        foreach ($transactions as $trans) {
-//            array_push($trans_id, $trans->transaction_id);
-//        }
-//
-//        $trans_id = $this->x_pay_transactions->whereIn("transaction_id", $trans_id)->get();
-//
-//        $trans_id = $this->x_transaction->join('x_pay_transactions', 'x_pay_transactions.transaction_id', '=', 'x_transactions.transaction_id')->get();
-//
-//        foreach ($trans_id as $item) {
-//            $item->trans_type = 'Pay Transaction';
-//        }
-//
-//        $all_transactions = [];
-//
-//        $pay_transactions = $trans_id;
-//
-//        foreach ($pay_transactions as $item) {
-//            array_push($all_transactions, $item);
-//        }
 
 
         $all_transactions = [];
@@ -629,7 +595,7 @@ class UserController extends Controller
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if ($wallet->primary_cash < $price)
+        if (min($wallet->cash, $wallet->primary_cash) < $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
         $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
@@ -672,7 +638,7 @@ class UserController extends Controller
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if ($wallet->primary_cash < $price)
+        if (min($wallet->cash, $wallet->primary_cash )< $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
         $wallet->update(['cash' => (string)((integer)$wallet->primary_cash - $price)]);
@@ -743,7 +709,7 @@ class UserController extends Controller
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if ($wallet->primary_cash < $price)
+        if (min($wallet->cash, $wallet->primary_cash )< $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
 
@@ -805,13 +771,6 @@ class UserController extends Controller
         $data = $request -> except(["wallet_type", "wallet_address", "repass"]);
 
 
-//        $data['family_name'] = $data['familyName'];
-//        unset($data['familyName']);
-//        $data['phonenumber'] = $data['CellPhone'];
-//        unset($data['CellPhone']);
-//        $data['national_id'] = $data['PersonID'];
-//        unset($data['PersonID']);
-//        dd($data);
         $data['password'] = md5($data['password']);
         $data['type'] = 'user';
 
@@ -1068,7 +1027,22 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-        return $request->new_exam;
+
+        $new_exam = $request->new_exam;
+        $new_exam['time'].=':00';
+        $new_exam['date'].=' ';
+        $new_exam['date'].=$new_exam['time'];
+
+
+        $new_exam['exam_date'] = $new_exam['date'];
+        unset($new_exam['time']);
+        unset($new_exam['date']);
+
+//        return $new_exam;
+
+        $this->x_exams->create($new_exam);
+
+
 
     }
 
@@ -1106,7 +1080,7 @@ class UserController extends Controller
 //            dd(sizeof($exam));
             $rial = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', 'rial')->first();
 
-            if ((integer)$exam->price + (integer)$exam->fee > (integer)$rial->primary_cash)
+            if ((integer)$exam->price + (integer)$exam->fee > min((integer)$rial->primary_cash, (integer)$rial->cash))
                 return \response('not enough money for this exam. Please charge your Rial wallet'); // TODO for this kind of errors we should make a page
 //                dd('not enough mouney !'. $exam->price. ' '. $rial->cash. ' '. $rial->user_id);
 //            dd($rial);

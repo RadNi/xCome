@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
+
     <title>xCome</title>
 
     <!-- Fonts -->
@@ -15,6 +16,9 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/numeral.min.js') }}"></script>
 
+    @yield("navbar-header")
+    @yield("scroll-left-header")
+    @yield("workplace-header")
 
 
 </head>

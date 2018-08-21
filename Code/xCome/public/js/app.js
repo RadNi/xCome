@@ -43366,6 +43366,42 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43428,74 +43464,119 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c(
-          "form",
-          {
-            attrs: { method: "post", novalidate: "" },
-            model: {
-              value: _vm.action,
-              callback: function($$v) {
-                _vm.action = $$v
-              },
-              expression: "action"
-            }
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.csrf,
-                  expression: "csrf"
-                }
-              ],
-              attrs: { type: "hidden", name: "_token" },
-              domProps: { value: _vm.csrf },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+  return _c("div", { staticClass: "hm-gradient" }, [
+    _c("div", { staticClass: "card-wrapper" }, [
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              attrs: { method: "post", novalidate: "" },
+              model: {
+                value: _vm.action,
+                callback: function($$v) {
+                  _vm.action = $$v
+                },
+                expression: "action"
+              }
+            },
+            [
+              _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.csrf,
+                      expression: "csrf"
+                    }
+                  ],
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.csrf = $event.target.value
+                    }
                   }
-                  _vm.csrf = $event.target.value
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              attrs: {
-                id: "password",
-                type: "password",
-                name: "password",
-                placeholder: "password"
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              attrs: {
-                id: "username",
-                type: "text",
-                name: "username",
-                placeholder: "Username"
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              attrs: { id: "login", type: "submit", value: "Login" }
-            })
-          ]
-        )
+                })
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3)
+            ]
+          )
+        ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h3", { staticClass: "text-center default-text py-3" }, [
+      _c("i", { staticClass: "fa fa-lock" }),
+      _vm._v(" Login")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "md-form" }, [
+      _c("i", { staticClass: "fa fa-user prefix grey-text" }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "text", id: "username", name: "username" }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "username" } }, [_vm._v("Your Username")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "md-form" }, [
+      _c("i", { staticClass: "fa fa-lock prefix grey-text" }),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "password", id: "password", name: "password" }
+      }),
+      _vm._v(" "),
+      _c("label", { attrs: { for: "password" } }, [_vm._v("Your password")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-default waves-effect waves-light" },
+        [_vm._v("login")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-default waves-effect waves-light" },
+        [_vm._v("forget my password")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -44507,6 +44588,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44524,7 +44606,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 name: '',
                 date: '',
                 fee: '',
-                price: ''
+                price: '',
+                time: ''
             }
 
         };
@@ -44690,6 +44773,33 @@ var render = function() {
                           return
                         }
                         _vm.$set(_vm.new_exam, "date", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.new_exam.time,
+                        expression: "new_exam.time"
+                      }
+                    ],
+                    attrs: {
+                      id: "exam-time",
+                      type: "time",
+                      name: "date",
+                      placeholder: "Date"
+                    },
+                    domProps: { value: _vm.new_exam.time },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.new_exam, "time", $event.target.value)
                       }
                     }
                   }),

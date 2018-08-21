@@ -13,6 +13,7 @@
                             <input id="exam-price" type="number" name="price" placeholder="Price" v-model="new_exam.price"><br>
                             <input id="exam-fee" type="number" name="fee" placeholder="Fee" v-model="new_exam.fee"><br>
                             <input id="exam-date" type="date" name="date" placeholder="Date" v-model="new_exam.date"><br>
+                            <input id="exam-time" type="time" name="date" placeholder="Date" v-model="new_exam.time"><br>
                             <button id="add" data-dismiss="modal" v-on:click="send_new_exam(new_exam)">Add</button>
                         </div>
 
@@ -84,7 +85,8 @@
                     name: '',
                     date: '',
                     fee: '',
-                    price: ''
+                    price: '',
+                    time: ''
                 }
 
             }
