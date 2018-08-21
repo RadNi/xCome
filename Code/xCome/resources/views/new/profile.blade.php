@@ -46,16 +46,8 @@
 @stop
 
 @section('workplace')
-    <div id="account-div">
-        <p>current credit is: </p>
-        <p id="credit"></p>
-        <button id="charge" onclick="popup.hidden = false">Charge</button>
-        <div id="popup" hidden>
-            <h4>Write amount you need</h4>
-            <input id="amount" type="number" placeholder="Toman">
-            <button id="buy" data-dismiss="modal">Buy</button>
-        </div>
-    </div>
+
+    <account_div v-bind:x_data="{{ $x_data }}" v-bind:csrf_field="'{{ csrf_token() }}'"></account_div>
     <div id="workplace-div">
         @yield('workplace-div')
     </div>
