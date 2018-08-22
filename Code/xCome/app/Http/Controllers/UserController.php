@@ -461,6 +461,8 @@ class UserController extends Controller
         $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', $user, $all_transactions);
 
 
+        $tables = [];
+
 
 
         $data = [
