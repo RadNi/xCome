@@ -46358,12 +46358,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             type: '',
             csrf: '',
-            transactions: []
-
+            tables: []
         };
     },
     mounted: function mounted() {
         console.log(this.x_data);
+        this.tables = this.x_data.tables;
         this.transactions = this.x_data.transactions;
         this.type = this.x_data.type;
         this.csrf = this.csrf_field;
@@ -46384,83 +46384,55 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("input", {
-          attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
-        }),
-        _vm._v(" "),
-        _c(
-          "table",
-          { attrs: { id: "transactions-table", cellpadding: "10px" } },
-          [
-            _vm._m(0),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.transactions, function(trans) {
-                return _c("tr", [
-                  _c("td", { staticClass: "type" }, [
-                    _vm._v(_vm._s(trans.trans_type))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "fee" }, [_vm._v(_vm._s(trans.fee))]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "currency" }, [
-                    _vm._v(_vm._s(trans.type))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "from" }, [
-                    _vm._v(_vm._s(trans.from))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "to" }, [_vm._v(_vm._s(trans.to))]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "calender" }, [
-                    _vm._v(_vm._s(trans.calender))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "value" }, [
-                    _vm._v(_vm._s(trans.value))
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "transaction-id" }, [
-                    _vm._v(_vm._s(trans.transaction_id))
-                  ])
-                ])
-              })
+      _c(
+        "div",
+        { staticClass: "col-md-8 col-md-offset-2" },
+        [
+          _c("input", {
+            attrs: {
+              id: "search",
+              name: "searchbox",
+              placeholder: "Search here"
+            }
+          }),
+          _vm._v(" "),
+          _vm._l(_vm.tables, function(table) {
+            return _c(
+              "table",
+              { attrs: { id: "transactions-table", cellpadding: "10px" } },
+              [
+                _c("thead", [
+                  _c(
+                    "tr",
+                    _vm._l(table.ths, function(th) {
+                      return _c("th", [_vm._v(_vm._s(th.value))])
+                    })
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(table.transactions, function(trans) {
+                    return _c(
+                      "tr",
+                      _vm._l(trans.tds, function(td) {
+                        return _c("td", { class: td.class }, [
+                          _vm._v(_vm._s(td.value))
+                        ])
+                      })
+                    )
+                  })
+                )
+              ]
             )
-          ]
-        )
-      ])
+          })
+        ],
+        2
+      )
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Fee")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Currency Type")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("From")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("To")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Calender")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Value")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Transaction ID")])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
