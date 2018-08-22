@@ -5,7 +5,7 @@
                 <div id="wp-apply-pay">
                     <form method="post" :action="this.foreignPayURL">
                         <input type="hidden" name="_token" v-model="csrf"><br/>
-                        <input id="payee-id" name="payee-id" placeholder="Payee credit card" type="number">
+                        <input id="payee-id" name="payee-id" placeholder="Payee credit card" type="text">
                         <input id="type-rial" name="type" type="radio" value="rial">Rial
                         <input id="type-dollar" name="type" type="radio" value="dollar">Dollar
                         <input id="type-euro" name="type" type="radio" value="euro">Euro
