@@ -13,43 +13,80 @@
     <!--</div>-->
 <!--</template>-->
 
-<template>
-    <div class="hm-gradient">
-        <div class="card-wrapper">
-            <div class="card">
-                <div class="card-body">
+<!--<template>-->
+    <!--<div class="hm-gradient">-->
+        <!--<div class="card-wrapper">-->
+            <!--<div class="card">-->
+                <!--<div class="card-body">-->
 
-                    <h3 class="text-center default-text py-3"><i class="fa fa-lock"></i> Login</h3>
-                    <form v-model="action" method="post" novalidate>
+                    <!--<h3 class="text-center default-text py-3"><i class="fa fa-lock"></i> Login</h3>-->
+                    <!--<form v-model="action" method="post" novalidate>-->
+                        <!--<div>-->
+                            <!--<input type="hidden" name="_token" v-model="csrf">-->
+                        <!--</div>-->
+                        <!--<div class="md-form">-->
+                            <!--<i class="fa fa-user prefix grey-text"></i>-->
+                            <!--<input type="text" id="username" name="username" class="form-control">-->
+                            <!--<label for="username">Your Username</label>-->
+                        <!--</div>-->
+
+                        <!--<div class="md-form">-->
+                            <!--<i class="fa fa-lock prefix grey-text"></i>-->
+                            <!--<input type="password" id="password" class="form-control" name="password">-->
+                            <!--<label for="password">Your password</label>-->
+                        <!--</div>-->
+
+                        <!--<div class="text-center">-->
+                            <!--<button class="btn btn-default waves-effect waves-light">login</button>-->
+                            <!--<button class="btn btn-default waves-effect waves-light">forget my password</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+
+<!--</template>-->
+
+<template>
+    <div class="text-center" style="padding:50px 0">
+        <div class="logo">login</div>
+        <!-- Main Form -->
+        <div class="login-form-1">
+            <form id="login-form" v-model="action" method="post" novalidate class="text-left">
+                <div class="login-form-main-message"></div>
+                <div class="main-login-form">
+                    <div class="login-group">
                         <div>
                             <input type="hidden" name="_token" v-model="csrf">
                         </div>
-                        <div class="md-form">
-                            <i class="fa fa-user prefix grey-text"></i>
-                            <input type="text" id="username" name="username" class="form-control">
-                            <label for="username">Your Username</label>
+                        <div class="form-group">
+                            <label for="username" class="sr-only">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" placeholder="username" >
                         </div>
-
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix grey-text"></i>
-                            <input type="password" id="password" class="form-control" name="password">
-                            <label for="password">Your password</label>
+                        <div class="form-group">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="password">
                         </div>
-
-                        <div class="text-center">
-                            <button class="btn btn-default waves-effect waves-light">login</button>
-                            <button class="btn btn-default waves-effect waves-light">forget my password</button>
+                        <div class="form-group login-group-checkbox">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">remember</label>
                         </div>
-                    </form>
+                    </div>
+                    <button id="login" type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                 </div>
-            </div>
+                <div class="etc-login-form">
+                    <p>forgot your password? <a href="/forget">click here</a></p>
+                    <p>new user? <a href="/register">create new account</a></p>
+                </div>
+            </form>
         </div>
+
+        <!-- end:Main Form -->
     </div>
-
-
-
 </template>
-
 
 
 
@@ -59,9 +96,7 @@
        name: 'login',
        props: ['csrf_field', 'url'],
        data(){
-
            return {
-
                csrf: '',
                password: 'testtest',
                username: 'test',
@@ -69,11 +104,10 @@
                action: ''
 
            }
-
        },
        mounted() {
 //           alert('hmm')
-           this.csrf = this.csrf_field
+           this.csrf = this.csrf_field;
 //           window.Laravel = {
 //               csrfToken: this.csrf_field,
 //           };
@@ -83,7 +117,7 @@
        },
        methods: {
 
-//           login() {
+           //           login() {
 ////               window.axios.get('localhost:8888/api/login').then(respond =>{
 ////                   alert(respond.getAllResponseHeaders())
 ////               alert(document.cookie)

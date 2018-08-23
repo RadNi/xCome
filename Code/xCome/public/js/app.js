@@ -43402,15 +43402,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'login',
     props: ['csrf_field', 'url'],
     data: function data() {
-
         return {
-
             csrf: '',
             password: 'testtest',
             username: 'test',
@@ -43464,116 +43499,150 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "hm-gradient" }, [
-    _c("div", { staticClass: "card-wrapper" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              attrs: { method: "post", novalidate: "" },
-              model: {
-                value: _vm.action,
-                callback: function($$v) {
-                  _vm.action = $$v
-                },
-                expression: "action"
-              }
-            },
-            [
-              _c("div", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.csrf,
-                      expression: "csrf"
-                    }
-                  ],
-                  attrs: { type: "hidden", name: "_token" },
-                  domProps: { value: _vm.csrf },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+  return _c(
+    "div",
+    { staticClass: "text-center", staticStyle: { padding: "50px 0" } },
+    [
+      _c("div", { staticClass: "logo" }, [_vm._v("login")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "login-form-1" }, [
+        _c(
+          "form",
+          {
+            staticClass: "text-left",
+            attrs: { id: "login-form", method: "post", novalidate: "" },
+            model: {
+              value: _vm.action,
+              callback: function($$v) {
+                _vm.action = $$v
+              },
+              expression: "action"
+            }
+          },
+          [
+            _c("div", { staticClass: "login-form-main-message" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "main-login-form" }, [
+              _c("div", { staticClass: "login-group" }, [
+                _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.csrf,
+                        expression: "csrf"
                       }
-                      _vm.csrf = $event.target.value
+                    ],
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.csrf = $event.target.value
+                      }
                     }
-                  }
-                })
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2)
               ]),
               _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
               _vm._m(3)
-            ]
-          )
-        ])
+            ]),
+            _vm._v(" "),
+            _vm._m(4)
+          ]
+        )
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "text-center default-text py-3" }, [
-      _c("i", { staticClass: "fa fa-lock" }),
-      _vm._v(" Login")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "md-form" }, [
-      _c("i", { staticClass: "fa fa-user prefix grey-text" }),
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "sr-only", attrs: { for: "username" } }, [
+        _vm._v("Username")
+      ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
-        attrs: { type: "text", id: "username", name: "username" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "username" } }, [_vm._v("Your Username")])
+        attrs: {
+          type: "text",
+          id: "username",
+          name: "username",
+          placeholder: "username"
+        }
+      })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "md-form" }, [
-      _c("i", { staticClass: "fa fa-lock prefix grey-text" }),
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "sr-only", attrs: { for: "password" } }, [
+        _vm._v("Password")
+      ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
-        attrs: { type: "password", id: "password", name: "password" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "password" } }, [_vm._v("Your password")])
+        attrs: {
+          type: "password",
+          id: "password",
+          name: "password",
+          placeholder: "password"
+        }
+      })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-default waves-effect waves-light" },
-        [_vm._v("login")]
-      ),
+    return _c("div", { staticClass: "form-group login-group-checkbox" }, [
+      _c("input", {
+        attrs: { type: "checkbox", id: "remember", name: "remember" }
+      }),
       _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default waves-effect waves-light" },
-        [_vm._v("forget my password")]
-      )
+      _c("label", { attrs: { for: "remember" } }, [_vm._v("remember")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "login-button", attrs: { id: "login", type: "submit" } },
+      [_c("i", { staticClass: "fa fa-chevron-right" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "etc-login-form" }, [
+      _c("p", [
+        _vm._v("forgot your password? "),
+        _c("a", { attrs: { href: "/forget" } }, [_vm._v("click here")])
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("new user? "),
+        _c("a", { attrs: { href: "/register" } }, [
+          _vm._v("create new account")
+        ])
+      ])
     ])
   }
 ]
@@ -43792,46 +43861,41 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
         _c("div", { attrs: { id: "wp-wallets" } }, [
-          _c(
-            "table",
-            {
-              attrs: { id: "wallets-table", cellpadding: "10px", border: "1px" }
-            },
-            [
-              _c(
-                "tbody",
-                _vm._l(this.wallets, function(wallet) {
-                  return _c(
-                    "tr",
-                    {
-                      on: {
-                        click: function($event) {
-                          _vm.showWalletInfo(wallet)
-                        }
+          _c("table", { attrs: { id: "wallets-table" } }, [
+            _c(
+              "tbody",
+              _vm._l(this.wallets, function(wallet) {
+                return _c(
+                  "tr",
+                  {
+                    staticClass: "active",
+                    on: {
+                      click: function($event) {
+                        _vm.showWalletInfo(wallet)
                       }
-                    },
-                    [
-                      _c("td", { staticClass: "wallet-name" }, [
-                        _vm._v(
-                          "\n                            wallet name is :\n                            " +
-                            _vm._s(wallet.name) +
-                            "\n                        "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "rel-price" }, [
-                        _vm._v(
-                          "\n                            wallet price is :\n                            " +
-                            _vm._s(wallet.amount) +
-                            "\n                        "
-                        )
-                      ])
-                    ]
-                  )
-                })
-              )
-            ]
-          ),
+                    }
+                  },
+                  [
+                    _c("td", { staticClass: "wallet-name" }, [
+                      _vm._v(
+                        "\n                            wallet name is :\n                            " +
+                          _vm._s(wallet.name) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "rel-price" }, [
+                      _vm._v(
+                        "\n                            wallet price is :\n                            " +
+                          _vm._s(wallet.amount) +
+                          "\n                        "
+                      )
+                    ])
+                  ]
+                )
+              })
+            )
+          ]),
           _vm._v(" "),
           _c("div", { attrs: { id: "walletInfo", hidden: "" } }, [
             _c("p", { staticClass: "address" }, [
