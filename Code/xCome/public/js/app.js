@@ -43861,41 +43861,46 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
         _c("div", { attrs: { id: "wp-wallets" } }, [
-          _c("table", { attrs: { id: "wallets-table" } }, [
-            _c(
-              "tbody",
-              _vm._l(this.wallets, function(wallet) {
-                return _c(
-                  "tr",
-                  {
-                    staticClass: "active",
-                    on: {
-                      click: function($event) {
-                        _vm.showWalletInfo(wallet)
+          _c(
+            "table",
+            {
+              attrs: { id: "wallets-table", cellpadding: "10px", border: "1px" }
+            },
+            [
+              _c(
+                "tbody",
+                _vm._l(this.wallets, function(wallet) {
+                  return _c(
+                    "tr",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.showWalletInfo(wallet)
+                        }
                       }
-                    }
-                  },
-                  [
-                    _c("td", { staticClass: "wallet-name" }, [
-                      _vm._v(
-                        "\n                            wallet name is :\n                            " +
-                          _vm._s(wallet.name) +
-                          "\n                        "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "rel-price" }, [
-                      _vm._v(
-                        "\n                            wallet price is :\n                            " +
-                          _vm._s(wallet.amount) +
-                          "\n                        "
-                      )
-                    ])
-                  ]
-                )
-              })
-            )
-          ]),
+                    },
+                    [
+                      _c("td", { staticClass: "wallet-name" }, [
+                        _vm._v(
+                          "\n                            wallet name is :\n                            " +
+                            _vm._s(wallet.name) +
+                            "\n                        "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "rel-price" }, [
+                        _vm._v(
+                          "\n                            wallet price is :\n                            " +
+                            _vm._s(wallet.amount) +
+                            "\n                        "
+                        )
+                      ])
+                    ]
+                  )
+                })
+              )
+            ]
+          ),
           _vm._v(" "),
           _c("div", { attrs: { id: "walletInfo", hidden: "" } }, [
             _c("p", { staticClass: "address" }, [

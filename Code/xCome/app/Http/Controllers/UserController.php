@@ -165,15 +165,15 @@ class UserController extends Controller
     }
 
     public function checkRegister(Request $request) {
-
+//        dd($request);
         $data = $request -> except(["captcha", "password_confirmation"]);
 
         $data['family_name'] = $data['familyName'];
         unset($data['familyName']);
         $data['phonenumber'] = $data['CellPhone'];
         unset($data['CellPhone']);
-        $data['national_id'] = $data['PersonID'];
-        unset($data['PersonID']);
+//        $data['national_id'] = $data['national_id'];
+//        unset($data['national_id']);
 //        dd($data);
         $data['password'] = md5($data['password']);
         $data['type'] = 'user';
