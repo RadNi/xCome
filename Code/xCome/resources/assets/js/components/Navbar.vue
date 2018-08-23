@@ -35,41 +35,37 @@
             <!--</div>-->
         <!--</div>-->
     <!--</div>-->
-    <!--<nav class="navbar navbar-default">-->
-        <!--<div class="container-fluid">-->
-            <!--<div class="navbar-header">-->
-                <!--<a class="navbar-brand" href="/welcome">xCome</a>-->
-            <!--</div>-->
-
-            <!--<ul class="nav navbar-nav">-->
-                <!--<li class="active" v-for="item in this.wp_items" :id="item.id" ><a v-bind:href=item.link>{{item.text}}</a></li>-->
-            <!--</ul>-->
-        <!--</div>-->
-    <!--</nav>-->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/">xCome</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Payment Activities<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="active" v-for="item in this.wp_items" :id="item.id" ><a v-bind:href=item.link>{{item.text}}</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">User Pages<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="active" v-for="item in this.hyperLinks" :id="item.id" ><a v-bind:href=item.link>{{item.text}}</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li v-for="action in this.actions" :id="action.id"><a v-bind:href=action.link><span class="glyphicon glyphicon-log-in"></span> {{action.text}}</a></li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+        <a class="navbar-brand" href="/">xCome</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownPayment" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Payment Activities
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownPayment">
+                        <a class="dropdown-item" v-for="item in this.wp_items" :id="item.id" v-bind:href=item.link>{{item.text}}</a>>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdownPages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Pages
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownPages">
+                        <a class="dropdown-item" v-for="hl in this.hyperLinks" :id="hl.id" v-bind:href=hl.link>{{hl.text}}</a>>
+                    </div>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" v-for="action in this.actions" :id="action.id" v-bind:href=action.link>
+                         {{action.text}}
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 

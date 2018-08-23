@@ -44270,10 +44270,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44309,102 +44305,153 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("nav", { staticClass: "navbar navbar-default" }, [
-    _c("div", { staticClass: "container-fluid" }, [
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+    [
+      _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
+        _vm._v("xCome")
+      ]),
+      _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "collapse navbar-collapse", attrs: { id: "myNavbar" } },
+        {
+          staticClass: "collapse navbar-collapse",
+          attrs: { id: "navbarNavDropdown" }
+        },
         [
-          _c("ul", { staticClass: "nav navbar-nav" }, [
-            _c("li", { staticClass: "dropdown" }, [
-              _vm._m(1),
+          _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+            _c("li", { staticClass: "nav-item dropdown" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link dropdown-toggle",
+                  attrs: {
+                    href: "",
+                    id: "navbarDropdownPayment",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                    Payment Activities\n                "
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c(
-                "ul",
-                { staticClass: "dropdown-menu" },
-                _vm._l(this.wp_items, function(item) {
-                  return _c(
-                    "li",
-                    { staticClass: "active", attrs: { id: item.id } },
-                    [
-                      _c("a", { attrs: { href: item.link } }, [
-                        _vm._v(_vm._s(item.text))
-                      ])
-                    ]
-                  )
-                })
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { "aria-labelledby": "navbarDropdownPayment" }
+                },
+                [
+                  _vm._l(this.wp_items, function(item) {
+                    return _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { id: item.id, href: item.link }
+                      },
+                      [_vm._v(_vm._s(item.text))]
+                    )
+                  }),
+                  _vm._v(">\n                ")
+                ],
+                2
               )
             ]),
             _vm._v(" "),
-            _c("li", { staticClass: "dropdown" }, [
-              _vm._m(2),
+            _c("li", { staticClass: "nav-item dropdown" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link dropdown-toggle",
+                  attrs: {
+                    href: "",
+                    id: "navbarDropdownPages",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [_vm._v("\n                    Pages\n                ")]
+              ),
               _vm._v(" "),
               _c(
-                "ul",
-                { staticClass: "dropdown-menu" },
-                _vm._l(this.hyperLinks, function(item) {
-                  return _c(
-                    "li",
-                    { staticClass: "active", attrs: { id: item.id } },
-                    [
-                      _c("a", { attrs: { href: item.link } }, [
-                        _vm._v(_vm._s(item.text))
-                      ])
-                    ]
-                  )
-                })
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { "aria-labelledby": "navbarDropdownPages" }
+                },
+                [
+                  _vm._l(this.hyperLinks, function(hl) {
+                    return _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { id: hl.id, href: hl.link }
+                      },
+                      [_vm._v(_vm._s(hl.text))]
+                    )
+                  }),
+                  _vm._v(">\n                ")
+                ],
+                2
               )
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "ul",
-            { staticClass: "nav navbar-nav navbar-right" },
-            _vm._l(this.actions, function(action) {
-              return _c("li", { attrs: { id: action.id } }, [
-                _c("a", { attrs: { href: action.link } }, [
-                  _c("span", { staticClass: "glyphicon glyphicon-log-in" }),
-                  _vm._v(" " + _vm._s(action.text))
-                ])
-              ])
-            })
-          )
+          _c("ul", { staticClass: "navbar-nav" }, [
+            _c(
+              "li",
+              { staticClass: "nav-item" },
+              _vm._l(this.actions, function(action) {
+                return _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { id: action.id, href: action.link }
+                  },
+                  [
+                    _vm._v(
+                      "\n                     " +
+                        _vm._s(action.text) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            )
+          ])
         ]
       )
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "navbar-header" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
-        _vm._v("xCome")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c(
-      "a",
-      { staticClass: "dropdown-toggle", attrs: { "data-toggle": "dropdown" } },
-      [_vm._v("Payment Activities"), _c("span", { staticClass: "caret" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      { staticClass: "dropdown-toggle", attrs: { "data-toggle": "dropdown" } },
-      [_vm._v("User Pages"), _c("span", { staticClass: "caret" })]
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarNavDropdown",
+          "aria-controls": "navbarNavDropdown",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
   }
 ]
@@ -46695,6 +46742,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46745,61 +46802,76 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("div", { attrs: { id: "account-div" } }, [
-          _c("p", [_vm._v("current credit is: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "credit" } }),
-          _vm._v(" "),
+      _c("div", { staticClass: "input-group mb-3" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.amount,
+              expression: "amount"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "amount",
+            type: "number",
+            placeholder: "Amount You Need",
+            "aria-label": "Amount You Need",
+            "aria-describedby": "basic-addon2"
+          },
+          domProps: { value: _vm.amount },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.amount = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group-append" }, [
           _c(
             "button",
-            { attrs: { id: "charge", onclick: "popup.hidden = false" } },
-            [_vm._v("Charge")]
-          ),
-          _vm._v(" "),
-          _c("div", { attrs: { id: "popup", hidden: "" } }, [
-            _c("h4", [_vm._v("Write amount you need")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.amount,
-                  expression: "amount"
-                }
-              ],
-              attrs: { id: "amount", type: "number", placeholder: "Toman" },
-              domProps: { value: _vm.amount },
+            {
+              staticClass: "btn btn-outline-secondary",
+              attrs: { id: "buy", type: "button" },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.amount = $event.target.value
+                click: function($event) {
+                  _vm.buy_amount(_vm.amount)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                attrs: { id: "buy", "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    _vm.buy_amount(_vm.amount)
-                  }
-                }
-              },
-              [_vm._v("Buy")]
-            )
-          ])
+            },
+            [_vm._v("Purchase")]
+          )
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Charge")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Rials")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
