@@ -44247,6 +44247,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44286,7 +44312,7 @@ var render = function() {
         "ul",
         { staticClass: "nav navbar-nav" },
         _vm._l(this.wp_items, function(item) {
-          return _c("li", { staticClass: "active" }, [
+          return _c("li", { staticClass: "active", attrs: { id: item.id } }, [
             _c("a", { attrs: { href: item.link } }, [_vm._v(_vm._s(item.text))])
           ])
         })
