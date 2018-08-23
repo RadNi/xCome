@@ -14,7 +14,6 @@
 
     {{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>--}}
 
-
     <script src="{{ asset('js/login/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/login/jquery.min.js') }}"></script>
     <script src="{{ asset('js/login/mbd.min.js') }}"></script>
