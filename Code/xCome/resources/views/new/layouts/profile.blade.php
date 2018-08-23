@@ -16,6 +16,11 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/numeral.min.js') }}"></script>
 
+    {{--Dont find navbar header so inserted three line here--}}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     @yield("navbar-header")
     @yield("scroll-left-header")
     @yield("workplace-header")
