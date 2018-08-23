@@ -221,37 +221,6 @@ class UserController extends Controller
     }
 
 
-    private function get_user_transactions_from_table($table_name, $user, $all_transactions) {
-        $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
-
-
-        $transactions = $t_user->x_transactions;
-
-
-        $trans_id = [];
-
-        foreach ($transactions as $trans) {
-            array_push($trans_id, $trans->transaction_id);
-        }
-
-        $trans_id = $this->x_pay_transactions->whereIn("transaction_id", $trans_id)->get();
-
-        $trans_id = $this->x_transaction->join($table_name, $table_name.'.transaction_id', '=', 'x_transactions.transaction_id')->get();
-
-        foreach ($trans_id as $item) {
-            $item->trans_type = $table_name;
-        }
-
-
-        $pay_transactions = $trans_id;
-
-        foreach ($pay_transactions as $item) {
-            array_push($all_transactions, $item);
-        }
-
-        return $all_transactions;
-
-    }
 
 
     public function buy_currency(Request $request) {
@@ -437,6 +406,38 @@ class UserController extends Controller
 
     }
 
+    private function get_user_transactions_from_table($table_name, $user, $all_transactions) {
+        $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
+
+
+        $transactions = $t_user->x_transactions;
+
+
+        $trans_id = [];
+
+        foreach ($transactions as $trans) {
+            array_push($trans_id, $trans->transaction_id);
+        }
+
+        $trans_id = $this->x_pay_transactions->whereIn("transaction_id", $trans_id)->get();
+
+        $trans_id = $this->x_transaction->join($table_name, $table_name.'.transaction_id', '=', 'x_transactions.transaction_id')->get();
+
+        foreach ($trans_id as $item) {
+            $item->trans_type = $table_name;
+        }
+
+
+        $pay_transactions = $trans_id;
+
+        foreach ($pay_transactions as $item) {
+            array_push($all_transactions, $item);
+        }
+
+        return $all_transactions;
+
+    }
+
 
     public function transactions(Request $request) {
 
@@ -461,19 +462,82 @@ class UserController extends Controller
         $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', $user, $all_transactions);
 
 
-        $tables = [];
 
 
+
+
+
+
+//        $data = [
+//            'type' => $user->type,
+//            'hyperLinks' => $this->fill_hyperLinks($user->type),
+//            'wp_items' => $this->fill_wp_items($user->type),
+//            'transactions' => $all_transactions
+////            'fee' => (string)UserController::$APPLY_PAYMENT_FEE
+//        ];
+
+//        return view('new.transaction-history', ['x_data' => json_encode($all_transaction)]);
+
+//        $json = json_encode($all_transactions[0]);
+//
+//        foreach ($json as $item) {
+//            return view('new.transaction-history', ['x_data' => json_encode($item)]);
+//        }
+
+//        foreach ($all_transactions[0]->original as $k => $v) {
+//            return view('new.transaction-history', ['x_data' => json_encode($k)]);
+//
+//        }
+//        return view('new.transaction-history', ['x_data' => json_encode(->attributes)]);
+
+
+        $json = array_keys((array)json_decode(json_encode($all_transactions[0])));
+
+        $table1 = [
+            'ths' => [],
+            'transactions' => [],
+        ];
+
+
+        $table2 = [
+            'ths' => [],
+            'transactions' => [],
+        ];
+
+        foreach ($json as $item) {
+            array_push($table1['ths'], $item);
+            array_push($table2['ths'], $item);
+        }
+
+        foreach ($all_transactions as $transaction) {
+            $tans = ['tds' => []];
+
+            foreach (json_decode(json_encode($transaction)) as $k => $v) {
+                array_push($tans['tds'], ['class' => $k, 'value' => $v]);
+            }
+
+            if ($transaction->done == 0)
+                array_push($table2['transactions'], $tans);
+            else
+                array_push($table1['transactions'], $tans);
+        }
+        $table1['id'] = 'checked-trans-table';
+        $table1['id'] = 'unchecked-trans-table';
+
+
+
+        $tables = [$table1, $table2];
 
         $data = [
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
-            'transactions' => $all_transactions
-//            'fee' => (string)UserController::$APPLY_PAYMENT_FEE
+            'tables' => $tables
         ];
 
         return view('new.transaction-history', ['x_data' => json_encode($data)]);
+
+
     }
 
     public function charge_credit(Request $request) {

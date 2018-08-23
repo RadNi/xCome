@@ -44386,7 +44386,7 @@ var render = function() {
                 id: "payee-id",
                 name: "payee-id",
                 placeholder: "Payee credit card",
-                type: "number"
+                type: "text"
               }
             }),
             _vm._v(" "),
@@ -45045,7 +45045,7 @@ var render = function() {
                   id: "payee-id",
                   name: "payee-id",
                   placeholder: "Payee credit card",
-                  type: "number"
+                  type: "text"
                 }
               }),
               _vm._v(" "),
@@ -46362,13 +46362,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     mounted: function mounted() {
-        console.log(this.x_data);
+        console.log(this.x_data.tables);
         this.tables = this.x_data.tables;
-        this.transactions = this.x_data.transactions;
-        this.type = this.x_data.type;
-        this.csrf = this.csrf_field;
-        this.fee = this.x_data.fee;
-        this.internalTransURL = window.customURLs.internalTransURL;
+        //            this.transactions = this.x_data.transactions;
+        //            this.type = this.x_data.type;
+        //            this.csrf = this.csrf_field;
+        //            this.fee = this.x_data.fee;
+        //            this.internalTransURL = window.customURLs.internalTransURL;
     },
 
     methods: {}
@@ -46399,13 +46399,13 @@ var render = function() {
           _vm._l(_vm.tables, function(table) {
             return _c(
               "table",
-              { attrs: { id: "transactions-table", cellpadding: "10px" } },
+              { attrs: { id: table.id, cellpadding: "10px" } },
               [
                 _c("thead", [
                   _c(
                     "tr",
                     _vm._l(table.ths, function(th) {
-                      return _c("th", [_vm._v(_vm._s(th.value))])
+                      return _c("th", [_vm._v(_vm._s(th))])
                     })
                   )
                 ]),

@@ -4,10 +4,10 @@
             <div class="col-md-8 col-md-offset-2">
 
                 <input id="search" name="searchbox" placeholder="Search here">
-                <table id="transactions-table" cellpadding="10px" v-for="table in tables">
+                <table v-bind:id="table.id" cellpadding="10px" v-for="table in tables">
                     <thead>
                     <tr>
-                        <th v-for="th in table.ths">{{ th.value }}</th>
+                        <th v-for="th in table.ths">{{ th }}</th>
                         <!--<th>Fee</th>-->
                         <!--<th>Currency Type</th>-->
                         <!--<th>From</th>-->
@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                     <tr v-for="trans in table.transactions">
-                        <td v-bind:class="td.class" v-for="td in trans.tds">{{ td.value }}</td>
+                        <td v-for="td in trans.tds" v-bind:class="td.class">{{ td.value }}</td>
                         <!--<td class="fee">{{ trans.fee }}</td>-->
                         <!--<td class="currency">{{ trans.type }}</td>-->
                         <!--<td class="from">{{ trans.from }}</td>-->
@@ -50,13 +50,13 @@
             }
         },
         mounted() {
-            console.log(this.x_data);
+            console.log(this.x_data.tables);
             this.tables = this.x_data.tables;
-            this.transactions = this.x_data.transactions;
-            this.type = this.x_data.type;
-            this.csrf = this.csrf_field;
-            this.fee = this.x_data.fee;
-            this.internalTransURL = window.customURLs.internalTransURL;
+//            this.transactions = this.x_data.transactions;
+//            this.type = this.x_data.type;
+//            this.csrf = this.csrf_field;
+//            this.fee = this.x_data.fee;
+//            this.internalTransURL = window.customURLs.internalTransURL;
         },
         methods: {
 
