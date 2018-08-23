@@ -20,9 +20,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
     @yield("navbar-header")
-    @yield("scroll-left-header")
+{{--    @yield("scroll-left-header")--}}
     @yield("workplace-header")
 
 
@@ -32,9 +35,9 @@
         <div id="wp-navbar">
             @yield("navbar")
         </div>
-        <div id="scroll-left">
-            @yield('scroll-left')
-        </div>
+        {{--<div id="scroll-left">--}}
+            {{--@yield('scroll-left')--}}
+        {{--</div>--}}
         <div id="workplace">
             @yield('workplace')
         </div>

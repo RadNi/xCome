@@ -44273,6 +44273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44281,12 +44282,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             wp_items: [],
+            hyperLinks: [],
+            actions: [],
             type: ''
         };
     },
     mounted: function mounted() {
         this.type = this.x_data.type;
         this.wp_items = this.x_data.wp_items;
+        this.hyperLinks = this.x_data.hyperLinks;
+        this.actions = this.x_data.actions;
     },
 
     methods: {
@@ -44309,13 +44314,64 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c(
-        "ul",
-        { staticClass: "nav navbar-nav" },
-        _vm._l(this.wp_items, function(item) {
-          return _c("li", { staticClass: "active", attrs: { id: item.id } }, [
-            _c("a", { attrs: { href: item.link } }, [_vm._v(_vm._s(item.text))])
-          ])
-        })
+        "div",
+        { staticClass: "collapse navbar-collapse", attrs: { id: "myNavbar" } },
+        [
+          _c("ul", { staticClass: "nav navbar-nav" }, [
+            _c("li", { staticClass: "dropdown" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "dropdown-menu" },
+                _vm._l(this.wp_items, function(item) {
+                  return _c(
+                    "li",
+                    { staticClass: "active", attrs: { id: item.id } },
+                    [
+                      _c("a", { attrs: { href: item.link } }, [
+                        _vm._v(_vm._s(item.text))
+                      ])
+                    ]
+                  )
+                })
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "dropdown" }, [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "dropdown-menu" },
+                _vm._l(this.hyperLinks, function(item) {
+                  return _c(
+                    "li",
+                    { staticClass: "active", attrs: { id: item.id } },
+                    [
+                      _c("a", { attrs: { href: item.link } }, [
+                        _vm._v(_vm._s(item.text))
+                      ])
+                    ]
+                  )
+                })
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            { staticClass: "nav navbar-nav navbar-right" },
+            _vm._l(this.actions, function(action) {
+              return _c("li", { attrs: { id: action.id } }, [
+                _c("a", { attrs: { href: action.link } }, [
+                  _c("span", { staticClass: "glyphicon glyphicon-log-in" }),
+                  _vm._v(" " + _vm._s(action.text))
+                ])
+              ])
+            })
+          )
+        ]
       )
     ])
   ])
@@ -44326,10 +44382,30 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "navbar-header" }, [
-      _c("a", { staticClass: "navbar-brand", attrs: { href: "/welcome" } }, [
+      _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
         _vm._v("xCome")
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "dropdown-toggle", attrs: { "data-toggle": "dropdown" } },
+      [_vm._v("Payment Activities"), _c("span", { staticClass: "caret" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "dropdown-toggle", attrs: { "data-toggle": "dropdown" } },
+      [_vm._v("User Pages"), _c("span", { staticClass: "caret" })]
+    )
   }
 ]
 render._withStripped = true
