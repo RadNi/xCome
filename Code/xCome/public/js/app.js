@@ -46097,6 +46097,86 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46159,335 +46239,410 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("table", { attrs: { id: "user-info-table" } }, [
-          _c("td", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.phonenumber,
-                  expression: "new_info.phonenumber"
-                }
-              ],
-              attrs: {
-                id: "phonenumber",
-                name: "phonenumber",
-                placeholder: "Phone Number"
-              },
-              domProps: { value: _vm.new_info.phonenumber },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.new_info, "phonenumber", $event.target.value)
-                }
+    _c("form", [
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-sm-2 col-form-label",
+            attrs: { for: "phonenumber" }
+          },
+          [_vm._v("Phone Number")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.new_info.phonenumber,
+                expression: "new_info.phonenumber"
               }
-            })
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("p", { attrs: { id: "pid", name: "pid" } }, [
-              _vm._v(_vm._s(_vm.x_data.info.national_id))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.avatar,
-                  expression: "new_info.avatar"
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              id: "phonenumber",
+              name: "phonenumber",
+              placeholder: "Phone Number"
+            },
+            domProps: { value: _vm.new_info.phonenumber },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              ],
-              attrs: { id: "avatar", name: "avatar", placeholder: "Avatar" },
-              domProps: { value: _vm.new_info.avatar },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.new_info, "avatar", $event.target.value)
-                }
+                _vm.$set(_vm.new_info, "phonenumber", $event.target.value)
               }
-            })
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.password,
-                  expression: "new_info.password"
-                }
-              ],
-              attrs: {
-                id: "password",
-                type: "password",
-                name: "password",
-                placeholder: "Password"
-              },
-              domProps: { value: _vm.new_info.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.new_info, "password", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.repass,
-                  expression: "new_info.repass"
-                }
-              ],
-              attrs: {
-                id: "ret-password",
-                type: "password",
-                name: "ret-password",
-                placeholder: "Repeat new password"
-              },
-              domProps: { value: _vm.new_info.repass },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.new_info, "repass", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("p", { attrs: { id: "name", name: "name" } }, [
-              _vm._v(_vm._s(_vm.x_data.info.name))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("p", { attrs: { id: "family", name: "family" } }, [
-              _vm._v(_vm._s(_vm.x_data.info.family_name))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.email,
-                  expression: "new_info.email"
-                }
-              ],
-              attrs: {
-                id: "email",
-                name: "email",
-                placeholder: "email",
-                type: "email"
-              },
-              domProps: { value: _vm.new_info.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.new_info, "email", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("td", [
-            _c("div", { attrs: { id: "reportMethod" } }, [
-              _vm._v("\n                            Choose Report method:"),
-              _c("br"),
-              _vm._v("\n                            SMS "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_info.report.sms,
-                    expression: "new_info.report.sms"
-                  }
-                ],
-                staticClass: "report",
-                attrs: { id: "smsReport", name: "sms", type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.new_info.report.sms)
-                    ? _vm._i(_vm.new_info.report.sms, null) > -1
-                    : _vm.new_info.report.sms
-                },
-                on: {
-                  change: [
-                    function($event) {
-                      var $$a = _vm.new_info.report.sms,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(
-                              _vm.new_info.report,
-                              "sms",
-                              $$a.concat([$$v])
-                            )
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.new_info.report,
-                              "sms",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.new_info.report, "sms", $$c)
-                      }
-                    },
-                    function($event) {
-                      _vm.new_info.report.sms = !_vm.new_info.report.sms
-                    }
-                  ]
-                }
-              }),
-              _vm._v("\n                            Telegram "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_info.report.telegram,
-                    expression: "new_info.report.telegram"
-                  }
-                ],
-                staticClass: "report",
-                attrs: { id: "tgReport", name: "tg", type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.new_info.report.telegram)
-                    ? _vm._i(_vm.new_info.report.telegram, null) > -1
-                    : _vm.new_info.report.telegram
-                },
-                on: {
-                  change: [
-                    function($event) {
-                      var $$a = _vm.new_info.report.telegram,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(
-                              _vm.new_info.report,
-                              "telegram",
-                              $$a.concat([$$v])
-                            )
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.new_info.report,
-                              "telegram",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.new_info.report, "telegram", $$c)
-                      }
-                    },
-                    function($event) {
-                      _vm.new_info.report.telegram = !_vm.new_info.report
-                        .telegram
-                    }
-                  ]
-                }
-              }),
-              _vm._v("\n                            Email "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_info.report.email,
-                    expression: "new_info.report.email"
-                  }
-                ],
-                staticClass: "report",
-                attrs: { id: "emailReport", name: "email", type: "checkbox" },
-                domProps: {
-                  checked: Array.isArray(_vm.new_info.report.email)
-                    ? _vm._i(_vm.new_info.report.email, null) > -1
-                    : _vm.new_info.report.email
-                },
-                on: {
-                  change: [
-                    function($event) {
-                      var $$a = _vm.new_info.report.email,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = null,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 &&
-                            _vm.$set(
-                              _vm.new_info.report,
-                              "email",
-                              $$a.concat([$$v])
-                            )
-                        } else {
-                          $$i > -1 &&
-                            _vm.$set(
-                              _vm.new_info.report,
-                              "email",
-                              $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                            )
-                        }
-                      } else {
-                        _vm.$set(_vm.new_info.report, "email", $$c)
-                      }
-                    },
-                    function($event) {
-                      _vm.new_info.report.email = !_vm.new_info.report.email
-                    }
-                  ]
-                }
-              })
-            ])
-          ])
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c("label", { staticClass: "col-sm-2 col-form-label" }, [
+          _vm._v("National ID")
         ]),
         _vm._v(" "),
         _c(
-          "button",
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { id: "pid" } },
+          [_vm._v(_vm._s(_vm.x_data.info.national_id))]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
           {
-            attrs: { id: "change" },
+            staticClass: "col-sm-2 col-form-label",
+            attrs: { for: "password" }
+          },
+          [_vm._v("Password")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.new_info.password,
+                expression: "new_info.password"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "password",
+              name: "password",
+              id: "password",
+              placeholder: "Password"
+            },
+            domProps: { value: _vm.new_info.password },
             on: {
-              click: function($event) {
-                _vm.send_new_info()
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.new_info, "password", $event.target.value)
               }
             }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-sm-2 col-form-label",
+            attrs: { for: "password" }
           },
-          [_vm._v("Change")]
+          [_vm._v("Password Confirmation")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.new_info.repass,
+                expression: "new_info.repass"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "password",
+              name: "ret-password",
+              id: "ret-password",
+              placeholder: "Password Confirmation"
+            },
+            domProps: { value: _vm.new_info.repass },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.new_info, "repass", $event.target.value)
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c("label", { staticClass: "col-sm-2 col-form-label" }, [
+          _vm._v("Name")
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { id: "name" } },
+          [_vm._v(_vm._s(_vm.x_data.info.name))]
         )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c("label", { staticClass: "col-sm-2 col-form-label" }, [
+          _vm._v("Family Name")
+        ]),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { id: "family" } },
+          [_vm._v(_vm._s(_vm.x_data.info.family_name))]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          { staticClass: "col-sm-2 col-form-label", attrs: { for: "email" } },
+          [_vm._v("Email")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.new_info.email,
+                expression: "new_info.email"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              type: "email",
+              id: "email",
+              name: "email",
+              placeholder: "Email"
+            },
+            domProps: { value: _vm.new_info.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.new_info, "email", $event.target.value)
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c("div", { staticClass: "col-sm-2" }, [_vm._v("Report Method")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c("div", { staticClass: "form-check" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_info.report.sms,
+                  expression: "new_info.report.sms"
+                }
+              ],
+              staticClass: "report",
+              attrs: { type: "checkbox", id: "smsReport", name: "sms_report" },
+              domProps: {
+                checked: Array.isArray(_vm.new_info.report.sms)
+                  ? _vm._i(_vm.new_info.report.sms, null) > -1
+                  : _vm.new_info.report.sms
+              },
+              on: {
+                change: [
+                  function($event) {
+                    var $$a = _vm.new_info.report.sms,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.new_info.report,
+                            "sms",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.new_info.report,
+                            "sms",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.new_info.report, "sms", $$c)
+                    }
+                  },
+                  function($event) {
+                    _vm.new_info.report.sms = !_vm.new_info.report.sms
+                  }
+                ]
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "smsReport" } },
+              [_vm._v("\n                        SMS\n                    ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-check" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_info.report.telegram,
+                  expression: "new_info.report.telegram"
+                }
+              ],
+              staticClass: "report",
+              attrs: { type: "checkbox", id: "tgReport", name: "tg_report" },
+              domProps: {
+                checked: Array.isArray(_vm.new_info.report.telegram)
+                  ? _vm._i(_vm.new_info.report.telegram, null) > -1
+                  : _vm.new_info.report.telegram
+              },
+              on: {
+                change: [
+                  function($event) {
+                    var $$a = _vm.new_info.report.telegram,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.new_info.report,
+                            "telegram",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.new_info.report,
+                            "telegram",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.new_info.report, "telegram", $$c)
+                    }
+                  },
+                  function($event) {
+                    _vm.new_info.report.telegram = !_vm.new_info.report.telegram
+                  }
+                ]
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "tgReport" } },
+              [
+                _vm._v(
+                  "\n                        Telegram\n                    "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-check" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_info.report.email,
+                  expression: "new_info.report.email"
+                }
+              ],
+              staticClass: "report",
+              attrs: {
+                type: "checkbox",
+                id: "emailReport",
+                name: "email_report"
+              },
+              domProps: {
+                checked: Array.isArray(_vm.new_info.report.email)
+                  ? _vm._i(_vm.new_info.report.email, null) > -1
+                  : _vm.new_info.report.email
+              },
+              on: {
+                change: [
+                  function($event) {
+                    var $$a = _vm.new_info.report.email,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 &&
+                          _vm.$set(
+                            _vm.new_info.report,
+                            "email",
+                            $$a.concat([$$v])
+                          )
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.new_info.report,
+                            "email",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.new_info.report, "email", $$c)
+                    }
+                  },
+                  function($event) {
+                    _vm.new_info.report.email = !_vm.new_info.report.email
+                  }
+                ]
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label",
+                attrs: { for: "emailReport" }
+              },
+              [_vm._v("\n                        Email\n                    ")]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c("div", { staticClass: "col-sm-10" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-outline-secondary",
+              attrs: { id: "change" },
+              on: {
+                click: function($event) {
+                  _vm.send_new_info()
+                }
+              }
+            },
+            [_vm._v("Change")]
+          )
+        ])
       ])
     ])
   ])
