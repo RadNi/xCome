@@ -551,7 +551,7 @@ class UserController extends Controller
     }
 
     public function charge_credit(Request $request) {
-
+//        dd($request);
         $user = $this->getUser($request);
 //            dd($user->type);
 
@@ -607,6 +607,7 @@ class UserController extends Controller
 
 
     public function apply_payment(Request $request) {
+//        dd($request);
         $user = $this->getUser($request);
 //            dd($user->type);
 

@@ -49,7 +49,6 @@
         },
         methods: {
             buy_amount(amount) {
-
                 console.log(amount);
 
                 window.axios.post('http://localhost:8888/profile/charge-credit', amount, {
@@ -59,7 +58,7 @@
                 }).then(respond => {
 
                     console.log(respond);
-                    console.log(respond.data)
+                    console.log(respond.data);
 
 
                     location.href = 'http://localhost:8888/profile';

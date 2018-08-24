@@ -35,35 +35,40 @@
 
 </head>
 <body>
+<div class="container">
     <div id="app">
-        <div id="wp-navbar">
-            @yield("navbar")
-        </div>
+            <div id="wp-navbar">
+                @yield("navbar")
+            </div>
         {{--<div id="scroll-left">--}}
             {{--@yield('scroll-left')--}}
         {{--</div>--}}
-        <div id="workplace">
-            @yield('workplace')
+            <div id="workplace">
+                @yield('workplace')
+            </div>
+    </div>
+
+    <div class="row">
+        <div class="input-group" id="footer">
+            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" name="CURR_FR_VAL" id="CURR_FR_VAL" placeholder="Convert #">
+            <select class="custom-select" id="CURR_FR">
+                <option selected>Choose...</option>
+                <option value="EUR">EUR</option>
+                <option value="IRR">IRR</option>
+                <option value="USD" selected="">USD</option>
+            </select>
+            <label class="input-group-text" for="inputGroupSelect01">To</label>
+            <select class="custom-select" id="CURR_TO">
+                <option selected>Choose...</option>
+                <option value="EUR">EUR</option>
+                <option value="IRR">IRR</option>
+                <option value="USD" selected="">USD</option>
+            </select>
+            <button class="btn btn-outline-secondary" type="button" id="convert" onclick="getCurrencyUsingJQuery()">Convert</button>
+            <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" name="CURR_FR_VAL" id="CURR_VAL" readonly="" placeholder="Press Convert">
         </div>
     </div>
-    <div class="input-group" id="footer">
-        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" name="CURR_FR_VAL" id="CURR_FR_VAL" placeholder="Convert #">
-        <select class="custom-select" id="CURR_FR">
-            <option selected>Choose...</option>
-            <option value="EUR">EUR</option>
-            <option value="IRR">IRR</option>
-            <option value="USD" selected="">USD</option>
-        </select>
-        <label class="input-group-text" for="inputGroupSelect01">To</label>
-        <select class="custom-select" id="CURR_TO">
-            <option selected>Choose...</option>
-            <option value="EUR">EUR</option>
-            <option value="IRR">IRR</option>
-            <option value="USD" selected="">USD</option>
-        </select>
-        <button class="btn btn-outline-secondary" type="button" id="convert" onclick="getCurrencyUsingJQuery()">Convert</button>
-        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" name="CURR_FR_VAL" id="CURR_VAL" readonly="" placeholder="Press Convert">
-    </div>
+</div>
 
     {{--<div id="footer">--}}
         {{--<div id="exchanger">--}}
