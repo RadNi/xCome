@@ -234,6 +234,8 @@ class UserController extends Controller
         }
 
 
+//        return $request->wallet_name;
+
         $rial_amount = UserController::$EXCHANGE_BUY[$request->wallet_name] * (int)$request->amount;
 
         $requested_wallet = $this->x_wallet->where('user_id', '=', $user->getKey())->where('type', '=', $request->wallet_name)->first();
