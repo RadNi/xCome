@@ -1234,13 +1234,16 @@ class UserController extends Controller
             case "user":
                 $wallets = $this->x_wallet->select(['type', 'primary_cash', 'address'])
                     ->where('user_id', '=', $id)->get();
+                $i = 1;
                 foreach ($wallets as $wallet) {
                     array_push($sending_data,
                         [
+                            'index' => $i,
                             'name' => (string)$wallet->type,            //TODO      should add address and other information
                             'amount' => (string)$wallet->primary_cash,
                             'address' => $wallet->getAttributes()['address']
                         ]);
+                    $i++;
                 }
                 $wp_items = $this->fill_wp_items($user->type);
                 $hyperLinks = $this->fill_hyperLinks($user->type);

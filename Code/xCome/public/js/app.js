@@ -43767,6 +43767,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43781,8 +43813,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             wallets: [],
             type: '',
-            sell_amount: 0,
-            buy_amount: 0
+            exchange_amount: 0
         };
     },
     mounted: function mounted() {
@@ -43858,131 +43889,135 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("div", { attrs: { id: "wp-wallets" } }, [
-          _c(
-            "table",
-            {
-              attrs: { id: "wallets-table", cellpadding: "10px", border: "1px" }
-            },
-            [
-              _c(
-                "tbody",
-                _vm._l(this.wallets, function(wallet) {
-                  return _c(
-                    "tr",
-                    {
-                      on: {
-                        click: function($event) {
-                          _vm.showWalletInfo(wallet)
-                        }
-                      }
-                    },
-                    [
-                      _c("td", { staticClass: "wallet-name" }, [
-                        _vm._v(
-                          "\n                            wallet name is :\n                            " +
-                            _vm._s(wallet.name) +
-                            "\n                        "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "rel-price" }, [
-                        _vm._v(
-                          "\n                            wallet price is :\n                            " +
-                            _vm._s(wallet.amount) +
-                            "\n                        "
-                        )
+    _c("div", { staticClass: "table-responsive" }, [
+      _c("table", { staticClass: "table table-striped col-12" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "tbody",
+          _vm._l(this.wallets, function(wallet) {
+            return _c(
+              "tr",
+              {
+                on: {
+                  click: function($event) {
+                    _vm.showWalletInfo(wallet)
+                  }
+                }
+              },
+              [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(wallet.index))
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.amount))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.address))]),
+                _vm._v(" "),
+                _c("td", [
+                  wallet.name !== "rial"
+                    ? _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "input-group-prepend" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary",
+                              attrs: { type: "button", id: _vm.buy },
+                              on: {
+                                click: function($event) {
+                                  _vm.buy_currency(
+                                    _vm.exchange_amount,
+                                    _vm.selected_wallet.name
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Buy")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary",
+                              attrs: { type: "button", id: _vm.sell },
+                              on: {
+                                click: function($event) {
+                                  _vm.sell_currency(
+                                    _vm.exchange_amount,
+                                    _vm.selected_wallet.name
+                                  )
+                                }
+                              }
+                            },
+                            [_vm._v("Sell")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.amount,
+                              expression: "amount"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            placeholder: "",
+                            "aria-label": "",
+                            "aria-describedby": "basic-addon1"
+                          },
+                          domProps: { value: _vm.amount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.amount = $event.target.value
+                            }
+                          }
+                        })
                       ])
-                    ]
-                  )
-                })
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { attrs: { id: "walletInfo", hidden: "" } }, [
-            _c("p", { staticClass: "address" }, [
-              _vm._v(" wallet address: " + _vm._s(_vm.selected_wallet.address))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "currency-amount" }, [
-              _vm._v("your amount: " + _vm._s(_vm.selected_wallet.amount))
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.buy_amount,
-                  expression: "buy_amount"
-                }
-              ],
-              staticClass: "buy-currency",
-              attrs: { placeholder: "buy amount" },
-              domProps: { value: _vm.buy_amount },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.buy_amount = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("p", { staticClass: "fee" }),
-            _vm._v(" "),
-            _c("input", {
-              attrs: { type: "submit", value: "Buy" },
-              on: {
-                click: function($event) {
-                  _vm.buy_currency(_vm.buy_amount, _vm.selected_wallet.name)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.sell_amount,
-                  expression: "sell_amount"
-                }
-              ],
-              staticClass: "sell-currency",
-              attrs: { placeholder: "sell amount" },
-              domProps: { value: _vm.sell_amount },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.sell_amount = $event.target.value
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("input", {
-              attrs: { type: "submit", value: "Sell" },
-              on: {
-                click: function($event) {
-                  _vm.sell_currency(_vm.sell_amount, _vm.selected_wallet.name)
-                }
-              }
-            })
-          ])
-        ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                wallet.name !== "rial"
+                  ? _c("td", [_vm._v(" Live exchange Price goes here")])
+                  : _vm._e()
+              ]
+            )
+          })
+        )
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Type")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Amount")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Address")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Fee")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

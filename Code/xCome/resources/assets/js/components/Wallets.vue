@@ -1,20 +1,20 @@
 <template>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div id="wp-wallets">
-                    <table id="wallets-table" cellpadding="10px" border="1px">
-                        <tbody>
-                        <tr v-for="wallet in this.wallets"  v-on:click="showWalletInfo(wallet)">
-                            <td class="wallet-name">
-                                wallet name is :
-                                {{ wallet.name }}
-                            </td>
-                            <td class="rel-price">
-                                wallet price is :
-                                {{ wallet.amount }}
-                            </td>
-                        </tr>
+        <!--<div class="row">-->
+            <!--<div class="col-md-8 col-md-offset-2">-->
+                <!--<div id="wp-wallets">-->
+                    <!--<table id="wallets-table" cellpadding="10px" border="1px">-->
+                        <!--<tbody>-->
+                        <!--<tr v-for="wallet in this.wallets"  v-on:click="showWalletInfo(wallet)">-->
+                            <!--<td class="wallet-name">-->
+                                <!--wallet name is :-->
+                                <!--{{ wallet.name }}-->
+                            <!--</td>-->
+                            <!--<td class="rel-price">-->
+                                <!--wallet price is :-->
+                                <!--{{ wallet.amount }}-->
+                            <!--</td>-->
+                        <!--</tr>-->
                         <!--<tr class="wallet" v-on:click="showWalletInfo('Sapphire', '839128319071284', 38129381, 123)">-->
                             <!--<td class="wallet-name">Sapphire</td>-->
                             <!--<td class="rel-price">Real time price</td>-->
@@ -36,22 +36,54 @@
                             <!--<td class="rel-price">Real time price</td>-->
                             <!--<td class="diagram">Price diagram</td>-->
                         <!--</tr>-->
-                        </tbody>
-                    </table>
-                    <div id="walletInfo" hidden>
-                        <p class="address"> wallet address: {{ selected_wallet.address }}</p>
-                        <p class="currency-amount">your amount: {{ selected_wallet.amount }}</p>
-                        <input class="buy-currency" placeholder="buy amount" v-model="buy_amount">
-                        <p class="fee"></p>
-                        <input type="submit" value="Buy" v-on:click="buy_currency(buy_amount, selected_wallet.name)">
-                        <br>
-                        <input class="sell-currency" placeholder="sell amount" v-model="sell_amount">
-                        <!--<p class="fee"></p>-->
-                        <input type="submit" value="Sell" v-on:click="sell_currency(sell_amount, selected_wallet.name)">
+                        <!--</tbody>-->
+                    <!--</table>-->
+                    <div class="table-responsive">
+                        <table class="table table-striped col-12">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Exchange</th>
+                                <th scope="col">Exchange Fee</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="wallet in this.wallets" v-on:click="showWalletInfo(wallet)">
+                                <th scope="row">{{wallet.index}}</th>
+                                <td>{{wallet.name}}</td>
+                                <td>{{wallet.amount}}</td>
+                                <td>{{wallet.address}}</td>
+                                <td>
+                                    <div class="input-group" v-if="wallet.name !== 'rial'">
+                                        <div class="input-group-prepend">
+                                            <button class="btn btn-outline-secondary" type="button" :id="buy" v-on:click="buy_currency(exchange_amount, selected_wallet.name)">Buy</button>
+                                            <button class="btn btn-outline-secondary" type="button" :id="sell" v-on:click="sell_currency(exchange_amount, selected_wallet.name)">Sell</button>
+                                        </div>
+                                        <input type="number" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" v-model="amount">
+                                    </div>
+                                </td>
+                                <td v-if="wallet.name !== 'rial'"> Live exchange Price goes here</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <!--<div id="walletInfo" hidden>-->
+                        <!--<p class="address"> wallet address: {{ selected_wallet.address }}</p>-->
+                        <!--<p class="currency-amount">your amount: {{ selected_wallet.amount }}</p>-->
+                        <!--<input class="buy-currency" placeholder="buy amount" v-model="exhange_amount">-->
+                        <!--<p class="fee"></p>-->
+                        <!--<input type="submit" value="Buy" v-on:click="buy_currency(buy_amount, selected_wallet.name)">-->
+                        <!--<br>-->
+                        <!--<input class="sell-currency" placeholder="sell amount" v-model="sell_amount">-->
+                        <!--&lt;!&ndash;<p class="fee"></p>&ndash;&gt;-->
+                        <!--<input type="submit" value="Sell" v-on:click="sell_currency(sell_amount, selected_wallet.name)">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 
 
@@ -71,8 +103,7 @@
                 },
                 wallets: [],
                 type: '',
-                sell_amount: 0,
-                buy_amount: 0
+                exchange_amount: 0
             }
         },
         mounted() {
