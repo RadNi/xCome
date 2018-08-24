@@ -711,7 +711,14 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-//        dd($request);
+        dd($request);
+
+
+        /*
+         *
+         */
+
+
 
         $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
 
@@ -720,23 +727,48 @@ class UserController extends Controller
         if (min($wallet->cash, $wallet->primary_cash )< $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
-        $wallet->update(['cash' => (string)((integer)$wallet->primary_cash - $price)]);
+//        $wallet->update(['cash' => (string)((integer)$wallet->primary_cash - $price)]);
 
 
+        $payee_wallet = $this->x_wallet->where('address', '=', $request->address)->where('type', '=', $request->type)->first();
+        if (sizeof($payee_wallet) == 0) {
+            return \response()->json([
+                'user' => false
+            ]);
+        }
 
-        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
+        $payee_wallet->update(['primary_cash' => (string)($request->price + (integer)$payee_wallet->primary_cash)]);
 
-        $app_trans = $this->x_pay_transactions->create([
+
+//        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+//        $app_trans = $this->x_pay_transactions->create([
+        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash) - $request->price*(1+UserController::$INTERNAL_TRANSACTION)]);
+        //
+//        $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
+//
+//
+//
+        $trans = $this->newTransaction($request->price, date ("Y-m-d H:i:s", time()), [$user->id, $payee_wallet->user_id]);
+//      TODO  we have a problem here        both users are added to fee transaction !
+        //        return $trans;
+        //        return $wallet->getOriginal('address');
+        $int_trans = $this->x_pay_transactions->create([
             'transaction_id' => $trans->transaction_id,
-            'from' => $wallet->address,
+            'from' => $wallet->getOriginal('address'),
+//            'from' => $wallet->address,
             'type' => $request->type,
             'done' => false,
             'clerk_id' => null,
-            'fee' => $request->price * UserController::$APPLY_PAYMENT_FEE,
-            'to' => $request->{'payee-id'}
+//            'fee' => $request->price * UserController::$APPLY_PAYMENT_FEE,
+//            'to' => $request->{'payee-id'}
+            'fee' => $request->price * UserController::$INTERNAL_TRANSACTION,
+            'to' => $payee_wallet->getOriginal('address')
         ]);
 
-        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
+//        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
+
+        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user);
 
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
