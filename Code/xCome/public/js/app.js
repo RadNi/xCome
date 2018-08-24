@@ -44608,7 +44608,7 @@ var render = function() {
           staticClass: "form-control",
           attrs: {
             type: "text",
-            "aria-label": "Text input with segmented dropdown button",
+            "aria-label": "Payee Credit Card",
             name: "payee-id",
             id: "payee-id",
             placeholder: "Payee Credit Card"
@@ -44629,7 +44629,7 @@ var render = function() {
           staticClass: "form-control",
           attrs: {
             type: "number",
-            "aria-label": "Text input with segmented dropdown button",
+            "aria-label": "Price",
             name: "price",
             id: "price",
             placeholder: "Price"
@@ -44647,7 +44647,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "span",
-          { staticClass: "input-group-text", attrs: { id: "basic-addon1" } },
+          { staticClass: "input-group-text", attrs: { id: "feeLabel" } },
           [_vm._v("fee")]
         ),
         _vm._v(" "),
@@ -44655,7 +44655,7 @@ var render = function() {
           staticClass: "form-control",
           attrs: {
             type: "text",
-            "aria-label": "Text input with segmented dropdown button",
+            "aria-label": "Fee",
             name: "fee",
             id: "fee",
             readonly: "",
@@ -44683,7 +44683,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "select",
-      { staticClass: "custom-select", attrs: { id: "CURR_FR" } },
+      { staticClass: "custom-select", attrs: { id: "Curr_Type" } },
       [
         _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
         _vm._v(" "),
@@ -45462,6 +45462,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45560,29 +45573,28 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("div", { attrs: { id: "wp-apply-pay" } }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.csrf,
-                expression: "csrf"
-              }
-            ],
-            attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.csrf },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.csrf = $event.target.value
-              }
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.csrf,
+              expression: "csrf"
             }
-          }),
-          _c("br"),
-          _vm._v(" "),
+          ],
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.csrf = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group" }, [
           _c("input", {
             directives: [
               {
@@ -45592,11 +45604,13 @@ var render = function() {
                 expression: "payment.address"
               }
             ],
+            staticClass: "form-control",
             attrs: {
-              id: "payee-id",
+              type: "text",
+              "aria-label": "Payee Credit Card",
               name: "payee-id",
-              placeholder: "Payee credit card",
-              type: "text"
+              id: "payee-id",
+              placeholder: "Payee Credit Card"
             },
             domProps: { value: _vm.payment.address },
             on: {
@@ -45609,75 +45623,59 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.type,
-                expression: "payment.type"
-              }
-            ],
-            attrs: {
-              id: "type-rial",
-              name: "type",
-              type: "radio",
-              value: "rial"
-            },
-            domProps: { checked: _vm._q(_vm.payment.type, "rial") },
-            on: {
-              change: function($event) {
-                _vm.$set(_vm.payment, "type", "rial")
-              }
-            }
-          }),
-          _vm._v("Rial\n                    "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.type,
-                expression: "payment.type"
-              }
-            ],
-            attrs: {
-              id: "type-dollar",
-              name: "type",
-              type: "radio",
-              value: "dollar"
-            },
-            domProps: { checked: _vm._q(_vm.payment.type, "dollar") },
-            on: {
-              change: function($event) {
-                _vm.$set(_vm.payment, "type", "dollar")
-              }
-            }
-          }),
-          _vm._v("Dollar\n                    "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.type,
-                expression: "payment.type"
-              }
-            ],
-            attrs: {
-              id: "type-euro",
-              name: "type",
-              type: "radio",
-              value: "euro"
-            },
-            domProps: { checked: _vm._q(_vm.payment.type, "euro") },
-            on: {
-              change: function($event) {
-                _vm.$set(_vm.payment, "type", "euro")
-              }
-            }
-          }),
-          _vm._v("Euro\n                    "),
+          _c(
+            "select",
+            { staticClass: "custom-select", attrs: { id: "Curr_Type" } },
+            [
+              _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
+              _vm._v(" "),
+              _c(
+                "option",
+                {
+                  attrs: { value: "rial", name: "type" },
+                  model: {
+                    value: _vm.payment.type,
+                    callback: function($$v) {
+                      _vm.$set(_vm.payment, "type", $$v)
+                    },
+                    expression: "payment.type"
+                  }
+                },
+                [_vm._v("Rial")]
+              ),
+              _vm._v(" "),
+              _c(
+                "option",
+                {
+                  attrs: { value: "dollar", name: "type" },
+                  model: {
+                    value: _vm.payment.type,
+                    callback: function($$v) {
+                      _vm.$set(_vm.payment, "type", $$v)
+                    },
+                    expression: "payment.type"
+                  }
+                },
+                [_vm._v("Dollar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "option",
+                {
+                  attrs: { value: "euro", name: "type", selected: "" },
+                  model: {
+                    value: _vm.payment.type,
+                    callback: function($$v) {
+                      _vm.$set(_vm.payment, "type", $$v)
+                    },
+                    expression: "payment.type"
+                  }
+                },
+                [_vm._v("Euro")]
+              )
+            ]
+          ),
+          _vm._v(" "),
           _c("input", {
             directives: [
               {
@@ -45687,11 +45685,13 @@ var render = function() {
                 expression: "payment.price"
               }
             ],
+            staticClass: "form-control",
             attrs: {
-              id: "price",
+              type: "number",
+              "aria-label": "Price",
               name: "price",
-              placeholder: "price",
-              type: "number"
+              id: "price",
+              placeholder: "Price"
             },
             domProps: { value: _vm.payment.price },
             on: {
@@ -45703,13 +45703,33 @@ var render = function() {
               }
             }
           }),
-          _vm._v("$\n                    "),
-          _c("p", { attrs: { id: "fee" } }, [
-            _vm._v(" " + _vm._s(_vm.getFeePrice()) + " ")
-          ]),
+          _vm._v(" "),
+          _c(
+            "span",
+            { staticClass: "input-group-text", attrs: { id: "feeLabel" } },
+            [_vm._v("fee")]
+          ),
           _vm._v(" "),
           _c("input", {
-            attrs: { id: "submit", name: "submit", type: "submit" },
+            staticClass: "form-control",
+            attrs: {
+              type: "text",
+              "aria-label": "Fee",
+              name: "fee",
+              id: "fee",
+              readonly: "",
+              placeholder: _vm.getFeePrice()
+            }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn btn-outline-secondary",
+            attrs: {
+              type: "submit",
+              id: "submit",
+              name: "submit",
+              value: "submit"
+            },
             on: {
               click: function($event) {
                 _vm.sendTransaction()
@@ -46042,15 +46062,6 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
