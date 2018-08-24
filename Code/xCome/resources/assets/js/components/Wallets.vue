@@ -51,7 +51,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for="wallet in this.wallets" v-on:click="showWalletInfo(wallet)">
+                            <tr v-for="wallet in this.wallets" >
                                 <th scope="row">{{wallet.index}}</th>
                                 <td>{{wallet.name}}</td>
                                 <td>{{wallet.amount}}</td>
@@ -59,8 +59,8 @@
                                 <td>
                                     <div class="input-group" v-if="wallet.name !== 'rial'">
                                         <div class="input-group-prepend">
-                                            <button class="btn btn-outline-secondary" type="button" :id="buy" v-on:click="buy_currency(exchange_amount, selected_wallet.name)">Buy</button>
-                                            <button class="btn btn-outline-secondary" type="button" :id="sell" v-on:click="sell_currency(exchange_amount, selected_wallet.name)">Sell</button>
+                                            <button class="btn btn-outline-secondary" type="button" :id="'buy'" v-on:click="buy_currency(amount, wallet.name)">Buy</button>
+                                            <button class="btn btn-outline-secondary" type="button" :id="'sell'" v-on:click="sell_currency(amount, wallet.name)">Sell</button>
                                         </div>
                                         <input type="number" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" v-model="amount">
                                     </div>
@@ -96,11 +96,7 @@
         props: ['x_data', 'csrf_field'],
         data() {
             return {
-                selected_wallet: {
-                    address: '',
-                    amount: 0,
-                    name: ''
-                },
+                amount: 0,
                 wallets: [],
                 type: '',
                 exchange_amount: 0
@@ -143,6 +139,8 @@
                     console.log(respond.data)
 //                  console.log(JSON.parse(respond));
 
+                    location.href = 'http://localhost:8888/profile';
+
                 }).catch(e => {
                     console.log(e)
                 })
@@ -162,18 +160,13 @@
                     console.log(respond.data)
 //                  console.log(JSON.parse(respond));
 
+                    location.href = 'http://localhost:8888/profile';
+
                 }).catch(e => {
                     console.log(e)
                 })
             },
 
-
-            showWalletInfo(wallet) {
-
-//                console.log(this.selected_wallet)
-                this.selected_wallet = wallet;
-                walletInfo.hidden = false;
-            }
         }
     }
 </script>
