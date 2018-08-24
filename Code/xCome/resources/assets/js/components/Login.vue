@@ -13,43 +13,6 @@
     <!--</div>-->
 <!--</template>-->
 
-<!--<template>-->
-    <!--<div class="hm-gradient">-->
-        <!--<div class="card-wrapper">-->
-            <!--<div class="card">-->
-                <!--<div class="card-body">-->
-
-                    <!--<h3 class="text-center default-text py-3"><i class="fa fa-lock"></i> Login</h3>-->
-                    <!--<form v-model="action" method="post" novalidate>-->
-                        <!--<div>-->
-                            <!--<input type="hidden" name="_token" v-model="csrf">-->
-                        <!--</div>-->
-                        <!--<div class="md-form">-->
-                            <!--<i class="fa fa-user prefix grey-text"></i>-->
-                            <!--<input type="text" id="username" name="username" class="form-control">-->
-                            <!--<label for="username">Your Username</label>-->
-                        <!--</div>-->
-
-                        <!--<div class="md-form">-->
-                            <!--<i class="fa fa-lock prefix grey-text"></i>-->
-                            <!--<input type="password" id="password" class="form-control" name="password">-->
-                            <!--<label for="password">Your password</label>-->
-                        <!--</div>-->
-
-                        <!--<div class="text-center">-->
-                            <!--<button class="btn btn-default waves-effect waves-light">login</button>-->
-                            <!--<button class="btn btn-default waves-effect waves-light">forget my password</button>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-
-
-<!--</template>-->
-
 <template>
     <div class="text-center" style="padding:50px 0">
         <div class="logo">login</div>
@@ -70,10 +33,10 @@
                             <label for="password" class="sr-only">Password</label>
                             <input type="password" class="form-control" id="password" name="password" placeholder="password">
                         </div>
-                        <div class="form-group login-group-checkbox">
-                            <input type="checkbox" id="remember" name="remember">
-                            <label for="remember">remember</label>
-                        </div>
+                        <!--<div class="form-group login-group-checkbox">-->
+                            <!--<input type="checkbox" id="remember" name="remember">-->
+                            <!--<label for="remember">remember</label>-->
+                        <!--</div>-->
                     </div>
                     <button id="login" type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                 </div>
