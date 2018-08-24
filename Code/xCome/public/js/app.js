@@ -43402,15 +43402,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     name: 'login',
     props: ['csrf_field', 'url'],
     data: function data() {
-
         return {
-
             csrf: '',
             password: 'testtest',
             username: 'test',
@@ -43464,116 +43499,150 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "hm-gradient" }, [
-    _c("div", { staticClass: "card-wrapper" }, [
-      _c("div", { staticClass: "card" }, [
-        _c("div", { staticClass: "card-body" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "form",
-            {
-              attrs: { method: "post", novalidate: "" },
-              model: {
-                value: _vm.action,
-                callback: function($$v) {
-                  _vm.action = $$v
-                },
-                expression: "action"
-              }
-            },
-            [
-              _c("div", [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.csrf,
-                      expression: "csrf"
-                    }
-                  ],
-                  attrs: { type: "hidden", name: "_token" },
-                  domProps: { value: _vm.csrf },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+  return _c(
+    "div",
+    { staticClass: "text-center", staticStyle: { padding: "50px 0" } },
+    [
+      _c("div", { staticClass: "logo" }, [_vm._v("login")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "login-form-1" }, [
+        _c(
+          "form",
+          {
+            staticClass: "text-left",
+            attrs: { id: "login-form", method: "post", novalidate: "" },
+            model: {
+              value: _vm.action,
+              callback: function($$v) {
+                _vm.action = $$v
+              },
+              expression: "action"
+            }
+          },
+          [
+            _c("div", { staticClass: "login-form-main-message" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "main-login-form" }, [
+              _c("div", { staticClass: "login-group" }, [
+                _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.csrf,
+                        expression: "csrf"
                       }
-                      _vm.csrf = $event.target.value
+                    ],
+                    attrs: { type: "hidden", name: "_token" },
+                    domProps: { value: _vm.csrf },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.csrf = $event.target.value
+                      }
                     }
-                  }
-                })
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0),
+                _vm._v(" "),
+                _vm._m(1),
+                _vm._v(" "),
+                _vm._m(2)
               ]),
               _vm._v(" "),
-              _vm._m(1),
-              _vm._v(" "),
-              _vm._m(2),
-              _vm._v(" "),
               _vm._m(3)
-            ]
-          )
-        ])
+            ]),
+            _vm._v(" "),
+            _vm._m(4)
+          ]
+        )
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("h3", { staticClass: "text-center default-text py-3" }, [
-      _c("i", { staticClass: "fa fa-lock" }),
-      _vm._v(" Login")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "md-form" }, [
-      _c("i", { staticClass: "fa fa-user prefix grey-text" }),
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "sr-only", attrs: { for: "username" } }, [
+        _vm._v("Username")
+      ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
-        attrs: { type: "text", id: "username", name: "username" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "username" } }, [_vm._v("Your Username")])
+        attrs: {
+          type: "text",
+          id: "username",
+          name: "username",
+          placeholder: "username"
+        }
+      })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "md-form" }, [
-      _c("i", { staticClass: "fa fa-lock prefix grey-text" }),
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { staticClass: "sr-only", attrs: { for: "password" } }, [
+        _vm._v("Password")
+      ]),
       _vm._v(" "),
       _c("input", {
         staticClass: "form-control",
-        attrs: { type: "password", id: "password", name: "password" }
-      }),
-      _vm._v(" "),
-      _c("label", { attrs: { for: "password" } }, [_vm._v("Your password")])
+        attrs: {
+          type: "password",
+          id: "password",
+          name: "password",
+          placeholder: "password"
+        }
+      })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-default waves-effect waves-light" },
-        [_vm._v("login")]
-      ),
+    return _c("div", { staticClass: "form-group login-group-checkbox" }, [
+      _c("input", {
+        attrs: { type: "checkbox", id: "remember", name: "remember" }
+      }),
       _vm._v(" "),
-      _c(
-        "button",
-        { staticClass: "btn btn-default waves-effect waves-light" },
-        [_vm._v("forget my password")]
-      )
+      _c("label", { attrs: { for: "remember" } }, [_vm._v("remember")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "login-button", attrs: { id: "login", type: "submit" } },
+      [_c("i", { staticClass: "fa fa-chevron-right" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "etc-login-form" }, [
+      _c("p", [
+        _vm._v("forgot your password? "),
+        _c("a", { attrs: { href: "/forget" } }, [_vm._v("click here")])
+      ]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("new user? "),
+        _c("a", { attrs: { href: "/register" } }, [
+          _vm._v("create new account")
+        ])
+      ])
     ])
   }
 ]
@@ -44169,6 +44238,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44177,12 +44278,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             wp_items: [],
+            hyperLinks: [],
+            actions: [],
             type: ''
         };
     },
     mounted: function mounted() {
         this.type = this.x_data.type;
         this.wp_items = this.x_data.wp_items;
+        this.hyperLinks = this.x_data.hyperLinks;
+        this.actions = this.x_data.actions;
     },
 
     methods: {
@@ -44200,35 +44305,156 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c(
-          "table",
-          { attrs: { id: "wp-navbar-table" } },
-          _vm._l(this.wp_items, function(item) {
-            return _c("td", { staticClass: "wp-item" }, [
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-lg navbar-light bg-light" },
+    [
+      _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
+        _vm._v("xCome")
+      ]),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "collapse navbar-collapse",
+          attrs: { id: "navbarNavDropdown" }
+        },
+        [
+          _c("ul", { staticClass: "navbar-nav mr-auto" }, [
+            _c("li", { staticClass: "nav-item dropdown" }, [
               _c(
-                "button",
+                "a",
                 {
-                  staticClass: "nav-butt",
-                  attrs: { id: item.id },
-                  on: {
-                    click: function($event) {
-                      _vm.changeLocation(item.link)
-                    }
+                  staticClass: "nav-link dropdown-toggle",
+                  attrs: {
+                    href: "",
+                    id: "navbarDropdownPayment",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
                   }
                 },
-                [_vm._v(_vm._s(item.text))]
+                [
+                  _vm._v(
+                    "\n                    Payment Activities\n                "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { "aria-labelledby": "navbarDropdownPayment" }
+                },
+                [
+                  _vm._l(this.wp_items, function(item) {
+                    return _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { id: item.id, href: item.link }
+                      },
+                      [_vm._v(_vm._s(item.text))]
+                    )
+                  }),
+                  _vm._v(">\n                ")
+                ],
+                2
+              )
+            ]),
+            _vm._v(" "),
+            _c("li", { staticClass: "nav-item dropdown" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "nav-link dropdown-toggle",
+                  attrs: {
+                    href: "",
+                    id: "navbarDropdownPages",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false"
+                  }
+                },
+                [_vm._v("\n                    Pages\n                ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "dropdown-menu",
+                  attrs: { "aria-labelledby": "navbarDropdownPages" }
+                },
+                [
+                  _vm._l(this.hyperLinks, function(hl) {
+                    return _c(
+                      "a",
+                      {
+                        staticClass: "dropdown-item",
+                        attrs: { id: hl.id, href: hl.link }
+                      },
+                      [_vm._v(_vm._s(hl.text))]
+                    )
+                  }),
+                  _vm._v(">\n                ")
+                ],
+                2
               )
             ])
-          })
-        )
-      ])
-    ])
-  ])
+          ]),
+          _vm._v(" "),
+          _c("ul", { staticClass: "navbar-nav" }, [
+            _c(
+              "li",
+              { staticClass: "nav-item" },
+              _vm._l(this.actions, function(action) {
+                return _c(
+                  "a",
+                  {
+                    staticClass: "nav-link",
+                    attrs: { id: action.id, href: action.link }
+                  },
+                  [
+                    _vm._v(
+                      "\n                     " +
+                        _vm._s(action.text) +
+                        "\n                "
+                    )
+                  ]
+                )
+              })
+            )
+          ])
+        ]
+      )
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarNavDropdown",
+          "aria-controls": "navbarNavDropdown",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -46516,6 +46742,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46566,61 +46802,76 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("div", { attrs: { id: "account-div" } }, [
-          _c("p", [_vm._v("current credit is: ")]),
-          _vm._v(" "),
-          _c("p", { attrs: { id: "credit" } }),
-          _vm._v(" "),
+      _c("div", { staticClass: "input-group mb-3" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.amount,
+              expression: "amount"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "amount",
+            type: "number",
+            placeholder: "Amount You Need",
+            "aria-label": "Amount You Need",
+            "aria-describedby": "basic-addon2"
+          },
+          domProps: { value: _vm.amount },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.amount = $event.target.value
+            }
+          }
+        }),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "input-group-append" }, [
           _c(
             "button",
-            { attrs: { id: "charge", onclick: "popup.hidden = false" } },
-            [_vm._v("Charge")]
-          ),
-          _vm._v(" "),
-          _c("div", { attrs: { id: "popup", hidden: "" } }, [
-            _c("h4", [_vm._v("Write amount you need")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.amount,
-                  expression: "amount"
-                }
-              ],
-              attrs: { id: "amount", type: "number", placeholder: "Toman" },
-              domProps: { value: _vm.amount },
+            {
+              staticClass: "btn btn-outline-secondary",
+              attrs: { id: "buy", type: "button" },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.amount = $event.target.value
+                click: function($event) {
+                  _vm.buy_amount(_vm.amount)
                 }
               }
-            }),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                attrs: { id: "buy", "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    _vm.buy_amount(_vm.amount)
-                  }
-                }
-              },
-              [_vm._v("Buy")]
-            )
-          ])
+            },
+            [_vm._v("Purchase")]
+          )
         ])
       ])
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Charge")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Rials")])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

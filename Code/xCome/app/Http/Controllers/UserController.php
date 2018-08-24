@@ -165,15 +165,15 @@ class UserController extends Controller
     }
 
     public function checkRegister(Request $request) {
-
+//        dd($request);
         $data = $request -> except(["captcha", "password_confirmation"]);
 
         $data['family_name'] = $data['familyName'];
         unset($data['familyName']);
         $data['phonenumber'] = $data['CellPhone'];
         unset($data['CellPhone']);
-        $data['national_id'] = $data['PersonID'];
-        unset($data['PersonID']);
+//        $data['national_id'] = $data['national_id'];
+//        unset($data['national_id']);
 //        dd($data);
         $data['password'] = md5($data['password']);
         $data['type'] = 'user';
@@ -989,6 +989,31 @@ class UserController extends Controller
         return $wp_items;
     }
 
+    private function fill_actions($type){
+        $actions = [];
+        switch ($type){
+            case "manager":
+                $actions = [
+                    [
+                        "id" => "logout",
+                        "link" => route('profile.logout'),
+                        "text" => "Logout"
+                    ]
+                ];
+                break;
+            case "user":
+                $actions = [
+                    [
+                        "id" => "logout",
+                        "link" => route('profile.logout'),
+                        "text" => "Logout"
+                    ]
+                ];
+                break;
+        }
+        return $actions;
+    }
+
     private function fill_hyperLinks($type) {
         $hyperLinks = [];
         switch ($type) {
@@ -1008,11 +1033,6 @@ class UserController extends Controller
                         "id" => "transactions",
                         "link" => route('transactions'),
                         "text" => "Transactions History"
-                    ],
-                    [
-                        "id" => "logout",
-                        "link" => route('profile.logout'),
-                        "text" => "Logout"
                     ]
                 ];
                 break;
@@ -1033,11 +1053,6 @@ class UserController extends Controller
                         "id" => "transactions",
                         "link" => route('transactions'),
                         "text" => "Transactions History"
-                    ],
-                    [
-                        "id" => "logout",
-                        "link" => route('profile.logout'),
-                        "text" => "Logout"
                     ]
                 ];
         }
@@ -1218,7 +1233,7 @@ class UserController extends Controller
 
 
         $user = $this->getUser($request);
-//            dd($user->type);
+//            dd($user);
 
         if ($user == null){
             return \response("You need to login again", 401);
@@ -1239,12 +1254,13 @@ class UserController extends Controller
                 }
                 $wp_items = $this->fill_wp_items($user->type);
                 $hyperLinks = $this->fill_hyperLinks($user->type);
-
+                $actions = $this->fill_actions($user->type);
                 $sending_data = [
                     'wallets' => $sending_data,
                     'type' => $user->type,
                     'wp_items' => $wp_items,
-                    'hyperLinks' => $hyperLinks
+                    'hyperLinks' => $hyperLinks,
+                    'actions' => $actions,
                 ];
                 $arr = array('x_data' => json_encode($sending_data));
                 return view('new.default', $arr);
@@ -1265,17 +1281,16 @@ class UserController extends Controller
                 }
                 $wp_items = $this->fill_wp_items($user->type);
                 $hyperLinks = $this->fill_hyperLinks($user->type);
-
+                $actions = $this->fill_actions($user->type);
                 $sending_data = [
                     'wallets' => $sending_data,
                     'type' => $user->type,
                     'wp_items' => $wp_items,
-                    'hyperLinks' => $hyperLinks
+                    'hyperLinks' => $hyperLinks,
+                    'actions' => $actions
                 ];
                 $arr = array('x_data' => json_encode($sending_data));
                 return view('new.default', $arr);
-                break;
-
                 break;
         }
     }

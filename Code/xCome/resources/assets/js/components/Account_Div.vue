@@ -1,18 +1,28 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div id="account-div">
-                    <p>current credit is: </p>
-                    <p id="credit"></p>
-                    <button id="charge" onclick="popup.hidden = false">Charge</button>
-                    <div id="popup" hidden>
-                        <h4>Write amount you need</h4>
-                        <input id="amount" type="number" placeholder="Toman" v-model="amount">
-                        <button id="buy" data-dismiss="modal" v-on:click="buy_amount(amount)">Buy</button>
+                <!--<div id="account-div">-->
+                    <!--<p>current credit is: </p>-->
+                    <!--<p id="credit"></p>-->
+                    <!--<button id="charge" onclick="popup.hidden = false">Charge</button>-->
+                    <!--<div id="popup" hidden>-->
+                        <!--<h4>Write amount you need</h4>-->
+                        <!--<input id="amount" type="number" placeholder="Toman" v-model="amount">-->
+                        <!--<button id="buy" data-dismiss="modal" v-on:click="buy_amount(amount)">Buy</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Charge</span>
+                    </div>
+                    <input id="amount" type="number" v-model="amount" class="form-control" placeholder="Amount You Need" aria-label="Amount You Need" aria-describedby="basic-addon2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Rials</span>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" id="buy" type="button" v-on:click="buy_amount(amount)">Purchase</button>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 
