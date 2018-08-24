@@ -17,11 +17,11 @@
                     <input type="hidden" name="_token" v-model="csrf">
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="Payee Credit Card" name="payee-id" id="payee-id" placeholder="Payee Credit Card" v-model="payment.address">
-                        <select class="custom-select" id="Curr_Type">
+                        <select class="custom-select" name="type" id="Curr_Type">
                             <option selected>Choose...</option>
-                            <option value="rial" name="type" v-model="payment.type">Rial</option>
-                            <option value="dollar" name="type" v-model="payment.type">Dollar</option>
-                            <option value="euro" name="type" v-model="payment.type" selected="">Euro</option>
+                            <option value="rial" v-model="payment.type">Rial</option>
+                            <option value="dollar" v-model="payment.type">Dollar</option>
+                            <option value="euro" v-model="payment.type" selected="">Euro</option>
                         </select>
                         <input type="number" class="form-control" aria-label="Price" name="price" id="price" placeholder="Price" v-model="payment.price">
                         <span class="input-group-text" id="feeLabel">fee</span>
