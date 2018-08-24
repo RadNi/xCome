@@ -38,7 +38,7 @@
             return {
                 type: '',
                 csrf : '',
-                amount: 0
+                amount: 'Amount You Need'
 
             }
         },
@@ -60,7 +60,9 @@
 
                     console.log(respond);
                     console.log(respond.data)
-//                  console.log(JSON.parse(respond));
+
+
+                    location.href = 'http://localhost:8888/profile';
 
                 }).catch(e => {
                     console.log(e)

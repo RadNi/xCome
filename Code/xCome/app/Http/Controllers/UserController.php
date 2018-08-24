@@ -407,7 +407,11 @@ class UserController extends Controller
     }
 
     private function get_user_transactions_from_table($table_name, $user, $all_transactions) {
-        $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
+        if (sizeof($user) > 0 )
+            $t_user = $user->where('id', $user->id)->with(["x_transactions"])->first();
+        else
+            $t_user = $this->x_user->with(["x_transactions"])->first();
+
 
 
         $transactions = $t_user->x_transactions;
@@ -452,15 +456,21 @@ class UserController extends Controller
 
         $all_transactions = [];
 
-
-        $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', $user, $all_transactions);
-        $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', $user, $all_transactions);
-        $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', $user, $all_transactions);
-
-        $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', $user, $all_transactions);
-        $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', $user, $all_transactions);
-        $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', $user, $all_transactions);
-
+        if ($user->type == 'user') {
+            $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', $user, $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', $user, $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', $user, $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', $user, $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', $user, $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', $user, $all_transactions);
+        }elseif ($user->type == 'manager') {
+            $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', [], $all_transactions);
+        }
 
 
 

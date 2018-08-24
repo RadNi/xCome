@@ -46796,7 +46796,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             type: '',
             csrf: '',
-            amount: 0
+            amount: 'Amount You Need'
 
         };
     },
@@ -46819,7 +46819,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 console.log(respond);
                 console.log(respond.data);
-                //                  console.log(JSON.parse(respond));
+
+                location.href = 'http://localhost:8888/profile';
             }).catch(function (e) {
                 console.log(e);
             });
