@@ -642,6 +642,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'tables' => $tables
         ];
 
@@ -688,6 +689,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'info' => [
                 'national_id' => $user->national_id,
                 'name' => $user->name,
@@ -719,6 +721,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'fee' => (string)UserController::$APPLY_PAYMENT_FEE
         ];
 //        dd($data);
@@ -744,6 +747,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'fee' => (string)UserController::$INTERNAL_TRANSACTION
         ];
 //        dd($data);
@@ -887,6 +891,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'fee' => (string)UserController::$APPLY_PAYMENT_FEE
         ];
 //        dd($data);
@@ -1227,6 +1232,7 @@ class UserController extends Controller
             'exams' => $exams_data,
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'actions' => $this->fill_actions($user->type),
             'wp_items' => $this->fill_wp_items($user->type)
         ];
 //        dd($data);
