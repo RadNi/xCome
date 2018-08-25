@@ -43862,7 +43862,11 @@ var render = function() {
                           "button",
                           {
                             staticClass: "btn btn-outline-secondary",
-                            attrs: { type: "button", id: "buy" },
+                            attrs: {
+                              type: "button",
+                              id: "sell" + wallet.name,
+                              name: "buy" + wallet.name
+                            },
                             on: {
                               click: function($event) {
                                 _vm.buy_currency(_vm.amount, wallet.name)
@@ -43876,7 +43880,11 @@ var render = function() {
                           "button",
                           {
                             staticClass: "btn btn-outline-secondary",
-                            attrs: { type: "button", id: "sell" },
+                            attrs: {
+                              type: "button",
+                              id: "sell" + wallet.name,
+                              name: "sell" + wallet.name
+                            },
                             on: {
                               click: function($event) {
                                 _vm.sell_currency(_vm.amount, wallet.name)
@@ -43899,6 +43907,8 @@ var render = function() {
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
+                          id: "sell" + wallet.name,
+                          name: "amount" + wallet.name,
                           placeholder: "",
                           "aria-label": "",
                           "aria-describedby": "basic-addon1"
