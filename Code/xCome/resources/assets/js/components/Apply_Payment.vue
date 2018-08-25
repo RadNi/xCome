@@ -55,7 +55,7 @@
             this.type = this.x_data.type;
             this.csrf = this.csrf_field;
             this.fee = this.x_data.fee;
-            this.applyPayURL = window.customURLs.applyPayURL;
+            this.applyPayURL = window.customURLs.foreignPayURL;
         },
         methods: {
             getFeePrice: function () {

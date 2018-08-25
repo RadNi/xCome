@@ -94,7 +94,7 @@
                     }
                 }
                 console.log(this.value);
-                window.axios.post('http://localhost:8888/profile/active-user', {
+                window.axios.post(window.URL.activeUser, {
                     value: this.value,
                     active: active
                 }, {

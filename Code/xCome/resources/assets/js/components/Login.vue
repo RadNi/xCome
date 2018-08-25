@@ -42,7 +42,7 @@
                 </div>
                 <div class="etc-login-form">
                     <p>forgot your password? <a id="forget" href="/forget">click here</a></p>
-                    <p>new user? <a href="/register">create new account</a></p>
+                    <p>new user? <a v-bind:href="this.registerURL">create new account</a></p>
                 </div>
             </form>
         </div>
@@ -64,7 +64,8 @@
                password: 'testtest',
                username: 'test',
                captcha: '',
-               action: ''
+               action: '',
+               registerURL: ''
 
            }
        },
@@ -76,7 +77,8 @@
 //           };
            console.log(this.csrf_field);
            console.log(this.url);
-           this.action = this.url;
+           this.action = window.customURLs.login;
+           this.registerURL = window.customURLs.register;
        },
        methods: {
 

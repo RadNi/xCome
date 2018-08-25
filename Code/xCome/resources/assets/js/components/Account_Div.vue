@@ -51,7 +51,7 @@
             buy_amount(amount) {
                 console.log(amount);
 
-                window.axios.post('http://localhost:8888/profile/charge-credit', amount, {
+                window.axios.post(window.customURLs.chargeCredit, amount, {
                     Cookie: document.cookie,
                     'Access-Control-Allow-Origin': '*',
                     "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -61,7 +61,9 @@
                     console.log(respond.data);
 
 
-                    location.href = 'http://localhost:8888/profile';
+                    location.reload();
+
+//                    location.href = 'http://19:8888/profile';
 
                 }).catch(e => {
                     console.log(e)

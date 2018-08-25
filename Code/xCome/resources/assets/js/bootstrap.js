@@ -33,11 +33,19 @@ var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
     window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.baseURL = ''
     window.customURLs = {
-        'buyExam': 'http://localhost:8888/profile/buy-exam',
-        'applyPayURL': 'http://localhost:8888/profile/do-apply-pay',
-        'foreignPayURL': 'http://localhost:8888/profile/do-foreign-pay',
-        'internalTransURL': 'http://localhost:8888/profile/do-int-trans'
+        'buyExam': window.baseURL + '/profile/buy-exam',
+        'login': window.baseURL + '/login',
+        'applyPayURL': window.baseURL + '/profile/do-apply-pay',
+        'foreignPayURL': window.baseURL + '/profile/do-foreign-pay',
+        'internalTransURL': window.baseURL + '/profile/do-int-trans',
+        'chargeCredit' : window.baseURL + 'profile/charge-credit',
+        'activeUser': window.baseURL + '/profile/active-user',
+        'addNewExam' : window.baseURL + '/profile/add-new-exam',
+        'registerNewUser' : window.baseURL + '/profile/register-new-user',
+        'doIntTrans' : window.baseURL + '/profile/do-int-trans',
+        'register' : window.baseURL + '/register'
     }
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');

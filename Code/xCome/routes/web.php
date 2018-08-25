@@ -36,20 +36,25 @@ Route::get('/register', [
     "as" => "User.showRegister"
 ]);
 
-Route::get('/users-table', [
-    "uses" => "UserController@getUsersTable",
-    "as" => "clerk-users-table"
-]);
+//Route::get('/users-table', [
+//    "uses" => "UserController@getUsersTable",
+//    "as" => "clerk-users-table"
+//]);
 
-Route::get('/users-table', [
-    "uses" => "UserController@getUsersTable",
-    "as" => "boss-users-table"
-]);
+//Route::get('/clerks-table', [
+//    "uses" => "UserController@getUsersTable",
+//    "as" => "clerks-table"
+//]);
 
-Route::get('/boss/clerk-table', [
-    "uses" => "UserController@getClerksTable",
-    "as" => "clerk-table"
-]);
+//Route::get('/users-table', [
+//    "uses" => "UserController@getUsersTable",
+//    "as" => "boss-users-table"
+//]);
+
+//Route::get('/boss/clerk-table', [
+//    "uses" => "UserController@getClerksTable",
+//    "as" => "clerk-table"
+//]);
 
 Route::post('/register', [
     "uses" => "UserController@checkRegister",
@@ -189,6 +194,12 @@ Route::prefix('profile') -> group(function () {
         "as" => "profile.do-apply-pay"
     ]);
 
+    Route::any('do-foreign-pay', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@do_foreign_payment",
+        "as" => "profile.do-foreign-pay"
+    ]);
+
     Route::any('do-int-trans', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@do_internal_transaction",
@@ -205,6 +216,12 @@ Route::prefix('profile') -> group(function () {
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@getUsersTable",
         "as" => "users-table"
+    ]);
+
+    Route::any('clerks-table', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@getClerksTable",
+        "as" => "clerks-table"
     ]);
 
     Route::any('active-user', [
