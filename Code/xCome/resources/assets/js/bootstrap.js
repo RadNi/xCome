@@ -47,6 +47,8 @@ if (token) {
         'doIntTrans' : window.baseURL + '/profile/do-int-trans',
         'register' : window.baseURL + '/register',
         'addClerk' : window.baseURL + '/profile/add-clerk',
+        'changeInfo': window.baseURL + '/profile/change-info',
+        'acceptTransaction': window.baseURL + '/profile/accept-trans',
     }
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');

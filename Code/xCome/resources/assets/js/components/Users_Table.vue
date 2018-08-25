@@ -94,7 +94,7 @@
                     }
                 }
                 console.log(this.value);
-                window.axios.post(window.URL.activeUser, {
+                window.axios.post(window.customURLs.activeUser, {
                     value: this.value,
                     active: active
                 }, {

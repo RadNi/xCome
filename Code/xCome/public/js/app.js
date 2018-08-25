@@ -1167,7 +1167,9 @@ if (token) {
         'registerNewUser': window.baseURL + '/profile/register-new-user',
         'doIntTrans': window.baseURL + '/profile/do-int-trans',
         'register': window.baseURL + '/register',
-        'addClerk': window.baseURL + '/profile/add-clerk'
+        'addClerk': window.baseURL + '/profile/add-clerk',
+        'changeInfo': window.baseURL + '/profile/change-info',
+        'acceptTransaction': window.baseURL + '/profile/accept-trans'
     };
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -45515,6 +45517,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45573,8 +45577,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sendTransaction: function sendTransaction() {
             var _this = this;
 
-            console.log("hello");
-            console.log(this.payment);
+            console.log("helo", this.payment.type, this.payment.address, this.payment.price, this.payment.fee);
             window.axios.post(window.customURLs.doIntTrans, this.payment, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
@@ -45615,173 +45618,192 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.csrf,
-              expression: "csrf"
-            }
-          ],
-          attrs: { type: "hidden", name: "_token" },
-          domProps: { value: _vm.csrf },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.csrf = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.address,
-                expression: "payment.address"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              "aria-label": "Payee Credit Card",
-              name: "payee-id",
-              id: "payee-id",
-              placeholder: "Payee Credit Card"
-            },
-            domProps: { value: _vm.payment.address },
+        _c(
+          "form",
+          {
             on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.payment, "address", $event.target.value)
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.sendTransaction($event)
               }
             }
-          }),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              staticClass: "custom-select",
-              attrs: { name: "type", id: "Curr_Type" }
-            },
-            [
-              _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.csrf,
+                  expression: "csrf"
+                }
+              ],
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.csrf = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payment.address,
+                    expression: "payment.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  "aria-label": "Payee Credit Card",
+                  name: "payee-id",
+                  id: "payee-id",
+                  placeholder: "Payee Credit Card"
+                },
+                domProps: { value: _vm.payment.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payment, "address", $event.target.value)
+                  }
+                }
+              }),
               _vm._v(" "),
               _c(
-                "option",
+                "select",
                 {
-                  attrs: { value: "rial" },
-                  model: {
-                    value: _vm.payment.type,
-                    callback: function($$v) {
-                      _vm.$set(_vm.payment, "type", $$v)
-                    },
-                    expression: "payment.type"
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.payment.type,
+                      expression: "payment.type"
+                    }
+                  ],
+                  staticClass: "custom-select",
+                  attrs: { name: "type", id: "Curr_Type" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.payment,
+                        "type",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
                   }
                 },
-                [_vm._v("Rial")]
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("Choose...")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "rial" } }, [_vm._v("Rial")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "dollar" } }, [
+                    _vm._v("Dollar")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "euro", selected: "" } }, [
+                    _vm._v("Euro")
+                  ])
+                ]
               ),
               _vm._v(" "),
-              _c(
-                "option",
-                {
-                  attrs: { value: "dollar" },
-                  model: {
-                    value: _vm.payment.type,
-                    callback: function($$v) {
-                      _vm.$set(_vm.payment, "type", $$v)
-                    },
-                    expression: "payment.type"
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payment.price,
+                    expression: "payment.price"
                   }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  "aria-label": "Price",
+                  name: "price",
+                  id: "price",
+                  placeholder: "Price"
                 },
-                [_vm._v("Dollar")]
-              ),
+                domProps: { value: _vm.payment.price },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payment, "price", $event.target.value)
+                  }
+                }
+              }),
               _vm._v(" "),
               _c(
-                "option",
-                {
-                  attrs: { value: "euro", selected: "" },
-                  model: {
-                    value: _vm.payment.type,
-                    callback: function($$v) {
-                      _vm.$set(_vm.payment, "type", $$v)
-                    },
-                    expression: "payment.type"
+                "span",
+                { staticClass: "input-group-text", attrs: { id: "feeLabel" } },
+                [_vm._v("fee")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payment.fee,
+                    expression: "payment.fee"
                   }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  "aria-label": "Fee",
+                  name: "fee",
+                  id: "fee",
+                  readonly: "",
+                  placeholder: _vm.getFeePrice()
                 },
-                [_vm._v("Euro")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.price,
-                expression: "payment.price"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "number",
-              "aria-label": "Price",
-              name: "price",
-              id: "price",
-              placeholder: "Price"
-            },
-            domProps: { value: _vm.payment.price },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+                domProps: { value: _vm.payment.fee },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payment, "fee", $event.target.value)
+                  }
                 }
-                _vm.$set(_vm.payment, "price", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "input-group-text", attrs: { id: "feeLabel" } },
-            [_vm._v("fee")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              "aria-label": "Fee",
-              name: "fee",
-              id: "fee",
-              readonly: "",
-              placeholder: _vm.getFeePrice()
-            }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "btn btn-outline-secondary",
-            attrs: {
-              type: "submit",
-              id: "submit",
-              name: "submit",
-              value: "submit"
-            },
-            on: {
-              click: function($event) {
-                _vm.sendTransaction()
-              }
-            }
-          })
-        ]),
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn btn-outline-secondary",
+                attrs: {
+                  type: "submit",
+                  id: "login",
+                  name: "submit",
+                  value: "submit"
+                }
+              })
+            ])
+          ]
+        ),
         _vm._v(" "),
         _c(
           "form",
@@ -46338,7 +46360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         send_new_info: function send_new_info() {
-            window.axios.post('http://localhost:8888/profile/change-info', this.new_info, {
+            window.axios.post(window.customURLs.changeInfo, this.new_info, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -46875,6 +46897,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46897,7 +46922,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //            this.internalTransURL = window.customURLs.internalTransURL;
     },
 
-    methods: {}
+    methods: {
+        acceptTrans: function acceptTrans(transaction, accept) {
+            window.axios.post(window.customURLs.acceptTransaction, {
+                transaction: transaction,
+                accept: accept
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                console.log(respond);
+                console.log(respond.data);
+                //                  console.log(JSON.parse(respond));
+            }).catch(function (e) {
+                console.log(e);
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -46926,6 +46969,11 @@ var render = function() {
                 attrs: { id: table.id }
               },
               [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(table.id) +
+                    "\n                    "
+                ),
                 _c("thead", [
                   _c(
                     "tr",
@@ -46942,11 +46990,42 @@ var render = function() {
                   _vm._l(table.transactions, function(trans) {
                     return _c(
                       "tr",
-                      _vm._l(trans.tds, function(td) {
-                        return _c("td", { class: td.class }, [
-                          _vm._v(_vm._s(td.value))
-                        ])
-                      })
+                      [
+                        _vm._l(trans.tds, function(td) {
+                          return _c("td", { class: td.class }, [
+                            _vm._v(_vm._s(td.value))
+                          ])
+                        }),
+                        _vm._v(" "),
+                        table.id == "unchecked-trans-table"
+                          ? _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.acceptTrans(trans, true)
+                                  }
+                                }
+                              },
+                              [_vm._v("Accept")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        table.id == "unchecked-trans-table"
+                          ? _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.acceptTrans(trans, false)
+                                  }
+                                }
+                              },
+                              [_vm._v("Reject")]
+                            )
+                          : _vm._e()
+                      ],
+                      2
                     )
                   })
                 )
@@ -47354,7 +47433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             console.log(this.value);
-            window.axios.post(window.URL.activeUser, {
+            window.axios.post(window.customURLs.activeUser, {
                 value: this.value,
                 active: active
             }, {

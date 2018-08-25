@@ -101,7 +101,7 @@ class UserController extends Controller
 
         $this->x_cookie->where('token', '=', $request->cookie('x_user_cookie'))->delete();
 
-        return \response('You\'ve logout successfully')->redirectToRoute('User.showLogin');
+        return \response()->redirectToRoute('User.showLogin');
 //        return $request->cookie('x_user_cookie');
 //        \Symfony\Component\HttpFoundation\Cookie::forget($request->cookie('x_user_cookie'));
 //        Cookie::forget($request->cookie('x_user_cookie'));
@@ -322,7 +322,10 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-        $users = $this->x_user->where('type', '=', 'clerk')->get();
+//        $trans_id = $this->x_transaction->join($table_name, $table_name.'.transaction_id', '=', 'x_transactions.transaction_id')->get();
+
+
+        $users = $this->x_user->join('x_clerk_incomes', 'x_users.id', '=', 'x_clerk_incomes.clerk_id')->where('type', '=', 'clerk')->get();
 
 
         $data = [
@@ -622,6 +625,13 @@ class UserController extends Controller
             $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', [], $all_transactions);
+        }else{
+            $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', [], $all_transactions);
+            $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', [], $all_transactions);
         }
 
 
@@ -684,7 +694,7 @@ class UserController extends Controller
                 array_push($table1['transactions'], $tans);
         }
         $table1['id'] = 'checked-trans-table';
-        $table1['id'] = 'unchecked-trans-table';
+        $table2['id'] = 'unchecked-trans-table';
 
 
 
@@ -698,6 +708,7 @@ class UserController extends Controller
             'tables' => $tables
         ];
 
+//        dd($data);
         return view('new.transaction-history', ['x_data' => json_encode($data)]);
 
 
@@ -1175,6 +1186,16 @@ class UserController extends Controller
                         'text' => 'Wallets Page'
                     ]
                 ];
+                break;
+            case "clerk":
+                $wp_items = [
+                    [
+                        'id' => 'retr-mon',
+                        'link' => route('profile.ret-mon'),
+                        'text' => 'Retrieve Money'
+                    ]
+                ];
+                break;
         }
         return $wp_items;
     }
@@ -1255,6 +1276,36 @@ class UserController extends Controller
                         "text" => "Transactions History"
                     ]
                 ];
+                break;
+            case "clerk":
+                $hyperLinks = [
+                    [
+                        "id" => "mainpage",
+                        "link" => route('profile'),
+                        "text" => "Main Page"
+                    ],
+                    [
+                        "id" => "userinfo",
+                        "link" => route("info"),
+                        "text" => "User Information"
+                    ],
+                    [
+                        "id" => "transactions",
+                        "link" => route('transactions'),
+                        "text" => "Transactions History"
+                    ],
+                    [
+                        "id" => "users-table",
+                        "link" => route('users-table'),
+                        "text" => "Users Table"
+                    ],
+                    [
+                        "id" => "clerks-table",
+                        "link" => route('send-message'),
+                        "text" => "Send Message"
+                    ]
+                ];
+                break;
         }
         return $hyperLinks;
     }
@@ -1470,6 +1521,9 @@ class UserController extends Controller
                 return view('new.default', $arr);
                 break;
             case "clerk":
+
+                return $this->transactions($request);
+
 
                 break;
             case "manager":
