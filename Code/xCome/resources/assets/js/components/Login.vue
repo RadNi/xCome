@@ -38,10 +38,10 @@
                             <!--<label for="remember">remember</label>-->
                         <!--</div>-->
                     </div>
-                    <button id="login" type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                    <button id="submit" type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                 </div>
                 <div class="etc-login-form">
-                    <p>forgot your password? <a href="/forget">click here</a></p>
+                    <p>forgot your password? <a id="forget" href="/forget">click here</a></p>
                     <p>new user? <a href="/register">create new account</a></p>
                 </div>
             </form>

@@ -43572,7 +43572,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "button",
-      { staticClass: "login-button", attrs: { id: "login", type: "submit" } },
+      { staticClass: "login-button", attrs: { id: "submit", type: "submit" } },
       [_c("i", { staticClass: "fa fa-chevron-right" })]
     )
   },
@@ -43583,7 +43583,9 @@ var staticRenderFns = [
     return _c("div", { staticClass: "etc-login-form" }, [
       _c("p", [
         _vm._v("forgot your password? "),
-        _c("a", { attrs: { href: "/forget" } }, [_vm._v("click here")])
+        _c("a", { attrs: { id: "forget", href: "/forget" } }, [
+          _vm._v("click here")
+        ])
       ]),
       _vm._v(" "),
       _c("p", [

@@ -71,7 +71,7 @@
                             <label for="reg_agree">i agree with <a href="#">terms</a></label>
                         </div>
                     </div>
-                    <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+                    <button type="submit" id="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
                 </div>
                 <div class="etc-login-form">
                     <p>already have an account? <a href="/login">login here</a></p>
