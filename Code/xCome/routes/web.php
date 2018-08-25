@@ -230,6 +230,12 @@ Route::prefix('profile') -> group(function () {
         "as" => "active-user"
     ]);
 
+    Route::any('add-clerk', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@add_clerk",
+        "as" => "add-clerk"
+    ]);
+
 
     Route::any('ret-mon', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",

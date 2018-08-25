@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\x_clerk_income;
 use App\x_exam_transaction;
 use App\x_exchange_transaction;
 use App\x_pay_transaction;
@@ -51,9 +52,10 @@ class UserController extends Controller
     protected $x_fee_transactions;
     protected $x_pay_transactions;
     protected $x_exchange_transactions;
+    protected $x_clerk_income;
 
 
-    function __construct(x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
+    function __construct(x_clerk_income $x_clerk_income, x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
@@ -65,6 +67,7 @@ class UserController extends Controller
         $this->x_fee_transactions = $x_fee_transactions;
         $this->x_pay_transactions = $x_pay_transaction;
         $this->x_exchange_transactions = $x_exchange_transaction;
+        $this->x_clerk_income = $x_clerk_income;
     }
 
     public function showForget() {
@@ -274,7 +277,43 @@ class UserController extends Controller
 //        return view("extra.users-table", array('type' => $arr[0]));
     }
 
-    public function getClerkTable(Request $request) {
+    public function add_clerk(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $clerk = $request->clerk;
+        unset($clerk['repass']);
+        unset($clerk['captcha']);
+        $income = $clerk['income'];
+        unset($clerk['income']);
+        $clerk['password'] = md5($clerk['password']);
+        $clerk['type'] = 'clerk';
+//        return $clerk;
+
+        $clerk_user = $this->x_user->create($clerk);
+
+//        $clerk['value'] = $income;
+
+//        return $clerk_user->getKey();
+
+        $clerk = [
+            'value' => $income,
+            'clerk_id' => $clerk_user->getKey()
+        ];
+
+        $this->x_clerk_income->create($clerk);
+
+
+        return $clerk_user;
+
+
+    }
+
+    public function getClerksTable(Request $request) {
 
         $user = $this->getUser($request);
 //            dd($user->type);
@@ -284,6 +323,17 @@ class UserController extends Controller
         }
 
         $users = $this->x_user->where('type', '=', 'clerk')->get();
+
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'table' => ''
+        ];
+
+        if (sizeof($users) < 1 )
+            return view('new.clerks-table', ['x_data' => json_encode($data)]);
 
         $table = [
             'ths' => array_keys((array)json_decode(json_encode($users[0]))),
@@ -302,14 +352,16 @@ class UserController extends Controller
             array_push($table['trs'], $tds);
         }
 
-        $data = [
-            'type' => $user->type,
-            'hyperLinks' => $this->fill_hyperLinks($user->type),
-            'wp_items' => $this->fill_wp_items($user->type),
-            'table' => $table
-        ];
+        $data['table'] = $table;
 
-        return view('new.users-table', ['x_data' => json_encode($data)]);
+//        $data = [
+//            'type' => $user->type,
+//            'hyperLinks' => $this->fill_hyperLinks($user->type),
+//            'wp_items' => $this->fill_wp_items($user->type),
+//            'table' => $table
+//        ];
+
+        return view('new.clerks-table', ['x_data' => json_encode($data)]);
 
 
 

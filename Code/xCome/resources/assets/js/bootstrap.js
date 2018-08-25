@@ -45,7 +45,8 @@ if (token) {
         'addNewExam' : window.baseURL + '/profile/add-new-exam',
         'registerNewUser' : window.baseURL + '/profile/register-new-user',
         'doIntTrans' : window.baseURL + '/profile/do-int-trans',
-        'register' : window.baseURL + '/register'
+        'register' : window.baseURL + '/register',
+        'addClerk' : window.baseURL + '/profile/add-clerk',
     }
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');

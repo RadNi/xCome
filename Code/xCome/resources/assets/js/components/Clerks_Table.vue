@@ -5,22 +5,22 @@
 
                 <div id="add-clerk">
 
-                    <button id="addShow" onclick="popupAdd.hidden = false;addShow.hidden = true;">Add new clerk</button>
+                    <button id="addShow" v-on:click="showPopup()">Add new clerk</button>
 
                     <div id="popupAdd" hidden>
-                        <h4>new Clerk Informations</h4>
-                        <input id="email" type="email" name="email" placeholder="Email"><br>
-                        <input id="password" type="password" name="password" placeholder="Password"><br>
-                        <input id="repass" type="password" name="retryPass" placeholder="Repeat Password"><br>
-                        <input id="name" type="name" name="name" placeholder="Name"><br>
-                        <input id="family" type="name" name="familyName" placeholder="Family"><br>
-                        <input id="username" type="name" name="username" placeholder="Username"><br>
-                        <input id="income" type="number" name="income" placeholder="income"><br>
-                        <input id="address" type="address" name="address" placeholder="address"><br>
-                        <input id="captcha" type="text" name="captcha" placeholder="captcha"><br>
-                        <input id="person_id" type="text" name="PersonID" placeholder="Person ID"><br>
-                        <input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number"><br>
-                        <button id="add" data-dismiss="modal">Add</button>
+                        <h4>new Clerk Information</h4>
+                        <input id="email" type="email" name="email" placeholder="Email" v-model="clerk.email"><br>
+                        <input id="password" type="password" name="password" placeholder="Password" v-model="clerk.password"><br>
+                        <input id="repass" type="password" name="retryPass" placeholder="Repeat Password" v-model="clerk.repass"><br>
+                        <input id="name" type="name" name="name" placeholder="Name" v-model="clerk.name"><br>
+                        <input id="family" type="name" name="familyName" placeholder="Family" v-model="clerk.family_name"><br>
+                        <input id="username" type="name" name="username" placeholder="Username" v-model="clerk.username"><br>
+                        <input id="income" type="number" name="income" placeholder="income" v-model="clerk.income"><br>
+                        <input id="address" type="address" name="address" placeholder="address" v-model="clerk.address"><br>
+                        <input id="captcha" type="text" name="captcha" placeholder="captcha" v-model="clerk.captcha"><br>
+                        <input id="person_id" type="text" name="PersonID" placeholder="Person ID" v-model="clerk.national_id"><br>
+                        <input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number" v-model="clerk.phoneNumber"><br>
+                        <button id="add" data-dismiss="modal" v-on:click="addClerk()">Add</button>
                     </div>
 
                 </div>
@@ -91,11 +91,23 @@
                 type: '',
                 csrf : '',
                 value: '',
-                table: []
+                table: [],
+                clerk: {
+//                    name: '',
+//                    email: '',
+//                    phoneNumber: 'Phone Number',
+//                    address: '',
+//                    national_id: 'National ID',
+//                    repass: '',
+//                    family: '',
+//                    income: 'Income',
+//                    captcha: ''
+                }
             }
         },
         mounted() {
             console.log(this.x_data);
+            console.log('kharr')
             this.table = this.x_data.table;
 //            this.transactions = this.x_data.transactions;
 //            this.type = this.x_data.type;
@@ -104,6 +116,32 @@
 //            this.internalTransURL = window.customURLs.internalTransURL;
         },
         methods: {
+
+            showPopup(){
+                popupAdd.hidden = false;
+                addShow.hidden = true;
+            },
+
+            addClerk() {
+                window.axios.post(window.customURLs.addClerk, {
+                    clerk: this.clerk
+                }, {
+                    Cookie: document.cookie,
+                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+                }).then(respond => {
+
+
+                    location.reload();
+//                    console.log(location.href);
+                    console.log(respond);
+                    console.log(respond.data)
+
+                }).catch(e => {
+
+                    console.log(e)
+                })
+            },
 
             ActiveClerk(query, active) {
 
