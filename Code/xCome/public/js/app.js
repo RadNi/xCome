@@ -44661,19 +44661,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "select",
-      { staticClass: "custom-select", attrs: { id: "Curr_Type" } },
+      {
+        staticClass: "custom-select",
+        attrs: { name: "type", id: "Curr_Type" }
+      },
       [
         _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
         _vm._v(" "),
-        _c("option", { attrs: { value: "rial", name: "type" } }, [
-          _vm._v("Rial")
-        ]),
+        _c("option", { attrs: { value: "rial" } }, [_vm._v("Rial")]),
         _vm._v(" "),
-        _c("option", { attrs: { value: "dollar", name: "type" } }, [
-          _vm._v("Dollar")
-        ]),
+        _c("option", { attrs: { value: "dollar" } }, [_vm._v("Dollar")]),
         _vm._v(" "),
-        _c("option", { attrs: { value: "euro", name: "type", selected: "" } }, [
+        _c("option", { attrs: { value: "euro", selected: "" } }, [
           _vm._v("Euro")
         ])
       ]
@@ -45603,14 +45602,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "select",
-            { staticClass: "custom-select", attrs: { id: "Curr_Type" } },
+            {
+              staticClass: "custom-select",
+              attrs: { name: "type", id: "Curr_Type" }
+            },
             [
               _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
               _vm._v(" "),
               _c(
                 "option",
                 {
-                  attrs: { value: "rial", name: "type" },
+                  attrs: { value: "rial" },
                   model: {
                     value: _vm.payment.type,
                     callback: function($$v) {
@@ -45625,7 +45627,7 @@ var render = function() {
               _c(
                 "option",
                 {
-                  attrs: { value: "dollar", name: "type" },
+                  attrs: { value: "dollar" },
                   model: {
                     value: _vm.payment.type,
                     callback: function($$v) {
@@ -45640,7 +45642,7 @@ var render = function() {
               _c(
                 "option",
                 {
-                  attrs: { value: "euro", name: "type", selected: "" },
+                  attrs: { value: "euro", selected: "" },
                   model: {
                     value: _vm.payment.type,
                     callback: function($$v) {
