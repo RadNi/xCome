@@ -4,32 +4,34 @@
             <div class="col-md-8 col-md-offset-2">
 
                 <input id="search" name="searchbox" placeholder="Search here">
-                <table v-bind:id="table.id" cellpadding="10px" v-for="table in tables">
-                    <thead>
-                    <tr>
-                        <th v-for="th in table.ths">{{ th }}</th>
-                        <!--<th>Fee</th>-->
-                        <!--<th>Currency Type</th>-->
-                        <!--<th>From</th>-->
-                        <!--<th>To</th>-->
-                        <!--<th>Calender</th>-->
-                        <!--<th>Value</th>-->
-                        <!--<th>Transaction ID</th>-->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="trans in table.transactions">
-                        <td v-for="td in trans.tds" v-bind:class="td.class">{{ td.value }}</td>
-                        <!--<td class="fee">{{ trans.fee }}</td>-->
-                        <!--<td class="currency">{{ trans.type }}</td>-->
-                        <!--<td class="from">{{ trans.from }}</td>-->
-                        <!--<td class="to">{{ trans.to }}</td>-->
-                        <!--<td class="calender">{{ trans.calender }}</td>-->
-                        <!--<td class="value">{{ trans.value }}</td>-->
-                        <!--<td class="transaction-id">{{ trans.transaction_id }}</td>-->
-                    </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped col-12" v-bind:id="table.id" v-for="table in tables">
+                        <thead>
+                        <tr>
+                            <th scope="col" v-for="th in table.ths">{{ th }}</th>
+                            <!--<th>Fee</th>-->
+                            <!--<th>Currency Type</th>-->
+                            <!--<th>From</th>-->
+                            <!--<th>To</th>-->
+                            <!--<th>Calender</th>-->
+                            <!--<th>Value</th>-->
+                            <!--<th>Transaction ID</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="trans in table.transactions">
+                            <td v-for="td in trans.tds" v-bind:class="td.class">{{ td.value }}</td>
+                            <!--<td class="fee">{{ trans.fee }}</td>-->
+                            <!--<td class="currency">{{ trans.type }}</td>-->
+                            <!--<td class="from">{{ trans.from }}</td>-->
+                            <!--<td class="to">{{ trans.to }}</td>-->
+                            <!--<td class="calender">{{ trans.calender }}</td>-->
+                            <!--<td class="value">{{ trans.value }}</td>-->
+                            <!--<td class="transaction-id">{{ trans.transaction_id }}</td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
