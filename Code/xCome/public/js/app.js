@@ -45476,6 +45476,46 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45534,6 +45574,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sendTransaction: function sendTransaction() {
             var _this = this;
 
+            console.log("hello");
+            console.log(this.payment);
             window.axios.post(window.customURLs.doIntTrans, this.payment, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
@@ -45574,429 +45616,507 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.csrf,
-              expression: "csrf"
-            }
-          ],
-          attrs: { type: "hidden", name: "_token" },
-          domProps: { value: _vm.csrf },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.csrf = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.address,
-                expression: "payment.address"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              "aria-label": "Payee Credit Card",
-              name: "payee-id",
-              id: "payee-id",
-              placeholder: "Payee Credit Card"
-            },
-            domProps: { value: _vm.payment.address },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.payment, "address", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              staticClass: "custom-select",
-              attrs: { name: "type", id: "Curr_Type" }
-            },
-            [
-              _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
-              _vm._v(" "),
-              _c(
-                "option",
-                {
-                  attrs: { value: "rial" },
-                  model: {
-                    value: _vm.payment.type,
-                    callback: function($$v) {
-                      _vm.$set(_vm.payment, "type", $$v)
-                    },
-                    expression: "payment.type"
-                  }
-                },
-                [_vm._v("Rial")]
-              ),
-              _vm._v(" "),
-              _c(
-                "option",
-                {
-                  attrs: { value: "dollar" },
-                  model: {
-                    value: _vm.payment.type,
-                    callback: function($$v) {
-                      _vm.$set(_vm.payment, "type", $$v)
-                    },
-                    expression: "payment.type"
-                  }
-                },
-                [_vm._v("Dollar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "option",
-                {
-                  attrs: { value: "euro", selected: "" },
-                  model: {
-                    value: _vm.payment.type,
-                    callback: function($$v) {
-                      _vm.$set(_vm.payment, "type", $$v)
-                    },
-                    expression: "payment.type"
-                  }
-                },
-                [_vm._v("Euro")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.payment.price,
-                expression: "payment.price"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              type: "number",
-              "aria-label": "Price",
-              name: "price",
-              id: "price",
-              placeholder: "Price"
-            },
-            domProps: { value: _vm.payment.price },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.payment, "price", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "span",
-            { staticClass: "input-group-text", attrs: { id: "feeLabel" } },
-            [_vm._v("fee")]
-          ),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control",
-            attrs: {
-              type: "text",
-              "aria-label": "Fee",
-              name: "fee",
-              id: "fee",
-              readonly: "",
-              placeholder: _vm.getFeePrice()
-            }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "btn btn-outline-secondary",
-            attrs: {
-              type: "submit",
-              id: "submit",
-              name: "submit",
-              value: "submit"
-            },
-            on: {
-              click: function($event) {
-                _vm.sendTransaction()
-              }
-            }
-          })
-        ]),
-        _vm._v(" "),
         _c(
-          "div",
-          { attrs: { id: "user-registration", hidden: this.hide_form } },
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.sendTransaction($event)
+              }
+            }
+          },
           [
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.new_user.email,
-                  expression: "new_user.email"
+                  value: _vm.csrf,
+                  expression: "csrf"
                 }
               ],
-              attrs: {
-                id: "email",
-                type: "email",
-                name: "email",
-                placeholder: "Email"
-              },
-              domProps: { value: _vm.new_user.email },
+              attrs: { type: "hidden", name: "_token" },
+              domProps: { value: _vm.csrf },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.new_user, "email", $event.target.value)
+                  _vm.csrf = $event.target.value
                 }
               }
             }),
-            _c("br"),
             _vm._v(" "),
-            _c("input", {
-              directives: [
+            _c("div", { staticClass: "input-group" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payment.address,
+                    expression: "payment.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  "aria-label": "Payee Credit Card",
+                  name: "payee-id",
+                  id: "payee-id",
+                  placeholder: "Payee Credit Card"
+                },
+                domProps: { value: _vm.payment.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payment, "address", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "select",
                 {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.password,
-                  expression: "new_user.password"
-                }
-              ],
-              attrs: {
-                id: "password",
-                type: "password",
-                name: "password",
-                placeholder: "Password"
-              },
-              domProps: { value: _vm.new_user.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                  staticClass: "custom-select",
+                  attrs: { name: "type", id: "Curr_Type" }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("Choose...")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    {
+                      attrs: { value: "rial" },
+                      model: {
+                        value: _vm.payment.type,
+                        callback: function($$v) {
+                          _vm.$set(_vm.payment, "type", $$v)
+                        },
+                        expression: "payment.type"
+                      }
+                    },
+                    [_vm._v("Rial")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    {
+                      attrs: { value: "dollar" },
+                      model: {
+                        value: _vm.payment.type,
+                        callback: function($$v) {
+                          _vm.$set(_vm.payment, "type", $$v)
+                        },
+                        expression: "payment.type"
+                      }
+                    },
+                    [_vm._v("Dollar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    {
+                      attrs: { value: "euro", selected: "" },
+                      model: {
+                        value: _vm.payment.type,
+                        callback: function($$v) {
+                          _vm.$set(_vm.payment, "type", $$v)
+                        },
+                        expression: "payment.type"
+                      }
+                    },
+                    [_vm._v("Euro")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payment.price,
+                    expression: "payment.price"
                   }
-                  _vm.$set(_vm.new_user, "password", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.repass,
-                  expression: "new_user.repass"
-                }
-              ],
-              attrs: {
-                id: "repass",
-                type: "password",
-                name: "password_confirmation",
-                placeholder: "Repeat Password"
-              },
-              domProps: { value: _vm.new_user.repass },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "number",
+                  "aria-label": "Price",
+                  name: "price",
+                  id: "price",
+                  placeholder: "Price"
+                },
+                domProps: { value: _vm.payment.price },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payment, "price", $event.target.value)
                   }
-                  _vm.$set(_vm.new_user, "repass", $event.target.value)
                 }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.name,
-                  expression: "new_user.name"
+              }),
+              _vm._v(" "),
+              _c(
+                "span",
+                { staticClass: "input-group-text", attrs: { id: "feeLabel" } },
+                [_vm._v("fee")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  "aria-label": "Fee",
+                  name: "fee",
+                  id: "fee",
+                  readonly: "",
+                  placeholder: _vm.getFeePrice()
                 }
-              ],
-              attrs: {
-                id: "name",
-                type: "name",
-                name: "name",
-                placeholder: "Name"
-              },
-              domProps: { value: _vm.new_user.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn btn-outline-secondary",
+                attrs: {
+                  type: "submit",
+                  id: "pay",
+                  name: "submit",
+                  value: "submit"
+                }
+              })
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "form",
+          { attrs: { id: "user-registration", hidden: this.hide_form } },
+          [
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "username" } },
+                [_vm._v("Username")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.username,
+                    expression: "new_user.username"
                   }
-                  _vm.$set(_vm.new_user, "name", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.family_name,
-                  expression: "new_user.family_name"
-                }
-              ],
-              attrs: {
-                id: "family",
-                type: "name",
-                name: "familyName",
-                placeholder: "Family"
-              },
-              domProps: { value: _vm.new_user.family_name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "username",
+                  name: "username",
+                  placeholder: "username"
+                },
+                domProps: { value: _vm.new_user.username },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "username", $event.target.value)
                   }
-                  _vm.$set(_vm.new_user, "family_name", $event.target.value)
                 }
-              }
-            }),
-            _c("br"),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.username,
-                  expression: "new_user.username"
-                }
-              ],
-              attrs: {
-                id: "username",
-                type: "name",
-                name: "username",
-                placeholder: "Username"
-              },
-              domProps: { value: _vm.new_user.username },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { staticClass: "sr-only", attrs: { for: "email" } }, [
+                _vm._v("Email Address")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.email,
+                    expression: "new_user.email"
                   }
-                  _vm.$set(_vm.new_user, "username", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.address,
-                  expression: "new_user.address"
-                }
-              ],
-              attrs: {
-                id: "address",
-                type: "address",
-                name: "address",
-                placeholder: "address"
-              },
-              domProps: { value: _vm.new_user.address },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "email",
+                  name: "email",
+                  placeholder: "Email Address"
+                },
+                domProps: { value: _vm.new_user.email },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "email", $event.target.value)
                   }
-                  _vm.$set(_vm.new_user, "address", $event.target.value)
                 }
-              }
-            }),
-            _c("br"),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.national_id,
-                  expression: "new_user.national_id"
-                }
-              ],
-              attrs: {
-                id: "person_id",
-                type: "text",
-                name: "PersonID",
-                placeholder: "Person ID"
-              },
-              domProps: { value: _vm.new_user.national_id },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "password" } },
+                [_vm._v("Password")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.password,
+                    expression: "new_user.password"
                   }
-                  _vm.$set(_vm.new_user, "national_id", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_user.phonenumber,
-                  expression: "new_user.phonenumber"
-                }
-              ],
-              attrs: {
-                id: "cellphone",
-                type: "text",
-                name: "CellPhone",
-                placeholder: "Phone Number"
-              },
-              domProps: { value: _vm.new_user.phonenumber },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "password",
+                  id: "password",
+                  name: "password",
+                  placeholder: "password"
+                },
+                domProps: { value: _vm.new_user.password },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "password", $event.target.value)
                   }
-                  _vm.$set(_vm.new_user, "phonenumber", $event.target.value)
                 }
-              }
-            }),
-            _c("br"),
+              })
+            ]),
             _vm._v(" "),
-            _c("input", {
-              attrs: { id: "submit-user", type: "submit", value: "register" },
-              on: {
-                click: function($event) {
-                  _vm.createUser()
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "repass" } },
+                [_vm._v("Password Confirmation")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.repass,
+                    expression: "new_user.repass"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "password",
+                  id: "repass",
+                  name: "password_confirmation",
+                  placeholder: "Password Confirmation"
+                },
+                domProps: { value: _vm.new_user.repass },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "repass", $event.target.value)
+                  }
                 }
-              }
-            })
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { staticClass: "sr-only", attrs: { for: "name" } }, [
+                _vm._v("Name")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.name,
+                    expression: "new_user.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "name",
+                  name: "name",
+                  placeholder: "Name"
+                },
+                domProps: { value: _vm.new_user.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "family" } },
+                [_vm._v("Family Name")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.family_name,
+                    expression: "new_user.family_name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "family",
+                  name: "familyName",
+                  placeholder: "Family Name"
+                },
+                domProps: { value: _vm.new_user.family_name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "family_name", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "address" } },
+                [_vm._v("Address")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.address,
+                    expression: "new_user.address"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "address",
+                  name: "address",
+                  placeholder: "Address"
+                },
+                domProps: { value: _vm.new_user.address },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "address", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "person_id" } },
+                [_vm._v("National ID")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.national_id,
+                    expression: "new_user.national_id"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "person_id",
+                  name: "national_id",
+                  placeholder: "National ID"
+                },
+                domProps: { value: _vm.new_user.national_id },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "national_id", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "label",
+                { staticClass: "sr-only", attrs: { for: "cellphone" } },
+                [_vm._v("Phone Number")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.new_user.phonenumber,
+                    expression: "new_user.phonenumber"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "cellphone",
+                  name: "CellPhone",
+                  placeholder: "Phone Number"
+                },
+                domProps: { value: _vm.new_user.phonenumber },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.new_user, "phonenumber", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "submit", id: "submit" }
+              },
+              [_vm._v("Submit")]
+            )
           ]
         )
       ])
@@ -46764,6 +46884,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46799,28 +46921,29 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-md-8 col-md-offset-2" },
-        [
-          _c("input", {
-            attrs: {
-              id: "search",
-              name: "searchbox",
-              placeholder: "Search here"
-            }
-          }),
-          _vm._v(" "),
+      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+        _c("input", {
+          attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
+        }),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "table-responsive" },
           _vm._l(_vm.tables, function(table) {
             return _c(
               "table",
-              { attrs: { id: table.id, cellpadding: "10px" } },
+              {
+                staticClass: "table table-striped col-12",
+                attrs: { id: table.id }
+              },
               [
                 _c("thead", [
                   _c(
                     "tr",
                     _vm._l(table.ths, function(th) {
-                      return _c("th", [_vm._v(_vm._s(th))])
+                      return _c("th", { attrs: { scope: "col" } }, [
+                        _vm._v(_vm._s(th))
+                      ])
                     })
                   )
                 ]),
@@ -46841,9 +46964,8 @@ var render = function() {
               ]
             )
           })
-        ],
-        2
-      )
+        )
+      ])
     ])
   ])
 }
