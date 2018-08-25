@@ -208,10 +208,68 @@ class UserController extends Controller
         }
     }
 
-    public function getUsersTable(Request $request) {
-        $arr = explode("/", $request->path());
+    public function active_user(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
 
-        return view("extra.users-table", array('type' => $arr[0]));
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+//        return (boolean)$request->active;
+
+        $user = $this->x_user->where('id', '=', $request->value)->firstOrFail();
+
+        $user->update([
+            'active' => $request->active
+        ]);
+
+
+        return $user;
+    }
+
+    public function getUsersTable(Request $request) {
+
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $users = $this->x_user->select()->get();
+
+        $table = [
+            'ths' => array_keys((array)json_decode(json_encode($users[0]))),
+            'trs' => [
+                ]
+//            'ths' => $users
+        ];
+
+        foreach ($users as $user) {
+            $tds = ['tds' => []];
+
+            foreach (json_decode(json_encode($user)) as $k => $v) {
+                array_push($tds['tds'], ['class' => $k, 'value' => $v]);
+            }
+
+            array_push($table['trs'], $tds);
+        }
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'table' => $table
+        ];
+
+        return view('new.users-table', ['x_data' => json_encode($data)]);
+
+
+
+//        $arr = explode("/", $request->path());
+//
+//        return view("extra.users-table", array('type' => $arr[0]));
     }
 
     public function getClerksTable(Request $request) {
@@ -1068,6 +1126,11 @@ class UserController extends Controller
                         "id" => "transactions",
                         "link" => route('transactions'),
                         "text" => "Transactions History"
+                    ],
+                    [
+                        "id" => "users-table",
+                        "link" => route('users-table'),
+                        "text" => "Users Table"
                     ]
                 ];
                 break;

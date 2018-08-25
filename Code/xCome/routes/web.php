@@ -201,6 +201,19 @@ Route::prefix('profile') -> group(function () {
         "as" => "profile.foreign-pay"
     ]);
 
+    Route::any('users-table', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@getUsersTable",
+        "as" => "users-table"
+    ]);
+
+    Route::any('active-user', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@active_user",
+        "as" => "active-user"
+    ]);
+
+
     Route::any('ret-mon', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@foreign_payment",

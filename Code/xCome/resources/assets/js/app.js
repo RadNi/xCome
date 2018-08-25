@@ -27,6 +27,7 @@ Vue.component('internal_transaction', require('./components/Internal_Transaction
 Vue.component('user_information', require('./components/User_Information.vue'));
 Vue.component('transaction_history', require('./components/Transaction_History.vue'));
 Vue.component('account_div', require('./components/Account_Div.vue'));
+Vue.component('users_table', require('./components/Users_Table.vue'));
 
 const app = new Vue({
     el: '#app'
