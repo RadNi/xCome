@@ -104,7 +104,7 @@
 
 
             send_new_exam(new_exam) {
-                window.axios.post('http://localhost:8888/profile/add-new-exam', {
+                window.axios.post(window.customURLs.addNewExam, {
                     'new_exam': new_exam
                 }, {
                     Cookie: document.cookie,

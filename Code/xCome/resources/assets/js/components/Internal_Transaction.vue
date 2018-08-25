@@ -95,7 +95,7 @@
                 this.new_user.wallet_address = this.payment.address;
                 this.new_user.wallet_type = this.payment.type;
 
-                window.axios.post('http://localhost:8888/profile/register-new-user', this.new_user, {
+                window.axios.post(window.customURLs.registerNewUser, this.new_user, {
                     Cookie: document.cookie,
                     'Access-Control-Allow-Origin': '*',
                     "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -107,7 +107,7 @@
                 })
             },
             sendTransaction() {
-              window.axios.post('http://localhost:8888/profile/do-int-trans', this.payment, {
+              window.axios.post(window.customURLs.doIntTrans, this.payment, {
                   Cookie: document.cookie,
                   'Access-Control-Allow-Origin': '*',
                   "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"

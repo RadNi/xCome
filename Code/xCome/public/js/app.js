@@ -1129,9 +1129,9 @@ window._ = __webpack_require__(13);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(15);
+    window.$ = window.jQuery = __webpack_require__(15);
 
-  __webpack_require__(16);
+    __webpack_require__(16);
 } catch (e) {}
 
 /**
@@ -1153,15 +1153,23 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-  window.customURLs = {
-    'buyExam': 'http://localhost:8888/profile/buy-exam',
-    'applyPayURL': 'http://localhost:8888/profile/do-apply-pay',
-    'foreignPayURL': 'http://localhost:8888/profile/do-foreign-pay',
-    'internalTransURL': 'http://localhost:8888/profile/do-int-trans'
-  };
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.baseURL = '';
+    window.customURLs = {
+        'buyExam': window.baseURL + '/profile/buy-exam',
+        'login': window.baseURL + '/login',
+        'applyPayURL': window.baseURL + '/profile/do-apply-pay',
+        'foreignPayURL': window.baseURL + '/profile/do-foreign-pay',
+        'internalTransURL': window.baseURL + '/profile/do-int-trans',
+        'chargeCredit': window.baseURL + 'profile/charge-credit',
+        'activeUser': window.baseURL + '/profile/active-user',
+        'addNewExam': window.baseURL + '/profile/add-new-exam',
+        'registerNewUser': window.baseURL + '/profile/register-new-user',
+        'doIntTrans': window.baseURL + '/profile/do-int-trans',
+        'register': window.baseURL + '/register'
+    };
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -43415,7 +43423,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             password: 'testtest',
             username: 'test',
             captcha: '',
-            action: ''
+            action: '',
+            registerURL: ''
 
         };
     },
@@ -43427,7 +43436,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //           };
         console.log(this.csrf_field);
         console.log(this.url);
-        this.action = this.url;
+        this.action = window.customURLs.login;
+        this.registerURL = window.customURLs.register;
     },
 
     methods: {
@@ -43520,7 +43530,16 @@ var render = function() {
               _vm._m(2)
             ]),
             _vm._v(" "),
-            _vm._m(3)
+            _c("div", { staticClass: "etc-login-form" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("new user? "),
+                _c("a", { attrs: { href: this.registerURL } }, [
+                  _vm._v("create new account")
+                ])
+              ])
+            ])
           ]
         )
       ])
@@ -43582,19 +43601,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "etc-login-form" }, [
-      _c("p", [
-        _vm._v("forgot your password? "),
-        _c("a", { attrs: { id: "forget", href: "/forget" } }, [
-          _vm._v("click here")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", [
-        _vm._v("new user? "),
-        _c("a", { attrs: { href: "/register" } }, [
-          _vm._v("create new account")
-        ])
+    return _c("p", [
+      _vm._v("forgot your password? "),
+      _c("a", { attrs: { id: "forget", href: "/forget" } }, [
+        _vm._v("click here")
       ])
     ])
   }
@@ -44540,7 +44550,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.type = this.x_data.type;
         this.csrf = this.csrf_field;
         this.fee = this.x_data.fee;
-        this.applyPayURL = window.customURLs.applyPayURL;
+        this.applyPayURL = window.customURLs.foreignPayURL;
     },
 
     methods: {
@@ -44849,7 +44859,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         send_new_exam: function send_new_exam(new_exam) {
-            window.axios.post('http://localhost:8888/profile/add-new-exam', {
+            window.axios.post(window.customURLs.addNewExam, {
                 'new_exam': new_exam
             }, {
                 Cookie: document.cookie,
@@ -45501,7 +45511,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.new_user.wallet_address = this.payment.address;
             this.new_user.wallet_type = this.payment.type;
 
-            window.axios.post('http://localhost:8888/profile/register-new-user', this.new_user, {
+            window.axios.post(window.customURLs.registerNewUser, this.new_user, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -45514,7 +45524,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sendTransaction: function sendTransaction() {
             var _this = this;
 
-            window.axios.post('http://localhost:8888/profile/do-int-trans', this.payment, {
+            window.axios.post(window.customURLs.doIntTrans, this.payment, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -46944,7 +46954,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         buy_amount: function buy_amount(amount) {
             console.log(amount);
 
-            window.axios.post('http://localhost:8888/profile/charge-credit', amount, {
+            window.axios.post(window.customURLs.chargeCredit, amount, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -46953,7 +46963,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(respond);
                 console.log(respond.data);
 
-                location.href = 'http://localhost:8888/profile';
+                location.reload();
+
+                //                    location.href = 'http://19:8888/profile';
             }).catch(function (e) {
                 console.log(e);
             });
@@ -47221,7 +47233,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             console.log(this.value);
-            window.axios.post('http://localhost:8888/profile/active-user', {
+            window.axios.post(window.URL.activeUser, {
                 value: this.value,
                 active: active
             }, {
@@ -47528,7 +47540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             console.log(this.value);
-            window.axios.post('http://localhost:8888/profile/active-user', {
+            window.axios.post(window.customURLs.activeUser, {
                 value: this.value,
                 active: active
             }, {

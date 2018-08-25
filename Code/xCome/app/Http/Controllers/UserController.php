@@ -98,7 +98,7 @@ class UserController extends Controller
 
         $this->x_cookie->where('token', '=', $request->cookie('x_user_cookie'))->delete();
 
-        return \response('You\'ve logout successfully');
+        return \response('You\'ve logout successfully')->redirectToRoute('User.showLogin');
 //        return $request->cookie('x_user_cookie');
 //        \Symfony\Component\HttpFoundation\Cookie::forget($request->cookie('x_user_cookie'));
 //        Cookie::forget($request->cookie('x_user_cookie'));
@@ -189,6 +189,8 @@ class UserController extends Controller
         $this->makeWallets($user);
 
 
+
+        return \response()->redirectToRoute('User.showLogin');
 
 
 //        return view("extra.register", array('check' => true));
@@ -807,7 +809,7 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-        dd($request);
+//        dd($request);
 
 
         /*
@@ -908,6 +910,7 @@ class UserController extends Controller
 
 //        dd($request);
 
+//        return $request->getContent();
 //        return (integer)$request->price;
 
         $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
@@ -1169,6 +1172,11 @@ class UserController extends Controller
                         "id" => "users-table",
                         "link" => route('users-table'),
                         "text" => "Users Table"
+                    ],
+                    [
+                        "id" => "clerks-table",
+                        "link" => route('clerks-table'),
+                        "text" => "Clerks Table"
                     ]
                 ];
                 break;
