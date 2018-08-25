@@ -14,20 +14,22 @@
                         <!--<input id="submit" name="submit" type="submit" v-on:click="sendTransaction()">-->
                     <!--&lt;!&ndash;</form>&ndash;&gt;-->
                 <!--</div>-->
+                <form @submit.prevent="sendTransaction">
                     <input type="hidden" name="_token" v-model="csrf">
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="Payee Credit Card" name="payee-id" id="payee-id" placeholder="Payee Credit Card" v-model="payment.address">
-                        <select class="custom-select" name="type" id="Curr_Type">
+                        <select class="custom-select" name="type" id="Curr_Type" v-model="payment.type">
                             <option selected>Choose...</option>
-                            <option value="rial" v-model="payment.type">Rial</option>
-                            <option value="dollar" v-model="payment.type">Dollar</option>
-                            <option value="euro" v-model="payment.type" selected="">Euro</option>
+                            <option value="rial">Rial</option>
+                            <option value="dollar">Dollar</option>
+                            <option value="euro" selected="">Euro</option>
                         </select>
                         <input type="number" class="form-control" aria-label="Price" name="price" id="price" placeholder="Price" v-model="payment.price">
                         <span class="input-group-text" id="feeLabel">fee</span>
-                        <input type="text" class="form-control" aria-label="Fee" name="fee" id="fee" readonly="" v-bind:placeholder=getFeePrice()>
-                        <input class="btn btn-outline-secondary" type="submit" id="submit" name="submit" value="submit" v-on:click="sendTransaction()">
+                        <input type="text" class="form-control" aria-label="Fee" name="fee" id="fee" readonly="" v-bind:placeholder=getFeePrice() v-model="payment.fee">
+                        <input class="btn btn-outline-secondary" type="submit" id="login" name="submit" value="submit">
                     </div>
+                </form>
                 <!--<div id="user-registration" v-bind:hidden="this.hide_form">-->
                     <!--<input id="email" type="email" name="email" placeholder="Email" v-model="new_user.email"><br>-->
                     <!--<input id="password" type="password" name="password" placeholder="Password" v-model="new_user.password"><br>-->
@@ -145,8 +147,7 @@
                 })
             },
             sendTransaction() {
-                console.log("hello");
-                console.log(this.payment);
+                console.log("helo", this.payment.type, this.payment.address, this.payment.price, this.payment.fee);
               window.axios.post(window.customURLs.doIntTrans, this.payment, {
                   Cookie: document.cookie,
                   'Access-Control-Allow-Origin': '*',
@@ -154,7 +155,7 @@
               }).then(respond => {
 
                   console.log(respond);
-                  console.log(respond.data)
+                  console.log(respond.data);
 //                  console.log(JSON.parse(respond));
                   if (!respond.data.user) {
                       this.hide_form = false;

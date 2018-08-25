@@ -45574,8 +45574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sendTransaction: function sendTransaction() {
             var _this = this;
 
-            console.log("hello");
-            console.log(this.payment);
+            console.log("helo", this.payment.type, this.payment.address, this.payment.price);
             window.axios.post(window.customURLs.doIntTrans, this.payment, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
@@ -45680,58 +45679,50 @@ var render = function() {
               _c(
                 "select",
                 {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.payment.type,
+                      expression: "payment.type"
+                    }
+                  ],
                   staticClass: "custom-select",
-                  attrs: { name: "type", id: "Curr_Type" }
+                  attrs: { name: "type", id: "Curr_Type" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.payment,
+                        "type",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    }
+                  }
                 },
                 [
                   _c("option", { attrs: { selected: "" } }, [
                     _vm._v("Choose...")
                   ]),
                   _vm._v(" "),
-                  _c(
-                    "option",
-                    {
-                      attrs: { value: "rial" },
-                      model: {
-                        value: _vm.payment.type,
-                        callback: function($$v) {
-                          _vm.$set(_vm.payment, "type", $$v)
-                        },
-                        expression: "payment.type"
-                      }
-                    },
-                    [_vm._v("Rial")]
-                  ),
+                  _c("option", { attrs: { value: "rial" } }, [_vm._v("Rial")]),
                   _vm._v(" "),
-                  _c(
-                    "option",
-                    {
-                      attrs: { value: "dollar" },
-                      model: {
-                        value: _vm.payment.type,
-                        callback: function($$v) {
-                          _vm.$set(_vm.payment, "type", $$v)
-                        },
-                        expression: "payment.type"
-                      }
-                    },
-                    [_vm._v("Dollar")]
-                  ),
+                  _c("option", { attrs: { value: "dollar" } }, [
+                    _vm._v("Dollar")
+                  ]),
                   _vm._v(" "),
-                  _c(
-                    "option",
-                    {
-                      attrs: { value: "euro", selected: "" },
-                      model: {
-                        value: _vm.payment.type,
-                        callback: function($$v) {
-                          _vm.$set(_vm.payment, "type", $$v)
-                        },
-                        expression: "payment.type"
-                      }
-                    },
-                    [_vm._v("Euro")]
-                  )
+                  _c("option", { attrs: { value: "euro", selected: "" } }, [
+                    _vm._v("Euro")
+                  ])
                 ]
               ),
               _vm._v(" "),
@@ -45785,7 +45776,7 @@ var render = function() {
                 staticClass: "btn btn-outline-secondary",
                 attrs: {
                   type: "submit",
-                  id: "pay",
+                  id: "login",
                   name: "submit",
                   value: "submit"
                 }
