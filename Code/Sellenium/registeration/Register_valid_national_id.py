@@ -15,9 +15,9 @@ class Register(unittest.TestCase):
         fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
                                                "person_id=1234567", "username=smjfas", "password=hello123",
                                                "repass=hello123", "cellphone=09398604014",
-                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
+                                               "address=21st number baker st.", "submit"])[9].click()
 
-        assert driver.find_element_by_id("inValid") is not None
+        assert "register" in driver.current_url
 
     def test_national_id_long_length(self):
         driver = self.driver
@@ -25,9 +25,9 @@ class Register(unittest.TestCase):
         fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
                                                "person_id=1234565982227", "username=smjfas", "password=hello123",
                                                "repass=hello123", "cellphone=09398604014",
-                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
+                                               "address=21st number baker st.", "submit"])[9].click()
 
-        assert driver.find_element_by_id("inValid") is not None
+        assert "register" in driver.current_url
 
     def test_national_id_char(self):
         driver = self.driver
@@ -35,8 +35,8 @@ class Register(unittest.TestCase):
         fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
                                                "person_id=123456a987", "username=smjfas", "password=hello123",
                                                "repass=hello123", "cellphone=09398604014",
-                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
-        assert driver.find_element_by_id("inValid") is not None
+                                               "address=21st number baker st.", "submit"])[9].click()
+        assert "register" in driver.current_url
 
     def tearDown(self):
         self.driver.close()

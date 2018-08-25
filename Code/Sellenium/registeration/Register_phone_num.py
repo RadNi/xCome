@@ -14,9 +14,9 @@ class Register(unittest.TestCase):
         fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
                                                "person_id=1234565987", "username=smjfas", "password=hello123",
                                                "repass=hello123", "cellphone=0939833604014",
-                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
+                                               "address=21st number baker st.",  "submit"])[9].click()
 
-        assert driver.find_element_by_id("inValid") is not None
+        assert "register" in driver.current_url
 
     def test_register_phone_number_short_length(self):
         driver = self.driver
@@ -24,9 +24,9 @@ class Register(unittest.TestCase):
         fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
                                                "person_id=1234565987", "username=smjfas", "password=hello123",
                                                "repass=hello123", "cellphone=098604014",
-                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
+                                               "address=21st number baker st.", "submit"])[9].click()
 
-        assert driver.find_element_by_id("inValid") is not None
+        assert "register" in driver.current_url
 
     def test_register_phone_number_character(self):
         driver = self.driver
@@ -34,9 +34,9 @@ class Register(unittest.TestCase):
         fields.get_components_by_name(driver, ["name=smjfas", "family=feyzabadisani", "email=smjfas@gmail.com",
                                                "person_id=1234565987", "username=smjfas", "password=hello123",
                                                "repass=hello123", "cellphone=09ad8604014",
-                                               "address=21st number baker st.", "captcha=1234", "submit"])[10].click()
+                                               "address=21st number baker st.","submit"])[9].click()
 
-        assert driver.find_element_by_id("inValid") is not None
+        assert "register" in driver.current_url
 
     def tearDown(self):
         self.driver.close()

@@ -15,10 +15,10 @@ class Login(unittest.TestCase):
     def test_login(self):
         driver = self.driver
         driver.get(static_data.base_url + "login")
-        fields.get_components_by_name(driver, ["username=smjfas", "password=1234567", "captcha=1234",
-                                               "login"])[3].click()
+        fields.get_components_by_name(driver, ["username=smjfas", "password=hello123",
+                                               "submit"])[2].click()
 
-        assert "smjfas" in driver.current_url
+        assert "profile" in driver.current_url
 
     def tearDown(self):
         self.driver.close()

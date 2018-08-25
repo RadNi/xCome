@@ -14,10 +14,10 @@ class Login(unittest.TestCase):
     def test_sql_injection(self):
         driver = self.driver
         driver.get(static_data.base_url + "login")
-        fields.get_components_by_name(driver, ["username=select * from users", "password=1234567", "captcha=1234",
-                                               "login"])[3].click()
+        fields.get_components_by_name(driver, ["username=select * from x_users", "password=1234567",
+                                               "submit"])[2].click()
 
-        assert driver.find_element_by_id("inValid") is not None
+        assert "login" in driver.current_url
 
     def tearDown(self):
         self.driver.close()
