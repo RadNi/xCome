@@ -237,7 +237,7 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-        $users = $this->x_user->select()->get();
+        $users = $this->x_user->where('type', '=', 'user')->get();
 
         $table = [
             'ths' => array_keys((array)json_decode(json_encode($users[0]))),
@@ -272,10 +272,48 @@ class UserController extends Controller
 //        return view("extra.users-table", array('type' => $arr[0]));
     }
 
-    public function getClerksTable(Request $request) {
-        $arr = explode("/", $request->path());
+    public function getClerkTable(Request $request) {
 
-        return view("extra.clerks-table", array('type' => $arr[0]));
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $users = $this->x_user->where('type', '=', 'clerk')->get();
+
+        $table = [
+            'ths' => array_keys((array)json_decode(json_encode($users[0]))),
+            'trs' => [
+            ]
+//            'ths' => $users
+        ];
+
+        foreach ($users as $user) {
+            $tds = ['tds' => []];
+
+            foreach (json_decode(json_encode($user)) as $k => $v) {
+                array_push($tds['tds'], ['class' => $k, 'value' => $v]);
+            }
+
+            array_push($table['trs'], $tds);
+        }
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'table' => $table
+        ];
+
+        return view('new.users-table', ['x_data' => json_encode($data)]);
+
+
+
+//        $arr = explode("/", $request->path());
+//
+//        return view("extra.users-table", array('type' => $arr[0]));
     }
 
 

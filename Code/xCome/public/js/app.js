@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(78);
+module.exports = __webpack_require__(81);
 
 
 /***/ }),
@@ -1109,6 +1109,7 @@ Vue.component('user_information', __webpack_require__(66));
 Vue.component('transaction_history', __webpack_require__(69));
 Vue.component('account_div', __webpack_require__(72));
 Vue.component('users_table', __webpack_require__(75));
+Vue.component('clerks_table', __webpack_require__(78));
 
 var app = new Vue({
   el: '#app'
@@ -47336,6 +47337,446 @@ if (false) {
 
 /***/ }),
 /* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(79)
+/* template */
+var __vue_template__ = __webpack_require__(80)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Clerks_Table.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3eee4e24", Component.options)
+  } else {
+    hotAPI.reload("data-v-3eee4e24", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'clerks_table',
+    props: ['x_data', 'csrf_field'],
+    data: function data() {
+        return {
+            type: '',
+            csrf: '',
+            value: '',
+            table: []
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.x_data);
+        this.table = this.x_data.table;
+        //            this.transactions = this.x_data.transactions;
+        //            this.type = this.x_data.type;
+        //            this.csrf = this.csrf_field;
+        //            this.fee = this.x_data.fee;
+        //            this.internalTransURL = window.customURLs.internalTransURL;
+    },
+
+    methods: {
+        ActiveClerk: function ActiveClerk(query, active) {
+
+            var element = void 0;
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = query.tds[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    element = _step.value;
+
+                    console.log(element);
+                    if (element.class === 'id') {
+                        this.value = element.value;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            console.log(this.value);
+            window.axios.post('http://localhost:8888/profile/active-user', {
+                value: this.value,
+                active: active
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                location.reload();
+                console.log(location.href);
+                console.log(respond);
+                console.log(respond.data);
+            }).catch(function (e) {
+
+                console.log(e);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
+        }),
+        _vm._v(" "),
+        _c(
+          "table",
+          { attrs: { id: "users-table", cellpadding: "10px", border: "2px" } },
+          [
+            _c(
+              "thead",
+              _vm._l(_vm.table.ths, function(th) {
+                return _c("tr", [_c("th", [_vm._v(_vm._s(th))])])
+              })
+            ),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.table.trs, function(tr) {
+                return _c(
+                  "tr",
+                  [
+                    _vm._l(tr.tds, function(td) {
+                      return _c("td", { class: td.class }, [
+                        _vm._v(_vm._s(td.value))
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "checkbox" }, [
+                      _c("input", {
+                        attrs: { type: "checkbox" },
+                        on: { click: function($event) {} }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "checkbox" }, [
+                      _c(
+                        "button",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.ActiveClerk(tr, true)
+                            }
+                          }
+                        },
+                        [_vm._v("Active User")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "checkbox" }, [
+                      _c(
+                        "button",
+                        {
+                          on: {
+                            click: function($event) {
+                              _vm.ActiveClerk(tr, false)
+                            }
+                          }
+                        },
+                        [_vm._v("Deactivate User")]
+                      )
+                    ])
+                  ],
+                  2
+                )
+              })
+            )
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "add-clerk" } }, [
+      _c(
+        "button",
+        {
+          attrs: {
+            id: "addShow",
+            onclick: "popupAdd.hidden = false;addShow.hidden = true;"
+          }
+        },
+        [_vm._v("Add new clerk")]
+      ),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
+        _c("h4", [_vm._v("new Clerk Informations")]),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "email",
+            type: "email",
+            name: "email",
+            placeholder: "Email"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "password",
+            type: "password",
+            name: "password",
+            placeholder: "Password"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "repass",
+            type: "password",
+            name: "retryPass",
+            placeholder: "Repeat Password"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { id: "name", type: "name", name: "name", placeholder: "Name" }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "family",
+            type: "name",
+            name: "familyName",
+            placeholder: "Family"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "username",
+            type: "name",
+            name: "username",
+            placeholder: "Username"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "income",
+            type: "number",
+            name: "income",
+            placeholder: "income"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "address",
+            type: "address",
+            name: "address",
+            placeholder: "address"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "captcha",
+            type: "text",
+            name: "captcha",
+            placeholder: "captcha"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "person_id",
+            type: "text",
+            name: "PersonID",
+            placeholder: "Person ID"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", {
+          attrs: {
+            id: "cellphone",
+            type: "text",
+            name: "CellPhone",
+            placeholder: "Phone Number"
+          }
+        }),
+        _c("br"),
+        _vm._v(" "),
+        _c("button", { attrs: { id: "add", "data-dismiss": "modal" } }, [
+          _vm._v("Add")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3eee4e24", module.exports)
+  }
+}
+
+/***/ }),
+/* 81 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
