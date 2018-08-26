@@ -1,9 +1,9 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-8 col-md-offset-2">-->
 
-                <input id="search" name="searchbox" placeholder="Search here">
+                <!--<input id="search" name="searchbox" placeholder="Search here">-->
                 <div class="table-responsive">
                     <table class="table table-striped col-12" v-bind:id="table.id" v-for="table in tables">
                         {{ table.id }}
@@ -22,8 +22,8 @@
                         <tbody>
                         <tr v-for="trans in table.transactions">
                             <td v-for="td in trans.tds" v-bind:class="td.class">{{ td.value }}</td>
-                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, true)">Accept</button>
-                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, false)">Reject</button>
+                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, true)" class="btn-secondary">Accept</button>
+                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, false)" class="btn-secondary">Reject</button>
                             <!--<td class="fee">{{ trans.fee }}</td>-->
                             <!--<td class="currency">{{ trans.type }}</td>-->
                             <!--<td class="from">{{ trans.from }}</td>-->
@@ -35,9 +35,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-    </div>
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 
 </template>

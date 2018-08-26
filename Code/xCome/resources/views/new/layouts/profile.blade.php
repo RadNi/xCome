@@ -35,7 +35,6 @@
 
 </head>
 <body>
-<div class="container">
     <div id="app">
             <div id="wp-navbar">
                 @yield("navbar")
@@ -68,7 +67,6 @@
             <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" name="CURR_FR_VAL" id="CURR_VAL" readonly="" placeholder="Press Convert">
         </div>
     </div>
-</div>
 
     {{--<div id="footer">--}}
         {{--<div id="exchanger">--}}

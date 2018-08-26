@@ -1,71 +1,75 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-8 col-md-offset-2">-->
+    <div>
                 <div id="add-clerk">
 
-                    <button id="addShow" v-on:click="showPopup()">Add new clerk</button>
+                    <button id="addShow" class="btn-secondary" v-on:click="showPopup()">Add new clerk</button>
 
                     <div id="popupAdd" hidden>
                         <h4>new Clerk Information</h4>
-                        <input id="email" type="email" name="email" placeholder="Email" v-model="clerk.email"><br>
-                        <input id="password" type="password" name="password" placeholder="Password" v-model="clerk.password"><br>
-                        <input id="repass" type="password" name="retryPass" placeholder="Repeat Password" v-model="clerk.repass"><br>
-                        <input id="name" type="name" name="name" placeholder="Name" v-model="clerk.name"><br>
-                        <input id="family" type="name" name="familyName" placeholder="Family" v-model="clerk.family_name"><br>
-                        <input id="username" type="name" name="username" placeholder="Username" v-model="clerk.username"><br>
-                        <input id="income" type="number" name="income" placeholder="income" v-model="clerk.income"><br>
-                        <input id="address" type="address" name="address" placeholder="address" v-model="clerk.address"><br>
-                        <input id="captcha" type="text" name="captcha" placeholder="captcha" v-model="clerk.captcha"><br>
-                        <input id="person_id" type="text" name="PersonID" placeholder="Person ID" v-model="clerk.national_id"><br>
-                        <input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number" v-model="clerk.phoneNumber"><br>
-                        <button id="add" data-dismiss="modal" v-on:click="addClerk()">Add</button>
+                        <form v-on:submit.prevent="addClerk">
+                            <input id="email" type="email" name="email" placeholder="Email" v-model="clerk.email" required><br>
+                            <input id="password" type="password" name="password" placeholder="Password" v-model="clerk.password" required><br>
+                            <input id="repass" type="password" name="retryPass" placeholder="Repeat Password" v-model="clerk.repass" required><br>
+                            <input id="name" type="name" name="name" placeholder="Name" v-model="clerk.name" required><br>
+                            <input id="family" type="name" name="familyName" placeholder="Family" v-model="clerk.family_name" required><br>
+                            <input id="username" type="name" name="username" placeholder="Username" v-model="clerk.username" required><br>
+                            <input id="income" type="number" name="income" placeholder="income" v-model="clerk.income" required><br>
+                            <input id="address" type="address" name="address" placeholder="address" v-model="clerk.address" required><br>
+                            <!--<input id="captcha" type="text" name="captcha" placeholder="captcha" v-model="clerk.captcha"><br>-->
+                            <input id="person_id" type="text" name="PersonID" placeholder="Person ID" v-model="clerk.national_id" required size="10"><br>
+                            <input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number" v-model="clerk.phoneNumber" required pattern="(\+98|0)?9\d{9}"><br>
+                            <button id="add" class="btn-secondary" type="submit" data-dismiss="modal">Add</button>
+                        </form>
                     </div>
 
                 </div>
 
-                <input id="search" name="searchbox" placeholder="Search here">
-                <table id="users-table" cellpadding="10px" border="2px">
-                    <thead>
-                    <tr v-for="th in table.ths">
-                        <th>{{ th }}</th>
-                        <!--<th>Name</th>-->
-                        <!--<th>Family Name</th>-->
-                        <!--<th>Username</th>-->
-                        <!--<th>PID</th>-->
-                        <!--<th>Email</th>-->
-                        <!--<th>Phone number</th>-->
-                        <!--<th>Condition</th>-->
-                        <!--<th>Check</th>-->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="tr in table.trs">
-                        <td v-for="td in tr.tds" :class="td.class">{{ td.value }}</td>
-                        <td class="checkbox"><input type="checkbox" v-on:click=""/></td>
-                        <!--<td class="name">Name</td>-->
-                        <!--<td class="family">Family name</td>-->
-                        <!--<td class="username">Username</td>-->
-                        <!--<td class="pid">PID</td>-->
-                        <!--<td class="email">email</td>-->
-                        <!--<td class="phonenumber">Phone number</td>-->
-                        <!--<td class="condition">Active or Deactivate</td>-->
-                        <td class="checkbox"><button v-on:click="ActiveClerk(tr, true)">Active User</button></td>
-                        <td class="checkbox"><button v-on:click="ActiveClerk(tr, false)">Deactivate User</button></td>
-                    </tr>
-                    <!--<tr>-->
-                        <!--<td class="name">Name</td>-->
-                        <!--<td class="family">Family name</td>-->
-                        <!--<td class="username">Username</td>-->
-                        <!--<td class="pid">PID</td>-->
-                        <!--<td class="email">email</td>-->
-                        <!--<td class="phonenumber">Phone number</td>-->
-                        <!--<td class="condition">Active or De-active</td>-->
-                        <!--<td class="checkbox"><input type="checkbox"></td>-->
-                    <!--</tr>-->
-                    </tbody>
-                </table>
+                <!--<input id="search" name="searchbox" placeholder="Search here">-->
+                <div class="table-responsive">
+                    <table id="users-table" class="table table-striped table-bordered">
+                        <thead>
+                        <tr >
+                            <th class="col" v-for="th in table.ths">{{ th }}</th>
+                            <!--<th>Name</th>-->
+                            <!--<th>Family Name</th>-->
+                            <!--<th>Username</th>-->
+                            <!--<th>PID</th>-->
+                            <!--<th>Email</th>-->
+                            <!--<th>Phone number</th>-->
+                            <!--<th>Condition</th>-->
+                            <!--<th>Check</th>-->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="tr in table.trs">
+                            <td v-for="td in tr.tds" :class="td.class">{{ td.value }}</td>
+                            <td class="checkbox"><input type="checkbox" v-on:click=""/></td>
+                            <!--<td class="name">Name</td>-->
+                            <!--<td class="family">Family name</td>-->
+                            <!--<td class="username">Username</td>-->
+                            <!--<td class="pid">PID</td>-->
+                            <!--<td class="email">email</td>-->
+                            <!--<td class="phonenumber">Phone number</td>-->
+                            <!--<td class="condition">Active or Deactivate</td>-->
+                            <td class="checkbox"><button class="btn-secondary" v-on:click="ActiveClerk(tr, true)">Active User</button></td>
+                            <td class="checkbox"><button class="btn-secondary" v-on:click="ActiveClerk(tr, false)">Deactivate User</button></td>
+                        </tr>
+                        <!--<tr>-->
+                            <!--<td class="name">Name</td>-->
+                            <!--<td class="family">Family name</td>-->
+                            <!--<td class="username">Username</td>-->
+                            <!--<td class="pid">PID</td>-->
+                            <!--<td class="email">email</td>-->
+                            <!--<td class="phonenumber">Phone number</td>-->
+                            <!--<td class="condition">Active or De-active</td>-->
+                            <!--<td class="checkbox"><input type="checkbox"></td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
+                </div>
                 <!--@if(strcmp($type, "boss") == 0)-->
                 <!---->
                 <!---->
@@ -73,10 +77,10 @@
                 <!--<button id="active-butt">Active Users</button>-->
                 <!--<button id="deactivate-butt">Deactivate Users</button>-->
                 <!--@endif-->
-
-            </div>
-        </div>
     </div>
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 
 </template>
