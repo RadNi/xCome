@@ -43774,6 +43774,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43784,7 +43785,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             amount: 0,
             wallets: [],
             type: '',
-            exchange_amount: 0
+            exchange_amount: 0,
+            error_message: ''
         };
     },
     mounted: function mounted() {
@@ -43829,6 +43831,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         buy_currency: function buy_currency(amount, wallet_name) {
+            var _this = this;
+
             window.axios.post(window.customURLs.buyCurrency, {
                 'amount': amount,
                 'wallet_name': wallet_name
@@ -43839,10 +43843,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (respond) {
 
                 console.log(respond);
-                console.log(respond.data);
+                console.log("hello", respond.data);
                 //                  console.log(JSON.parse(respond));
 
-                //                    location.reload()
+                if (respond.data !== '\'not enough currency\'') {
+                    // location.reload()
+                }
+                _this.error_message = respond.data;
                 //                    location.href = 'http://localhost:8888/profile';
             }).catch(function (e) {
                 console.log(e);
@@ -43937,7 +43944,9 @@ var render = function() {
               wallet.name !== "rial"
                 ? _c("td", [
                     _vm._v(
-                      "\n                                Live exchange fee goes here\n                            "
+                      "\n                                Live exchange fee goes here\n                                " +
+                        _vm._s(_vm.error_message) +
+                        "\n                            "
                     )
                   ])
                 : _c("td")
@@ -43965,7 +43974,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Fee")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Fee")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Error")])
       ])
     ])
   }

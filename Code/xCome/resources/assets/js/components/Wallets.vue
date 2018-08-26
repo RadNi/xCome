@@ -48,7 +48,6 @@
                                 <th scope="col">Address</th>
                                 <th scope="col">Exchange</th>
                                 <th scope="col">Exchange Fee</th>
-                                <th scope="col">Exchange Error</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -73,8 +72,10 @@
                                 </td>
                                 <td v-else >
                                 </td>
-                                <td>
-                                    {{respond.data}}
+                            </tr>
+                            <tr>
+                                <td class="table-danger">
+                                    {{error_message}}
                                 </td>
                             </tr>
                             </tbody>
@@ -109,7 +110,8 @@
                 amount: 0,
                 wallets: [],
                 type: '',
-                exchange_amount: 0
+                exchange_amount: 0,
+                error_message:''
             }
         },
         mounted() {
@@ -168,12 +170,13 @@
                 }).then(respond => {
 
                     console.log(respond);
-                    console.log(respond.data)
+                    console.log(respond.data);
 //                  console.log(JSON.parse(respond));
 
                     if (respond.data !== '\'not enough currency\''){
                         location.reload()
                     }
+                    this.error_message = respond.data;
 //                    location.href = 'http://localhost:8888/profile';
 
                 }).catch(e => {
