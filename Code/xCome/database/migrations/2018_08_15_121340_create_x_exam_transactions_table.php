@@ -21,7 +21,7 @@ class CreateXExamTransactionsTable extends Migration
             $table->string('type', '20');
             $table->string('from', '25');
             $table->string('to', '25');
-
+            $table->boolean('done')->default(false);
             $table->unsignedInteger('clerk_id')->nullable();
             $table->foreign('clerk_id')->references('id')->on('x_users');
             $table->timestamps();

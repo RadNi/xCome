@@ -18,6 +18,8 @@ class CreateXFeeTransactionsTable extends Migration
             $table->foreign('transaction_id')->references('transaction_id')->on('x_transactions');
             $table->primary(['transaction_id']);
             $table->string('from', 25);
+            $table->unsignedInteger('related_transaction');
+            $table->foreign('related_transaction')->references('transaction_id')->on('x_transactions');
             $table->string('too', 25);
             $table->timestamps();
         });

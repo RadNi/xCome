@@ -18,6 +18,7 @@ class CreateXWalletsTable extends Migration
             $table->foreign('user_id')->references('id')->on('x_users');
             $table->string('address', 25)->primary();
             $table->string('cash', 20);
+            $table->string('primary_cash', '25')->default('0');
             $table->enum('type', ['dollar', 'euro', 'rial']);
             $table->timestamps();
         });

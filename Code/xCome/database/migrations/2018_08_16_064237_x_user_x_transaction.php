@@ -15,8 +15,8 @@ class XUserXTransaction extends Migration
     {
         Schema::create("x_user_x_transaction", function (Blueprint $table) {
             $table -> increments("id");
-            $table -> integer("transaction_id");
-            $table -> integer("user_id");
+            $table -> integer("x_transaction_id");
+            $table -> integer("x_user_id");
             $table -> timestamps();
         });
     }
