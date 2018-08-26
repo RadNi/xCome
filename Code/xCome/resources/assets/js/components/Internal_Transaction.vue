@@ -27,7 +27,7 @@
                         <input type="number" class="form-control" aria-label="Price" name="price" id="price" placeholder="Price" v-model="payment.price">
                         <span class="input-group-text" id="feeLabel">fee</span>
                         <input type="text" class="form-control" aria-label="Fee" name="fee" id="fee" readonly="" v-bind:placeholder=getFeePrice() v-model="payment.fee">
-                        <input class="btn btn-outline-secondary" type="submit" id="login" name="submit" value="submit">
+                        <input class="btn-secondary" type="submit" id="login" name="submit" value="submit">
                     </div>
                 </form>
                 <!--<div id="user-registration" v-bind:hidden="this.hide_form">-->

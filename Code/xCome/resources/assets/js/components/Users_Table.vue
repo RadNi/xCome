@@ -30,8 +30,8 @@
                             <!--<td class="email">email</td>-->
                             <!--<td class="phonenumber">Phone number</td>-->
                             <!--<td class="condition">Active or Deactivate</td>-->
-                            <td class="checkbox"><button class="btn-secondary" v-on:click="ActiveUser(tr, true)">Active User</button></td>
-                            <td class="checkbox"><button class="btn-secondary" v-on:click="ActiveUser(tr, false)">Deactivate User</button></td>
+                            <td class="checkbox" v-if="x_data.type !== 'user'"><button class="btn-secondary" v-on:click="ActiveUser(tr, true)">Active User</button></td>
+                            <td class="checkbox" v-if="x_data.type !== 'user'"><button class="btn-secondary" v-on:click="ActiveUser(tr, false)">Deactivate User</button></td>
                         </tr>
                         <!--<tr>-->
                             <!--<td class="name">Name</td>-->

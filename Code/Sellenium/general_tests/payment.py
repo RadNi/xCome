@@ -10,12 +10,14 @@ class Payment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.get(static_data.base_url + "login")
-        fields.get_components_by_name(self.driver, ["username=test", "password=testtest",
+        fields.get_components_by_name(self.driver, ["username=user", "password=testtest",
                                                     "submit"])[2].click()
-        self.driver.get(static_data + "profile/int-trans")
+        self.driver.get(static_data.base_url + "/profile/int-trans")
 
     def test_pay_rial(self):  # Assume Money > Needed
+        sleep(2)
         self.driver.find_element_by_id("Curr_Type").send_keys("Rial")
+        sleep(2)
         fields.get_components_by_name(self.driver, ["payee-id=" + static_data.valid_rial_wallet_address,
                                                     "price=10", "submit"])[2].click()
         sleep(5)
