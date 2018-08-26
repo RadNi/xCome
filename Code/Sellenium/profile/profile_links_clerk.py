@@ -49,7 +49,7 @@ class ClerkPage(unittest.TestCase):
         driver.find_element_by_id("navbarDropdownPages").click()
         driver.find_element_by_id("users-table").click()
 
-        assert "users-table" in driver.current_url
+        assert "send-message" in driver.current_url
 
     def tearDown(self):
         self.driver.close()

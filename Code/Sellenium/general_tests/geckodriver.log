@@ -1003,3 +1003,9 @@ JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection
 1535271212230	Marionette	INFO	Listening on port 36263
 1535271212267	Marionette	WARN	TLS certificate errors will be ignored for this session
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1535293332155	geckodriver	INFO	geckodriver 0.21.0
+1535293332159	geckodriver	INFO	Listening on 127.0.0.1:39591
+1535293333164	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.KpunZMZldDXr"
+1535293335842	Marionette	INFO	Listening on port 39711
+1535293335873	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 22162, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-oscv9o/firefox-61.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
