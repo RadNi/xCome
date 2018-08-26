@@ -48,6 +48,7 @@
                                 <th scope="col">Address</th>
                                 <th scope="col">Exchange</th>
                                 <th scope="col">Exchange Fee</th>
+                                <th scope="col">Exchange Error</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -71,7 +72,9 @@
                                     Live exchange fee goes here
                                 </td>
                                 <td v-else >
-
+                                </td>
+                                <td>
+                                    {{respond.data}}
                                 </td>
                             </tr>
                             </tbody>
@@ -168,7 +171,9 @@
                     console.log(respond.data)
 //                  console.log(JSON.parse(respond));
 
-//                    location.reload()
+                    if (respond.data !== '\'not enough currency\''){
+                        location.reload()
+                    }
 //                    location.href = 'http://localhost:8888/profile';
 
                 }).catch(e => {
