@@ -44926,6 +44926,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 console.log(respond);
                 console.log(respond.data);
+                if (respond.data === 'done') {
+                    location.reload();
+                }
                 //                  console.log(JSON.parse(respond));
             }).catch(function (e) {
                 console.log(e);
@@ -44951,6 +44954,7 @@ var render = function() {
                 _c(
                   "button",
                   {
+                    staticClass: "btn-secondary",
                     attrs: {
                       id: "addExam",
                       onclick:
@@ -44976,7 +44980,8 @@ var render = function() {
                       id: "exam-type",
                       type: "name",
                       name: "name",
-                      placeholder: "Name"
+                      placeholder: "Name",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.name },
                     on: {
@@ -45003,7 +45008,8 @@ var render = function() {
                       id: "exam-price",
                       type: "number",
                       name: "price",
-                      placeholder: "Price"
+                      placeholder: "Price",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.price },
                     on: {
@@ -45030,7 +45036,8 @@ var render = function() {
                       id: "exam-fee",
                       type: "number",
                       name: "fee",
-                      placeholder: "Fee"
+                      placeholder: "Fee",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.fee },
                     on: {
@@ -45057,7 +45064,8 @@ var render = function() {
                       id: "exam-pay-type",
                       type: "text",
                       name: "pay",
-                      placeholder: "Pay Type"
+                      placeholder: "Pay Type",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.pay_type },
                     on: {
@@ -45084,7 +45092,8 @@ var render = function() {
                       id: "exam-date",
                       type: "date",
                       name: "date",
-                      placeholder: "Date"
+                      placeholder: "Date",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.date },
                     on: {
@@ -45111,7 +45120,8 @@ var render = function() {
                       id: "exam-time",
                       type: "time",
                       name: "date",
-                      placeholder: "Date"
+                      placeholder: "Date",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.time },
                     on: {
@@ -45128,6 +45138,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn-secondary",
                       attrs: { id: "add", "data-dismiss": "modal" },
                       on: {
                         click: function($event) {
@@ -45166,7 +45177,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "table",
-              { attrs: { id: "exams-table" } },
+              { staticClass: "table", attrs: { id: "exams-table" } },
               _vm._l(this.exams, function(exam) {
                 return _c("td", [
                   _c("div", { staticClass: "exam", attrs: { id: exam.id } }, [
@@ -45196,6 +45207,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("input", {
+              staticClass: "btn-secondary",
               attrs: { type: "submit", value: "Buy", id: "buy-butt" }
             })
           ])
@@ -45864,7 +45876,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("input", {
-                staticClass: "btn btn-outline-secondary",
+                staticClass: "btn-secondary",
                 attrs: {
                   type: "submit",
                   id: "login",
@@ -47200,7 +47212,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             type: '',
             csrf: '',
-            amount: 'Amount You Need'
+            amountt: 'Amount You Need'
 
         };
     },
@@ -47211,10 +47223,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        buy_amount: function buy_amount(amount) {
-            console.log(amount);
+        buy_amount: function buy_amount(amountt) {
+            console.log(amountt);
+            console.log(window.customURLs.chargeCredit);
 
-            window.axios.post(window.customURLs.chargeCredit, amount, {
+            window.axios.post(window.customURLs.chargeCredit, amountt, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -47251,8 +47264,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.amount,
-              expression: "amount"
+              value: _vm.amountt,
+              expression: "amountt"
             }
           ],
           staticClass: "form-control",
@@ -47264,13 +47277,13 @@ var render = function() {
             "aria-describedby": "basic-addon2",
             required: ""
           },
-          domProps: { value: _vm.amount },
+          domProps: { value: _vm.amountt },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.amount = $event.target.value
+              _vm.amountt = $event.target.value
             }
           }
         }),
@@ -47285,7 +47298,7 @@ var render = function() {
               attrs: { id: "buy", type: "button" },
               on: {
                 click: function($event) {
-                  _vm.buy_amount(_vm.amount)
+                  _vm.buy_amount(_vm.amountt)
                 }
               }
             },
@@ -47562,35 +47575,39 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "checkbox" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn-secondary",
-                      on: {
-                        click: function($event) {
-                          _vm.ActiveUser(tr, true)
-                        }
-                      }
-                    },
-                    [_vm._v("Active User")]
-                  )
-                ]),
+                _vm.x_data.type !== "user"
+                  ? _c("td", { staticClass: "checkbox" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-secondary",
+                          on: {
+                            click: function($event) {
+                              _vm.ActiveUser(tr, true)
+                            }
+                          }
+                        },
+                        [_vm._v("Active User")]
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("td", { staticClass: "checkbox" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn-secondary",
-                      on: {
-                        click: function($event) {
-                          _vm.ActiveUser(tr, false)
-                        }
-                      }
-                    },
-                    [_vm._v("Deactivate User")]
-                  )
-                ])
+                _vm.x_data.type !== "user"
+                  ? _c("td", { staticClass: "checkbox" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-secondary",
+                          on: {
+                            click: function($event) {
+                              _vm.ActiveUser(tr, false)
+                            }
+                          }
+                        },
+                        [_vm._v("Deactivate User")]
+                      )
+                    ])
+                  : _vm._e()
               ],
               2
             )

@@ -15,8 +15,10 @@ use App\x_fee_transaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Mail;
 use function MongoDB\BSON\toJSON;
 use PhpParser\Node\Expr\List_;
+use function PHPSTORM_META\elementType;
 use function Sodium\add;
 
 class UserController extends Controller
@@ -137,6 +139,7 @@ class UserController extends Controller
                 ]);
 
 //            dd($response);
+            $this->sendEmail($user->email, "Login", $user->name, ["You are in now"]);
             return redirect('profile')->withCookie(cookie('x_user_cookie', $token, 60, null, null, false, false));
 //            return $response;
         }
@@ -1596,6 +1599,17 @@ class UserController extends Controller
                 return view('new.default', $arr);
                 break;
         }
+    }
+
+    private function sendEmail($email, $title, $name, $elements){
+        $data = array('name'=>$name, 'elements' => $elements);
+
+        Mail::send('emails.mail', $data, function($message) use ($email, $title, $name) {
+            $message->to($email , $name)
+                ->subject($title);
+            $message->from('smjfas@gmail.com','xCome');
+        });
+
     }
 
 }
