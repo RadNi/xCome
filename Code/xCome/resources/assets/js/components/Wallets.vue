@@ -59,13 +59,24 @@
                                 <td>
                                     <div class="input-group" v-if="wallet.name !== 'rial'">
                                         <div class="input-group-prepend">
-                                            <button class="btn btn-outline-secondary" type="button" v-bind:id="'sell'+wallet.name" v-bind:name="'buy'+wallet.name" v-on:click="buy_currency(amount, wallet.name)">Buy</button>
+                                            <button class="btn btn-outline-secondary" type="button" v-bind:id="'buy'+wallet.name" v-bind:name="'buy'+wallet.name" v-on:click="buy_currency(amount, wallet.name)">Buy</button>
+                                        </div>
+                                        <div class="input-group-prepend">
                                             <button class="btn btn-outline-secondary" type="button" v-bind:id="'sell'+wallet.name" v-bind:name="'sell'+wallet.name" v-on:click="sell_currency(amount, wallet.name)">Sell</button>
                                         </div>
-                                        <input type="number" v-bind:id="'sell'+wallet.name" v-bind:name="'amount'+wallet.name" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" v-model="amount">
+                                        <input type="number" v-bind:id="wallet.name" v-bind:name="wallet.name" class="form-control" placeholder="Amount">
                                     </div>
                                 </td>
-                                <td v-if="wallet.name !== 'rial'"> Live exchange Price goes here</td>
+                                <td v-if="wallet.name !== 'rial'">
+                                    Live exchange fee goes here
+                                </td>
+                                <td v-else >
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="table-danger" v-if="error_message !== '' ">
+                                    {{error_message}}
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -99,7 +110,8 @@
                 amount: 0,
                 wallets: [],
                 type: '',
-                exchange_amount: 0
+                exchange_amount: 0,
+                error_message:''
             }
         },
         mounted() {
@@ -158,10 +170,13 @@
                 }).then(respond => {
 
                     console.log(respond);
-                    console.log(respond.data)
+                    console.log(respond.data);
 //                  console.log(JSON.parse(respond));
 
-//                    location.reload()
+                    if (respond.data !== '\'not enough currency\''){
+                        location.reload()
+                    }
+                    this.error_message = respond.data;
 //                    location.href = 'http://localhost:8888/profile';
 
                 }).catch(e => {

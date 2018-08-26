@@ -1,49 +1,51 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col-md-8 col-md-offset-2">-->
 
-                <input id="search" name="searchbox" placeholder="Search here">
-                <table id="users-table" cellpadding="10px" border="2px">
-                    <thead>
-                    <tr v-for="th in table.ths">
-                        <th>{{ th }}</th>
-                        <!--<th>Name</th>-->
-                        <!--<th>Family Name</th>-->
-                        <!--<th>Username</th>-->
-                        <!--<th>PID</th>-->
-                        <!--<th>Email</th>-->
-                        <!--<th>Phone number</th>-->
-                        <!--<th>Condition</th>-->
-                        <!--<th>Check</th>-->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="tr in table.trs">
-                        <td v-for="td in tr.tds" :class="td.class">{{ td.value }}</td>
-                        <td class="checkbox"><input type="checkbox" v-on:click=""/></td>
-                        <!--<td class="name">Name</td>-->
-                        <!--<td class="family">Family name</td>-->
-                        <!--<td class="username">Username</td>-->
-                        <!--<td class="pid">PID</td>-->
-                        <!--<td class="email">email</td>-->
-                        <!--<td class="phonenumber">Phone number</td>-->
-                        <!--<td class="condition">Active or Deactivate</td>-->
-                        <td class="checkbox"><button v-on:click="ActiveUser(tr, true)">Active User</button></td>
-                        <td class="checkbox"><button v-on:click="ActiveUser(tr, false)">Deactivate User</button></td>
-                    </tr>
-                    <!--<tr>-->
-                        <!--<td class="name">Name</td>-->
-                        <!--<td class="family">Family name</td>-->
-                        <!--<td class="username">Username</td>-->
-                        <!--<td class="pid">PID</td>-->
-                        <!--<td class="email">email</td>-->
-                        <!--<td class="phonenumber">Phone number</td>-->
-                        <!--<td class="condition">Active or De-active</td>-->
-                        <!--<td class="checkbox"><input type="checkbox"></td>-->
-                    <!--</tr>-->
-                    </tbody>
-                </table>
+                <!--<input id="search" name="searchbox" placeholder="Search here">-->
+                <div class="table-responsive">
+                    <table id="users-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td scope="col"  v-for="th in table.ths" >{{ th }}</td>
+                                <!--<th>Name</th>-->
+                                <!--<th>Family Name</th>-->
+                                <!--<th>Username</th>-->
+                                <!--<th>PID</th>-->
+                                <!--<th>Email</th>-->
+                                <!--<th>Phone number</th>-->
+                                <!--<th>Condition</th>-->
+                                <!--<th>Check</th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="tr in table.trs">
+                            <td v-for="td in tr.tds" :class="td.class">{{ td.value }}</td>
+                            <td class="checkbox"><input type="checkbox" v-on:click=""/></td>
+                            <!--<td class="name">Name</td>-->
+                            <!--<td class="family">Family name</td>-->
+                            <!--<td class="username">Username</td>-->
+                            <!--<td class="pid">PID</td>-->
+                            <!--<td class="email">email</td>-->
+                            <!--<td class="phonenumber">Phone number</td>-->
+                            <!--<td class="condition">Active or Deactivate</td>-->
+                            <td class="checkbox"><button class="btn-secondary" v-on:click="ActiveUser(tr, true)">Active User</button></td>
+                            <td class="checkbox"><button class="btn-secondary" v-on:click="ActiveUser(tr, false)">Deactivate User</button></td>
+                        </tr>
+                        <!--<tr>-->
+                            <!--<td class="name">Name</td>-->
+                            <!--<td class="family">Family name</td>-->
+                            <!--<td class="username">Username</td>-->
+                            <!--<td class="pid">PID</td>-->
+                            <!--<td class="email">email</td>-->
+                            <!--<td class="phonenumber">Phone number</td>-->
+                            <!--<td class="condition">Active or De-active</td>-->
+                            <!--<td class="checkbox"><input type="checkbox"></td>-->
+                        <!--</tr>-->
+                        </tbody>
+                    </table>
+                </div>
                 <!--@if(strcmp($type, "boss") == 0)-->
                 <!---->
                 <!---->
@@ -52,9 +54,9 @@
                 <!--<button id="deactivate-butt">Deactivate Users</button>-->
                 <!--@endif-->
 
-            </div>
-        </div>
-    </div>
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
 
 </template>

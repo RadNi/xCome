@@ -43767,6 +43767,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43777,7 +43788,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             amount: 0,
             wallets: [],
             type: '',
-            exchange_amount: 0
+            exchange_amount: 0,
+            error_message: ''
         };
     },
     mounted: function mounted() {
@@ -43822,6 +43834,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         buy_currency: function buy_currency(amount, wallet_name) {
+            var _this = this;
+
             window.axios.post(window.customURLs.buyCurrency, {
                 'amount': amount,
                 'wallet_name': wallet_name
@@ -43835,7 +43849,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(respond.data);
                 //                  console.log(JSON.parse(respond));
 
-                //                    location.reload()
+                if (respond.data !== '\'not enough currency\'') {
+                    location.reload();
+                }
+                _this.error_message = respond.data;
                 //                    location.href = 'http://localhost:8888/profile';
             }).catch(function (e) {
                 console.log(e);
@@ -43859,96 +43876,98 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(this.wallets, function(wallet) {
-            return _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(wallet.index))
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wallet.name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wallet.amount))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wallet.address))]),
-              _vm._v(" "),
-              _c("td", [
-                wallet.name !== "rial"
-                  ? _c("div", { staticClass: "input-group" }, [
-                      _c("div", { staticClass: "input-group-prepend" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-secondary",
-                            attrs: {
-                              type: "button",
-                              id: "sell" + wallet.name,
-                              name: "buy" + wallet.name
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.buy_currency(_vm.amount, wallet.name)
+          [
+            _vm._l(this.wallets, function(wallet) {
+              return _c("tr", [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(wallet.index))
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.amount))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.address))]),
+                _vm._v(" "),
+                _c("td", [
+                  wallet.name !== "rial"
+                    ? _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "input-group-prepend" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary",
+                              attrs: {
+                                type: "button",
+                                id: "buy" + wallet.name,
+                                name: "buy" + wallet.name
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.buy_currency(_vm.amount, wallet.name)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Buy")]
-                        ),
+                            },
+                            [_vm._v("Buy")]
+                          )
+                        ]),
                         _vm._v(" "),
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-secondary",
-                            attrs: {
-                              type: "button",
-                              id: "sell" + wallet.name,
-                              name: "sell" + wallet.name
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.sell_currency(_vm.amount, wallet.name)
+                        _c("div", { staticClass: "input-group-prepend" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary",
+                              attrs: {
+                                type: "button",
+                                id: "sell" + wallet.name,
+                                name: "sell" + wallet.name
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.sell_currency(_vm.amount, wallet.name)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Sell")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.amount,
-                            expression: "amount"
+                            },
+                            [_vm._v("Sell")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            id: wallet.name,
+                            name: wallet.name,
+                            placeholder: "Amount"
                           }
-                        ],
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: "sell" + wallet.name,
-                          name: "amount" + wallet.name,
-                          placeholder: "",
-                          "aria-label": "",
-                          "aria-describedby": "basic-addon1"
-                        },
-                        domProps: { value: _vm.amount },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.amount = $event.target.value
-                          }
-                        }
-                      })
+                        })
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                wallet.name !== "rial"
+                  ? _c("td", [
+                      _vm._v(
+                        "\n                                Live exchange fee goes here\n                            "
+                      )
                     ])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              wallet.name !== "rial"
-                ? _c("td", [_vm._v(" Live exchange Price goes here")])
+                  : _c("td")
+              ])
+            }),
+            _vm._v(" "),
+            _c("tr", [
+              _vm.error_message !== ""
+                ? _c("td", { staticClass: "table-danger" }, [
+                    _vm._v(
+                      "\n                                " +
+                        _vm._s(_vm.error_message) +
+                        "\n                            "
+                    )
+                  ])
                 : _vm._e()
             ])
-          })
+          ],
+          2
         )
       ])
     ])
@@ -46957,91 +46976,80 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("input", {
-          attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
-        }),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "table-responsive" },
-          _vm._l(_vm.tables, function(table) {
-            return _c(
-              "table",
-              {
-                staticClass: "table table-striped col-12",
-                attrs: { id: table.id }
-              },
-              [
-                _vm._v(
-                  "\n                    " +
-                    _vm._s(table.id) +
-                    "\n                    "
-                ),
-                _c("thead", [
-                  _c(
-                    "tr",
-                    _vm._l(table.ths, function(th) {
-                      return _c("th", { attrs: { scope: "col" } }, [
-                        _vm._v(_vm._s(th))
-                      ])
-                    })
-                  )
-                ]),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(table.transactions, function(trans) {
-                    return _c(
-                      "tr",
-                      [
-                        _vm._l(trans.tds, function(td) {
-                          return _c("td", { class: td.class }, [
-                            _vm._v(_vm._s(td.value))
-                          ])
-                        }),
-                        _vm._v(" "),
-                        table.id == "unchecked-trans-table"
-                          ? _c(
-                              "button",
-                              {
-                                on: {
-                                  click: function($event) {
-                                    _vm.acceptTrans(trans, true)
-                                  }
-                                }
-                              },
-                              [_vm._v("Accept")]
-                            )
-                          : _vm._e(),
-                        _vm._v(" "),
-                        table.id == "unchecked-trans-table"
-                          ? _c(
-                              "button",
-                              {
-                                on: {
-                                  click: function($event) {
-                                    _vm.acceptTrans(trans, false)
-                                  }
-                                }
-                              },
-                              [_vm._v("Reject")]
-                            )
-                          : _vm._e()
-                      ],
-                      2
-                    )
-                  })
-                )
-              ]
+  return _c(
+    "div",
+    { staticClass: "table-responsive" },
+    _vm._l(_vm.tables, function(table) {
+      return _c(
+        "table",
+        { staticClass: "table table-striped col-12", attrs: { id: table.id } },
+        [
+          _vm._v(
+            "\n                    " +
+              _vm._s(table.id) +
+              "\n                    "
+          ),
+          _c("thead", [
+            _c(
+              "tr",
+              _vm._l(table.ths, function(th) {
+                return _c("th", { attrs: { scope: "col" } }, [
+                  _vm._v(_vm._s(th))
+                ])
+              })
             )
-          })
-        )
-      ])
-    ])
-  ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(table.transactions, function(trans) {
+              return _c(
+                "tr",
+                [
+                  _vm._l(trans.tds, function(td) {
+                    return _c("td", { class: td.class }, [
+                      _vm._v(_vm._s(td.value))
+                    ])
+                  }),
+                  _vm._v(" "),
+                  table.id == "unchecked-trans-table"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn-secondary",
+                          on: {
+                            click: function($event) {
+                              _vm.acceptTrans(trans, true)
+                            }
+                          }
+                        },
+                        [_vm._v("Accept")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  table.id == "unchecked-trans-table"
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn-secondary",
+                          on: {
+                            click: function($event) {
+                              _vm.acceptTrans(trans, false)
+                            }
+                          }
+                        },
+                        [_vm._v("Reject")]
+                      )
+                    : _vm._e()
+                ],
+                2
+              )
+            })
+          )
+        ]
+      )
+    })
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -47383,6 +47391,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47469,79 +47479,79 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("input", {
-          attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
-        }),
+  return _c("div", { staticClass: "table-responsive" }, [
+    _c(
+      "table",
+      {
+        staticClass: "table table-striped table-bordered",
+        staticStyle: { width: "100%" },
+        attrs: { id: "users-table" }
+      },
+      [
+        _c("thead", { staticClass: "thead-dark" }, [
+          _c(
+            "tr",
+            _vm._l(_vm.table.ths, function(th) {
+              return _c("td", { attrs: { scope: "col" } }, [_vm._v(_vm._s(th))])
+            })
+          )
+        ]),
         _vm._v(" "),
         _c(
-          "table",
-          { attrs: { id: "users-table", cellpadding: "10px", border: "2px" } },
-          [
-            _c(
-              "thead",
-              _vm._l(_vm.table.ths, function(th) {
-                return _c("tr", [_c("th", [_vm._v(_vm._s(th))])])
-              })
-            ),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.table.trs, function(tr) {
-                return _c(
-                  "tr",
-                  [
-                    _vm._l(tr.tds, function(td) {
-                      return _c("td", { class: td.class }, [
-                        _vm._v(_vm._s(td.value))
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "checkbox" }, [
-                      _c("input", {
-                        attrs: { type: "checkbox" },
-                        on: { click: function($event) {} }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "checkbox" }, [
-                      _c(
-                        "button",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.ActiveUser(tr, true)
-                            }
-                          }
-                        },
-                        [_vm._v("Active User")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "checkbox" }, [
-                      _c(
-                        "button",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.ActiveUser(tr, false)
-                            }
-                          }
-                        },
-                        [_vm._v("Deactivate User")]
-                      )
-                    ])
-                  ],
-                  2
-                )
-              })
+          "tbody",
+          _vm._l(_vm.table.trs, function(tr) {
+            return _c(
+              "tr",
+              [
+                _vm._l(tr.tds, function(td) {
+                  return _c("td", { class: td.class }, [
+                    _vm._v(_vm._s(td.value))
+                  ])
+                }),
+                _vm._v(" "),
+                _c("td", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: { click: function($event) {} }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "checkbox" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-secondary",
+                      on: {
+                        click: function($event) {
+                          _vm.ActiveUser(tr, true)
+                        }
+                      }
+                    },
+                    [_vm._v("Active User")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "checkbox" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn-secondary",
+                      on: {
+                        click: function($event) {
+                          _vm.ActiveUser(tr, false)
+                        }
+                      }
+                    },
+                    [_vm._v("Deactivate User")]
+                  )
+                ])
+              ],
+              2
             )
-          ]
+          })
         )
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -47607,6 +47617,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -47810,26 +47824,36 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _c("div", { attrs: { id: "add-clerk" } }, [
-          _c(
-            "button",
-            {
-              attrs: { id: "addShow" },
-              on: {
-                click: function($event) {
-                  _vm.showPopup()
-                }
+  return _c("div", [
+    _c("div", { attrs: { id: "add-clerk" } }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn-secondary",
+          attrs: { id: "addShow" },
+          on: {
+            click: function($event) {
+              _vm.showPopup()
+            }
+          }
+        },
+        [_vm._v("Add new clerk")]
+      ),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
+        _c("h4", [_vm._v("new Clerk Information")]),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                return _vm.addClerk($event)
               }
-            },
-            [_vm._v("Add new clerk")]
-          ),
-          _vm._v(" "),
-          _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
-            _c("h4", [_vm._v("new Clerk Information")]),
-            _vm._v(" "),
+            }
+          },
+          [
             _c("input", {
               directives: [
                 {
@@ -47843,7 +47867,8 @@ var render = function() {
                 id: "email",
                 type: "email",
                 name: "email",
-                placeholder: "Email"
+                placeholder: "Email",
+                required: ""
               },
               domProps: { value: _vm.clerk.email },
               on: {
@@ -47870,7 +47895,8 @@ var render = function() {
                 id: "password",
                 type: "password",
                 name: "password",
-                placeholder: "Password"
+                placeholder: "Password",
+                required: ""
               },
               domProps: { value: _vm.clerk.password },
               on: {
@@ -47897,7 +47923,8 @@ var render = function() {
                 id: "repass",
                 type: "password",
                 name: "retryPass",
-                placeholder: "Repeat Password"
+                placeholder: "Repeat Password",
+                required: ""
               },
               domProps: { value: _vm.clerk.repass },
               on: {
@@ -47924,7 +47951,8 @@ var render = function() {
                 id: "name",
                 type: "name",
                 name: "name",
-                placeholder: "Name"
+                placeholder: "Name",
+                required: ""
               },
               domProps: { value: _vm.clerk.name },
               on: {
@@ -47951,7 +47979,8 @@ var render = function() {
                 id: "family",
                 type: "name",
                 name: "familyName",
-                placeholder: "Family"
+                placeholder: "Family",
+                required: ""
               },
               domProps: { value: _vm.clerk.family_name },
               on: {
@@ -47978,7 +48007,8 @@ var render = function() {
                 id: "username",
                 type: "name",
                 name: "username",
-                placeholder: "Username"
+                placeholder: "Username",
+                required: ""
               },
               domProps: { value: _vm.clerk.username },
               on: {
@@ -48005,7 +48035,8 @@ var render = function() {
                 id: "income",
                 type: "number",
                 name: "income",
-                placeholder: "income"
+                placeholder: "income",
+                required: ""
               },
               domProps: { value: _vm.clerk.income },
               on: {
@@ -48032,7 +48063,8 @@ var render = function() {
                 id: "address",
                 type: "address",
                 name: "address",
-                placeholder: "address"
+                placeholder: "address",
+                required: ""
               },
               domProps: { value: _vm.clerk.address },
               on: {
@@ -48051,33 +48083,6 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.clerk.captcha,
-                  expression: "clerk.captcha"
-                }
-              ],
-              attrs: {
-                id: "captcha",
-                type: "text",
-                name: "captcha",
-                placeholder: "captcha"
-              },
-              domProps: { value: _vm.clerk.captcha },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "captcha", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
                   value: _vm.clerk.national_id,
                   expression: "clerk.national_id"
                 }
@@ -48086,7 +48091,9 @@ var render = function() {
                 id: "person_id",
                 type: "text",
                 name: "PersonID",
-                placeholder: "Person ID"
+                placeholder: "Person ID",
+                required: "",
+                size: "10"
               },
               domProps: { value: _vm.clerk.national_id },
               on: {
@@ -48113,7 +48120,9 @@ var render = function() {
                 id: "cellphone",
                 type: "text",
                 name: "CellPhone",
-                placeholder: "Phone Number"
+                placeholder: "Phone Number",
+                required: "",
+                pattern: "(\\+98|0)?9\\d{9}"
               },
               domProps: { value: _vm.clerk.phoneNumber },
               on: {
@@ -48130,87 +48139,88 @@ var render = function() {
             _c(
               "button",
               {
-                attrs: { id: "add", "data-dismiss": "modal" },
-                on: {
-                  click: function($event) {
-                    _vm.addClerk()
-                  }
-                }
+                staticClass: "btn-secondary",
+                attrs: { id: "add", type: "submit", "data-dismiss": "modal" }
               },
               [_vm._v("Add")]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
-        }),
-        _vm._v(" "),
-        _c(
-          "table",
-          { attrs: { id: "users-table", cellpadding: "10px", border: "2px" } },
-          [
-            _c(
-              "thead",
-              _vm._l(_vm.table.ths, function(th) {
-                return _c("tr", [_c("th", [_vm._v(_vm._s(th))])])
-              })
-            ),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.table.trs, function(tr) {
-                return _c(
-                  "tr",
-                  [
-                    _vm._l(tr.tds, function(td) {
-                      return _c("td", { class: td.class }, [
-                        _vm._v(_vm._s(td.value))
-                      ])
-                    }),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "checkbox" }, [
-                      _c("input", {
-                        attrs: { type: "checkbox" },
-                        on: { click: function($event) {} }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "checkbox" }, [
-                      _c(
-                        "button",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.ActiveClerk(tr, true)
-                            }
-                          }
-                        },
-                        [_vm._v("Active User")]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "checkbox" }, [
-                      _c(
-                        "button",
-                        {
-                          on: {
-                            click: function($event) {
-                              _vm.ActiveClerk(tr, false)
-                            }
-                          }
-                        },
-                        [_vm._v("Deactivate User")]
-                      )
-                    ])
-                  ],
-                  2
-                )
-              })
             )
           ]
         )
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "table-responsive" }, [
+      _c(
+        "table",
+        {
+          staticClass: "table table-striped table-bordered",
+          attrs: { id: "users-table" }
+        },
+        [
+          _c("thead", [
+            _c(
+              "tr",
+              _vm._l(_vm.table.ths, function(th) {
+                return _c("th", { staticClass: "col" }, [_vm._v(_vm._s(th))])
+              })
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.table.trs, function(tr) {
+              return _c(
+                "tr",
+                [
+                  _vm._l(tr.tds, function(td) {
+                    return _c("td", { class: td.class }, [
+                      _vm._v(_vm._s(td.value))
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "checkbox" }, [
+                    _c("input", {
+                      attrs: { type: "checkbox" },
+                      on: { click: function($event) {} }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "checkbox" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn-secondary",
+                        on: {
+                          click: function($event) {
+                            _vm.ActiveClerk(tr, true)
+                          }
+                        }
+                      },
+                      [_vm._v("Active User")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { staticClass: "checkbox" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn-secondary",
+                        on: {
+                          click: function($event) {
+                            _vm.ActiveClerk(tr, false)
+                          }
+                        }
+                      },
+                      [_vm._v("Deactivate User")]
+                    )
+                  ])
+                ],
+                2
+              )
+            })
+          )
+        ]
+      )
     ])
   ])
 }
