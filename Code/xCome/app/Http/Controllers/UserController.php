@@ -714,6 +714,34 @@ class UserController extends Controller
 
     }
 
+    public function acceptTrans(Request $request) {
+//        dd($request);
+        $user = $this->getUser($request);
+//            dd($user->type);
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        $id = 0;
+
+        $tds = $request->transaction['tds'];
+        foreach ($tds as $td) {
+            if ($td['class'] == 'transaction_id'){
+                $id = $td['value'];
+            }
+        }
+
+        $this->x_pay_transactions->where(['transaction_id' => $id])->update([
+            'done' => $request->accept
+        ]);
+
+        $this->x_exam_transactions->where(['transaction_id' => $id])->update([
+            'done' => $request->accept
+        ]);
+
+        return $id;
+    }
+
     public function charge_credit(Request $request) {
 //        dd($request);
         $user = $this->getUser($request);
@@ -1345,7 +1373,7 @@ class UserController extends Controller
         ]);
     }
 
-    private function feePayment($value,  $user){
+    private function feePayment($value,  $user, $related_id){
 
         $boss = $this->x_user->where('type', '=', 'manager')->firstOrFail();
         $trans = $this->newTransaction($value, date ("Y-m-d H:i:s", time()), [$user->id, $boss->id]);
@@ -1354,7 +1382,8 @@ class UserController extends Controller
         $new_fee_trans = $this->x_fee_transactions->create([
             'transaction_id' => $trans->transaction_id,
             'from' =>  $user->id,
-            'too' => $boss->id
+            'too' => $boss->id,
+            'related_transaction' => $related_id
         ]);
 
         return $new_fee_trans;

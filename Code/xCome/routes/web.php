@@ -146,10 +146,17 @@ Route::prefix('profile') -> group(function () {
         "uses" => "UserController@exam_reg",
         "as" => "profile.exam-reg"
     ]);
+
     Route::any('wallet', [
 //        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
         "uses" => "UserController@profile",
         "as" => "profile.wallet"
+    ]);
+
+    Route::any('accept-trans', [
+//        "middleware" => "App\Http\Middleware\ProfileMiddleWare",
+        "uses" => "UserController@acceptTrans",
+        "as" => "profile.accept-trans"
     ]);
 
     Route::any('apply-pay', [
