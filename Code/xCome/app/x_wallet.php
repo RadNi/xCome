@@ -8,7 +8,7 @@ class x_wallet extends Model
 {
     //
 
-    protected $fillable= ['cash', 'primary_cash', 'user_id', 'address'];
+    protected $fillable= ['cash', 'primary_cash', 'user_id', 'address', 'type'];
 
     protected $primaryKey = 'address';
 }

@@ -23,12 +23,11 @@ class UserController extends Controller
 {
 
     static protected $BOSS_USER_ID = 4;
-    static protected $COMPANY_WALLET_ADDRESS;
-        //= [        //TODO      still wallet is not real !!
-//        'rial' => 'AAAAAAAAAAAAAAAAAAAAAAAA',
-//        'dollar' => 'AAAAAAAAAAAAAAAAAAAAAAAB',
-//        'euro' => 'AAAAAAAAAAAAAAAAAAAAAAAC'
-//    ];
+    static protected $COMPANY_WALLET_ADDRESS = [        //TODO      still wallet is not real !!
+        'rial' => 'AAAAAAAAAAAAAAAAAAAAAAAA',
+        'dollar' => 'AAAAAAAAAAAAAAAAAAAAAAAB',
+        'euro' => 'AAAAAAAAAAAAAAAAAAAAAAAC'
+    ];
 
     static protected $EXCHANGE_BUY = [
         'dollar' => 10.800,
@@ -156,21 +155,21 @@ class UserController extends Controller
     private function makeBoss($data) {
         $data['type'] = 'manager';
         $boss = $this->x_user->create($data)->getKey();
-        $this->makeWallets($boss);
+//        $this->makeWallets($boss);
 //        dd();
-        $temp =
-        UserController::$COMPANY_WALLET_ADDRESS['dollar'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'dollar')->first()->getOriginal('address');
-        UserController::$COMPANY_WALLET_ADDRESS['rial'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'rial')->first()->getOriginal('address');
-        UserController::$COMPANY_WALLET_ADDRESS['euro'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'euro')->first()->getOriginal('address');
-//        foreach ($boss as $k => $v) {
-//            $this->x_wallet->create([
-//                'user_id' => $boss,
-//                'address' => $v,
-//                'type' => $k,
-//                'primary_cash' => '0',
-//                'cash' => '0'
-//        ]);
-//        }
+//        $temp =
+//        UserController::$COMPANY_WALLET_ADDRESS['dollar'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'dollar')->first()->getOriginal('address');
+//        UserController::$COMPANY_WALLET_ADDRESS['rial'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'rial')->first()->getOriginal('address');
+//        UserController::$COMPANY_WALLET_ADDRESS['euro'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'euro')->first()->getOriginal('address');
+        foreach (UserController::$COMPANY_WALLET_ADDRESS as $k => $v) {
+            $this->x_wallet->create([
+                'user_id' => $boss,
+                'address' => $v,
+                'type' => $k,
+                'primary_cash' => '0',
+                'cash' => '0'
+        ]);
+        }
 //        dd(UserController::$COMPANY_WALLET_ADDRESS);
     }
 
@@ -1477,6 +1476,9 @@ class UserController extends Controller
 //            dd(UserController::$COMPANY_WALLET_ADDRESS);
 //            dd(strtolower($exam->name));
 //            dd($rial->getOriginal('address'));
+
+//            dd(UserController::$COMPANY_WALLET_ADDRESS);
+
             $new_trans=$this->x_exam_transactions->create([
                 'transaction_id' => $trans->transaction_id,
                 'fee' => $exam->fee,
