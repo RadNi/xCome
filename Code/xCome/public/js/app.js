@@ -43775,6 +43775,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43843,11 +43846,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).then(function (respond) {
 
                 console.log(respond);
-                console.log("hello", respond.data);
+                console.log(respond.data);
                 //                  console.log(JSON.parse(respond));
 
                 if (respond.data !== '\'not enough currency\'') {
-                    // location.reload()
+                    location.reload();
                 }
                 _this.error_message = respond.data;
                 //                    location.href = 'http://localhost:8888/profile';
@@ -43873,85 +43876,98 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(this.wallets, function(wallet) {
-            return _c("tr", [
-              _c("th", { attrs: { scope: "row" } }, [
-                _vm._v(_vm._s(wallet.index))
-              ]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wallet.name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wallet.amount))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(wallet.address))]),
-              _vm._v(" "),
-              _c("td", [
+          [
+            _vm._l(this.wallets, function(wallet) {
+              return _c("tr", [
+                _c("th", { attrs: { scope: "row" } }, [
+                  _vm._v(_vm._s(wallet.index))
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.name))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.amount))]),
+                _vm._v(" "),
+                _c("td", [_vm._v(_vm._s(wallet.address))]),
+                _vm._v(" "),
+                _c("td", [
+                  wallet.name !== "rial"
+                    ? _c("div", { staticClass: "input-group" }, [
+                        _c("div", { staticClass: "input-group-prepend" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary",
+                              attrs: {
+                                type: "button",
+                                id: "buy" + wallet.name,
+                                name: "buy" + wallet.name
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.buy_currency(_vm.amount, wallet.name)
+                                }
+                              }
+                            },
+                            [_vm._v("Buy")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "input-group-prepend" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "btn btn-outline-secondary",
+                              attrs: {
+                                type: "button",
+                                id: "sell" + wallet.name,
+                                name: "sell" + wallet.name
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.sell_currency(_vm.amount, wallet.name)
+                                }
+                              }
+                            },
+                            [_vm._v("Sell")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "number",
+                            id: wallet.name,
+                            name: wallet.name,
+                            placeholder: "Amount"
+                          }
+                        })
+                      ])
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
                 wallet.name !== "rial"
-                  ? _c("div", { staticClass: "input-group" }, [
-                      _c("div", { staticClass: "input-group-prepend" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-secondary",
-                            attrs: {
-                              type: "button",
-                              id: "buy" + wallet.name,
-                              name: "buy" + wallet.name
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.buy_currency(_vm.amount, wallet.name)
-                              }
-                            }
-                          },
-                          [_vm._v("Buy")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "input-group-prepend" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-outline-secondary",
-                            attrs: {
-                              type: "button",
-                              id: "sell" + wallet.name,
-                              name: "sell" + wallet.name
-                            },
-                            on: {
-                              click: function($event) {
-                                _vm.sell_currency(_vm.amount, wallet.name)
-                              }
-                            }
-                          },
-                          [_vm._v("Sell")]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: {
-                          type: "number",
-                          id: wallet.name,
-                          name: wallet.name,
-                          placeholder: "Amount"
-                        }
-                      })
+                  ? _c("td", [
+                      _vm._v(
+                        "\n                                Live exchange fee goes here\n                            "
+                      )
                     ])
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              wallet.name !== "rial"
-                ? _c("td", [
+                  : _c("td")
+              ])
+            }),
+            _vm._v(" "),
+            _c("tr", [
+              _vm.error_message !== ""
+                ? _c("td", { staticClass: "table-danger" }, [
                     _vm._v(
-                      "\n                                Live exchange fee goes here\n                                " +
+                      "\n                                " +
                         _vm._s(_vm.error_message) +
                         "\n                            "
                     )
                   ])
-                : _c("td")
+                : _vm._e()
             ])
-          })
+          ],
+          2
         )
       ])
     ])
@@ -43974,9 +43990,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange")]),
         _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Fee")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Error")])
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Exchange Fee")])
       ])
     ])
   }

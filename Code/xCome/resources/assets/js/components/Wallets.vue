@@ -74,7 +74,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="table-danger">
+                                <td class="table-danger" v-if="error_message !== '' ">
                                     {{error_message}}
                                 </td>
                             </tr>
