@@ -458,7 +458,7 @@ class UserController extends Controller
             'cash' => $user_rial_wallet->cash - $rial_amount,
         ]);
 
-        return \response($boss->getKey());
+        return \response('done');
 
 
 //        if ()
@@ -885,7 +885,7 @@ class UserController extends Controller
             'to' => $request->{'payee-id'}
         ]);
 
-        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
+        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user, $app_trans->getOriginal('transaction_id'));
 
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
@@ -960,7 +960,7 @@ class UserController extends Controller
 
 //        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
 
-        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user);
+        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user, $int_trans->getOriginal('transaction_id'));
 
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
@@ -1054,7 +1054,7 @@ class UserController extends Controller
             'to' => $payee_wallet->getOriginal('address')
         ]);
 //
-        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user);
+        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user, $int_trans->getOriginal('transaction_id'));
 //
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
@@ -1375,6 +1375,8 @@ class UserController extends Controller
 
     private function feePayment($value,  $user, $related_id){
 
+//        dd($related_id);
+
         $boss = $this->x_user->where('type', '=', 'manager')->firstOrFail();
         $trans = $this->newTransaction($value, date ("Y-m-d H:i:s", time()), [$user->id, $boss->id]);
 
@@ -1475,7 +1477,7 @@ class UserController extends Controller
                 'clerk_id' => null,
             ]);
 
-            $this->feePayment($exam->fee, $user);
+            $this->feePayment($exam->fee, $user, $new_trans->getOriginal('transaction_id'));
 
             return \response('Exam bought successfully');     //TODO for this kind of succeed we should make a page
 //            dd($rial);
