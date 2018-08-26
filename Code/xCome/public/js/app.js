@@ -45574,7 +45574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         sendTransaction: function sendTransaction() {
             var _this = this;
 
-            console.log("helo", this.payment.type, this.payment.address, this.payment.price);
+            console.log("helo", this.payment.type, this.payment.address, this.payment.price, this.payment.fee);
             window.axios.post(window.customURLs.doIntTrans, this.payment, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
@@ -45761,6 +45761,14 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.payment.fee,
+                    expression: "payment.fee"
+                  }
+                ],
                 staticClass: "form-control",
                 attrs: {
                   type: "text",
@@ -45769,6 +45777,15 @@ var render = function() {
                   id: "fee",
                   readonly: "",
                   placeholder: _vm.getFeePrice()
+                },
+                domProps: { value: _vm.payment.fee },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.payment, "fee", $event.target.value)
+                  }
                 }
               }),
               _vm._v(" "),
