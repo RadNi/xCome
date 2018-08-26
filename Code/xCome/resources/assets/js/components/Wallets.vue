@@ -126,7 +126,7 @@
 
 
             sell_currency(amount, wallet_name) {
-                window.axios.post('http://localhost:8888/profile/sell-currency', {
+                window.axios.post(window.customURLs.sellCurrency, {
                     'amount': amount,
                     'wallet_name': wallet_name
                 }, {
@@ -136,10 +136,11 @@
                 }).then(respond => {
 
                     console.log(respond);
-                    console.log(respond.data)
+                    console.log(respond.data);
+                    location.reload()
 //                  console.log(JSON.parse(respond));
 
-                    location.href = 'http://localhost:8888/profile';
+//                    location.href = 'http://localhost:8888/profile';
 
                 }).catch(e => {
                     console.log(e)
@@ -147,7 +148,7 @@
             },
 
             buy_currency(amount, wallet_name) {
-                window.axios.post('http://localhost:8888/profile/buy-currency', {
+                window.axios.post(window.customURLs.buyCurrency, {
                     'amount': amount,
                     'wallet_name': wallet_name
                 }, {
@@ -160,7 +161,8 @@
                     console.log(respond.data)
 //                  console.log(JSON.parse(respond));
 
-                    location.href = 'http://localhost:8888/profile';
+//                    location.reload()
+//                    location.href = 'http://localhost:8888/profile';
 
                 }).catch(e => {
                     console.log(e)

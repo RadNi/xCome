@@ -607,6 +607,7 @@ class UserController extends Controller
         }
 
 
+//        dd(count($user));
 
         $all_transactions = [];
 
