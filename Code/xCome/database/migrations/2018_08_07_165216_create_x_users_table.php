@@ -23,6 +23,7 @@ class CreateXUsersTable extends Migration
             $table->string('phoneNumber', 15);
             $table->string('national_id', 12)->unique();
             $table->text('address');
+            $table->boolean('active')->default(true);
             $table->enum('type', ['user', 'clerk', 'manager']);
             $table->timestamps();
         });

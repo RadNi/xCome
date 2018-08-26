@@ -23,11 +23,12 @@ class UserController extends Controller
 {
 
     static protected $BOSS_USER_ID = 4;
-    static protected $COMPANY_WALLET_ADDRESS = [        //TODO      still wallet is not real !!
-        'rial' => 'AAAAAAAAAAAAAAAAAAAAAAAA',
-        'dollar' => 'AAAAAAAAAAAAAAAAAAAAAAAB',
-        'euro' => 'AAAAAAAAAAAAAAAAAAAAAAAC'
-    ];
+    static protected $COMPANY_WALLET_ADDRESS;
+        //= [        //TODO      still wallet is not real !!
+//        'rial' => 'AAAAAAAAAAAAAAAAAAAAAAAA',
+//        'dollar' => 'AAAAAAAAAAAAAAAAAAAAAAAB',
+//        'euro' => 'AAAAAAAAAAAAAAAAAAAAAAAC'
+//    ];
 
     static protected $EXCHANGE_BUY = [
         'dollar' => 10.800,
@@ -156,15 +157,21 @@ class UserController extends Controller
         $data['type'] = 'manager';
         $boss = $this->x_user->create($data)->getKey();
         $this->makeWallets($boss);
-        foreach (UserController::$COMPANY_WALLET_ADDRESS as $k => $v) {
-            $this->x_wallet->create([
-                'user_id' => $boss,
-                'address' => $v,
-                'type' => $k,
-                'primary_cash' => '0',
-                'cash' => '0'
-        ]);
-        }
+//        dd();
+        $temp =
+        UserController::$COMPANY_WALLET_ADDRESS['dollar'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'dollar')->first()->getOriginal('address');
+        UserController::$COMPANY_WALLET_ADDRESS['rial'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'rial')->first()->getOriginal('address');
+        UserController::$COMPANY_WALLET_ADDRESS['euro'] = $this->x_wallet->where('user_id', '=', $boss)->where('type', '=', 'euro')->first()->getOriginal('address');
+//        foreach ($boss as $k => $v) {
+//            $this->x_wallet->create([
+//                'user_id' => $boss,
+//                'address' => $v,
+//                'type' => $k,
+//                'primary_cash' => '0',
+//                'cash' => '0'
+//        ]);
+//        }
+//        dd(UserController::$COMPANY_WALLET_ADDRESS);
     }
 
     public function checkRegister(Request $request) {
@@ -736,6 +743,8 @@ class UserController extends Controller
         $this->x_pay_transactions->where(['transaction_id' => $id])->update([
             'done' => $request->accept
         ]);
+
+
 
         $this->x_exam_transactions->where(['transaction_id' => $id])->update([
             'done' => $request->accept
