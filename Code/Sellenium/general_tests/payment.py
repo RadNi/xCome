@@ -1,4 +1,5 @@
 import unittest
+from time import sleep
 
 from selenium import webdriver
 from test_utility import fields, static_data
@@ -8,14 +9,19 @@ class Payment(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.address = "user/profile/int-trans"
+        self.driver.get(static_data.base_url + "login")
+        fields.get_components_by_name(self.driver, ["username=user", "password=testtest",
+                                                    "submit"])[2].click()
+        self.driver.get(static_data.base_url + "/profile/int-trans")
 
     def test_pay_rial(self):  # Assume Money > Needed
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        fields.get_components_by_name(driver, ["payee-id=1111222233334444", "price=1000", "type=rial",
-                                               "submit"])[3].click()
-        assert driver.find_element_by_id("successful") is not None
+        sleep(2)
+        self.driver.find_element_by_id("Curr_Type").send_keys("Rial")
+        sleep(2)
+        fields.get_components_by_name(self.driver, ["payee-id=" + static_data.valid_rial_wallet_address,
+                                                    "price=10", "submit"])[2].click()
+        sleep(5)
+        assert "successful" in self.driver.find_element_by_tag_name("body").text
 
     def test_pay_dollar(self):  # Assume Money > Needed
         driver = self.driver

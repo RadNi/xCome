@@ -270,6 +270,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'table' => $table
         ];
 
@@ -337,6 +338,7 @@ class UserController extends Controller
             'type' => $user->type,
             'hyperLinks' => $this->fill_hyperLinks($user->type),
             'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
             'table' => ''
         ];
 
