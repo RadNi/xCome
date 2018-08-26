@@ -1040,3 +1040,16 @@ JavaScript error: resource://gre/modules/Sqlite.jsm, line 826: Error: Connection
 1535297523205	Marionette	INFO	Listening on port 38371
 1535297523249	Marionette	WARN	TLS certificate errors will be ignored for this session
 *** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1535297889262	geckodriver	INFO	geckodriver 0.21.0
+1535297889267	geckodriver	INFO	Listening on 127.0.0.1:36317
+1535297890276	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.Px27ttzdaf69"
+1535297893860	Marionette	INFO	Listening on port 42357
+1535297893930	Marionette	WARN	TLS certificate errors will be ignored for this session
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1535298151645	geckodriver	INFO	geckodriver 0.21.0
+1535298151649	geckodriver	INFO	Listening on 127.0.0.1:57765
+1535298152653	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.2lUc2xe9c2XJ"
+1535298155636	Marionette	INFO	Listening on port 34453
+1535298155669	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 26843, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-oscv9o/firefox-61.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping

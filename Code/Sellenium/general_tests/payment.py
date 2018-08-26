@@ -10,7 +10,7 @@ class Payment(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.get(static_data.base_url + "login")
-        fields.get_components_by_name(self.driver, ["username=user", "password=testtest",
+        fields.get_components_by_name(self.driver, ["username=smjfas", "password=smjfas",
                                                     "submit"])[2].click()
         self.driver.get(static_data.base_url + "/profile/int-trans")
 
@@ -19,7 +19,7 @@ class Payment(unittest.TestCase):
         self.driver.find_element_by_id("Curr_Type").send_keys("Rial")
         sleep(2)
         fields.get_components_by_name(self.driver, ["payee-id=" + static_data.valid_rial_wallet_address,
-                                                    "price=10", "submit"])[2].click()
+                                                    "price=10", "login"])[2].click()
         sleep(5)
         assert "successful" in self.driver.find_element_by_tag_name("body").text
 
