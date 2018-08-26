@@ -115,7 +115,10 @@
                 }).then(respond => {
 
                     console.log(respond);
-                    console.log(respond.data)
+                    console.log(respond.data);
+                    if (respond.data === 'done'){
+                        location.reload();
+                    }
 //                  console.log(JSON.parse(respond));
 
                 }).catch(e => {
