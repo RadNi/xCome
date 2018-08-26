@@ -1166,7 +1166,10 @@ if (token) {
         'addNewExam': window.baseURL + '/profile/add-new-exam',
         'registerNewUser': window.baseURL + '/profile/register-new-user',
         'doIntTrans': window.baseURL + '/profile/do-int-trans',
-        'register': window.baseURL + '/register'
+        'register': window.baseURL + '/register',
+        'addClerk': window.baseURL + '/profile/add-clerk',
+        'changeInfo': window.baseURL + '/profile/change-info',
+        'acceptTransaction': window.baseURL + '/profile/accept-trans'
     };
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -46357,7 +46360,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         send_new_info: function send_new_info() {
-            window.axios.post('http://localhost:8888/profile/change-info', this.new_info, {
+            window.axios.post(window.customURLs.changeInfo, this.new_info, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -46894,6 +46897,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46916,7 +46922,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         //            this.internalTransURL = window.customURLs.internalTransURL;
     },
 
-    methods: {}
+    methods: {
+        acceptTrans: function acceptTrans(transaction, accept) {
+            window.axios.post(window.customURLs.acceptTransaction, {
+                transaction: transaction,
+                accept: accept
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                console.log(respond);
+                console.log(respond.data);
+                //                  console.log(JSON.parse(respond));
+            }).catch(function (e) {
+                console.log(e);
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -46945,6 +46969,11 @@ var render = function() {
                 attrs: { id: table.id }
               },
               [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(table.id) +
+                    "\n                    "
+                ),
                 _c("thead", [
                   _c(
                     "tr",
@@ -46961,11 +46990,42 @@ var render = function() {
                   _vm._l(table.transactions, function(trans) {
                     return _c(
                       "tr",
-                      _vm._l(trans.tds, function(td) {
-                        return _c("td", { class: td.class }, [
-                          _vm._v(_vm._s(td.value))
-                        ])
-                      })
+                      [
+                        _vm._l(trans.tds, function(td) {
+                          return _c("td", { class: td.class }, [
+                            _vm._v(_vm._s(td.value))
+                          ])
+                        }),
+                        _vm._v(" "),
+                        table.id == "unchecked-trans-table"
+                          ? _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.acceptTrans(trans, true)
+                                  }
+                                }
+                              },
+                              [_vm._v("Accept")]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        table.id == "unchecked-trans-table"
+                          ? _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    _vm.acceptTrans(trans, false)
+                                  }
+                                }
+                              },
+                              [_vm._v("Reject")]
+                            )
+                          : _vm._e()
+                      ],
+                      2
                     )
                   })
                 )
@@ -47373,7 +47433,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             console.log(this.value);
-            window.axios.post(window.URL.activeUser, {
+            window.axios.post(window.customURLs.activeUser, {
                 value: this.value,
                 active: active
             }, {
@@ -47633,11 +47693,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             type: '',
             csrf: '',
             value: '',
-            table: []
+            table: [],
+            clerk: {
+                //                    name: '',
+                //                    email: '',
+                //                    phoneNumber: 'Phone Number',
+                //                    address: '',
+                //                    national_id: 'National ID',
+                //                    repass: '',
+                //                    family: '',
+                //                    income: 'Income',
+                //                    captcha: ''
+            }
         };
     },
     mounted: function mounted() {
         console.log(this.x_data);
+        console.log('kharr');
         this.table = this.x_data.table;
         //            this.transactions = this.x_data.transactions;
         //            this.type = this.x_data.type;
@@ -47647,6 +47719,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        showPopup: function showPopup() {
+            popupAdd.hidden = false;
+            addShow.hidden = true;
+        },
+        addClerk: function addClerk() {
+            window.axios.post(window.customURLs.addClerk, {
+                clerk: this.clerk
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                location.reload();
+                //                    console.log(location.href);
+                console.log(respond);
+                console.log(respond.data);
+            }).catch(function (e) {
+
+                console.log(e);
+            });
+        },
         ActiveClerk: function ActiveClerk(query, active) {
 
             var element = void 0;
@@ -47712,7 +47806,334 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-        _vm._m(0),
+        _c("div", { attrs: { id: "add-clerk" } }, [
+          _c(
+            "button",
+            {
+              attrs: { id: "addShow" },
+              on: {
+                click: function($event) {
+                  _vm.showPopup()
+                }
+              }
+            },
+            [_vm._v("Add new clerk")]
+          ),
+          _vm._v(" "),
+          _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
+            _c("h4", [_vm._v("new Clerk Information")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.email,
+                  expression: "clerk.email"
+                }
+              ],
+              attrs: {
+                id: "email",
+                type: "email",
+                name: "email",
+                placeholder: "Email"
+              },
+              domProps: { value: _vm.clerk.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "email", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.password,
+                  expression: "clerk.password"
+                }
+              ],
+              attrs: {
+                id: "password",
+                type: "password",
+                name: "password",
+                placeholder: "Password"
+              },
+              domProps: { value: _vm.clerk.password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "password", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.repass,
+                  expression: "clerk.repass"
+                }
+              ],
+              attrs: {
+                id: "repass",
+                type: "password",
+                name: "retryPass",
+                placeholder: "Repeat Password"
+              },
+              domProps: { value: _vm.clerk.repass },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "repass", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.name,
+                  expression: "clerk.name"
+                }
+              ],
+              attrs: {
+                id: "name",
+                type: "name",
+                name: "name",
+                placeholder: "Name"
+              },
+              domProps: { value: _vm.clerk.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "name", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.family_name,
+                  expression: "clerk.family_name"
+                }
+              ],
+              attrs: {
+                id: "family",
+                type: "name",
+                name: "familyName",
+                placeholder: "Family"
+              },
+              domProps: { value: _vm.clerk.family_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "family_name", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.username,
+                  expression: "clerk.username"
+                }
+              ],
+              attrs: {
+                id: "username",
+                type: "name",
+                name: "username",
+                placeholder: "Username"
+              },
+              domProps: { value: _vm.clerk.username },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "username", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.income,
+                  expression: "clerk.income"
+                }
+              ],
+              attrs: {
+                id: "income",
+                type: "number",
+                name: "income",
+                placeholder: "income"
+              },
+              domProps: { value: _vm.clerk.income },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "income", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.address,
+                  expression: "clerk.address"
+                }
+              ],
+              attrs: {
+                id: "address",
+                type: "address",
+                name: "address",
+                placeholder: "address"
+              },
+              domProps: { value: _vm.clerk.address },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "address", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.captcha,
+                  expression: "clerk.captcha"
+                }
+              ],
+              attrs: {
+                id: "captcha",
+                type: "text",
+                name: "captcha",
+                placeholder: "captcha"
+              },
+              domProps: { value: _vm.clerk.captcha },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "captcha", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.national_id,
+                  expression: "clerk.national_id"
+                }
+              ],
+              attrs: {
+                id: "person_id",
+                type: "text",
+                name: "PersonID",
+                placeholder: "Person ID"
+              },
+              domProps: { value: _vm.clerk.national_id },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "national_id", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.clerk.phoneNumber,
+                  expression: "clerk.phoneNumber"
+                }
+              ],
+              attrs: {
+                id: "cellphone",
+                type: "text",
+                name: "CellPhone",
+                placeholder: "Phone Number"
+              },
+              domProps: { value: _vm.clerk.phoneNumber },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.clerk, "phoneNumber", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                attrs: { id: "add", "data-dismiss": "modal" },
+                on: {
+                  click: function($event) {
+                    _vm.addClerk()
+                  }
+                }
+              },
+              [_vm._v("Add")]
+            )
+          ])
+        ]),
         _vm._v(" "),
         _c("input", {
           attrs: { id: "search", name: "searchbox", placeholder: "Search here" }
@@ -47786,138 +48207,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "add-clerk" } }, [
-      _c(
-        "button",
-        {
-          attrs: {
-            id: "addShow",
-            onclick: "popupAdd.hidden = false;addShow.hidden = true;"
-          }
-        },
-        [_vm._v("Add new clerk")]
-      ),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
-        _c("h4", [_vm._v("new Clerk Informations")]),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "email",
-            type: "email",
-            name: "email",
-            placeholder: "Email"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "password",
-            type: "password",
-            name: "password",
-            placeholder: "Password"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "repass",
-            type: "password",
-            name: "retryPass",
-            placeholder: "Repeat Password"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { id: "name", type: "name", name: "name", placeholder: "Name" }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "family",
-            type: "name",
-            name: "familyName",
-            placeholder: "Family"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "username",
-            type: "name",
-            name: "username",
-            placeholder: "Username"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "income",
-            type: "number",
-            name: "income",
-            placeholder: "income"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "address",
-            type: "address",
-            name: "address",
-            placeholder: "address"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "captcha",
-            type: "text",
-            name: "captcha",
-            placeholder: "captcha"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "person_id",
-            type: "text",
-            name: "PersonID",
-            placeholder: "Person ID"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", {
-          attrs: {
-            id: "cellphone",
-            type: "text",
-            name: "CellPhone",
-            placeholder: "Phone Number"
-          }
-        }),
-        _c("br"),
-        _vm._v(" "),
-        _c("button", { attrs: { id: "add", "data-dismiss": "modal" } }, [
-          _vm._v("Add")
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

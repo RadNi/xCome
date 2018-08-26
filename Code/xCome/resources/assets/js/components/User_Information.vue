@@ -161,7 +161,7 @@
         },
         methods: {
             send_new_info() {
-              window.axios.post('http://localhost:8888/profile/change-info', this.new_info, {
+              window.axios.post(window.customURLs.changeInfo, this.new_info, {
                   Cookie: document.cookie,
                   'Access-Control-Allow-Origin': '*',
                   "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"

@@ -6,6 +6,7 @@
                 <input id="search" name="searchbox" placeholder="Search here">
                 <div class="table-responsive">
                     <table class="table table-striped col-12" v-bind:id="table.id" v-for="table in tables">
+                        {{ table.id }}
                         <thead>
                         <tr>
                             <th scope="col" v-for="th in table.ths">{{ th }}</th>
@@ -21,6 +22,8 @@
                         <tbody>
                         <tr v-for="trans in table.transactions">
                             <td v-for="td in trans.tds" v-bind:class="td.class">{{ td.value }}</td>
+                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, true)">Accept</button>
+                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, false)">Reject</button>
                             <!--<td class="fee">{{ trans.fee }}</td>-->
                             <!--<td class="currency">{{ trans.type }}</td>-->
                             <!--<td class="from">{{ trans.from }}</td>-->
@@ -61,7 +64,24 @@
 //            this.internalTransURL = window.customURLs.internalTransURL;
         },
         methods: {
+            acceptTrans(transaction, accept) {
+                    window.axios.post(window.customURLs.acceptTransaction, {
+                        transaction: transaction,
+                        accept: accept
+                    }, {
+                        Cookie: document.cookie,
+                        'Access-Control-Allow-Origin': '*',
+                        "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+                    }).then(respond => {
 
+                        console.log(respond);
+                        console.log(respond.data)
+//                  console.log(JSON.parse(respond));
+
+                    }).catch(e => {
+                        console.log(e)
+                    })
+            }
         }
     }
 </script>
