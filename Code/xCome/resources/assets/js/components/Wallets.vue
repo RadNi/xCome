@@ -173,7 +173,7 @@
                     console.log(respond.data);
 //                  console.log(JSON.parse(respond));
 
-                    if (respond.data !== '\'not enough currency\''){
+                    if (respond.data === 'done'){
                         location.reload()
                     }
                     this.error_message = respond.data;
