@@ -5,17 +5,17 @@
                 <div id="wp-exam-reg">
                     <div v-if="type=='manager'" id="add-exam">
 
-                        <button id="addExam" onclick="popupAddExam.hidden = false;addExam.hidden = true;">Add new exam</button>
+                        <button class="btn-secondary" id="addExam" onclick="popupAddExam.hidden = false;addExam.hidden = true;">Add new exam</button>
 
                         <div id="popupAddExam" hidden>
                             <h4>new Exam Informations</h4>
-                            <input id="exam-type" type="name" name="name" placeholder="Name" v-model="new_exam.name"><br>
-                            <input id="exam-price" type="number" name="price" placeholder="Price" v-model="new_exam.price"><br>
-                            <input id="exam-fee" type="number" name="fee" placeholder="Fee" v-model="new_exam.fee"><br>
-                            <input id="exam-pay-type" type="text" name="pay" placeholder="Pay Type" v-model="new_exam.pay_type"><br>
-                            <input id="exam-date" type="date" name="date" placeholder="Date" v-model="new_exam.date"><br>
-                            <input id="exam-time" type="time" name="date" placeholder="Date" v-model="new_exam.time"><br>
-                            <button id="add" data-dismiss="modal" v-on:click="send_new_exam(new_exam)">Add</button>
+                            <input id="exam-type" type="name" name="name" placeholder="Name" v-model="new_exam.name" required><br>
+                            <input id="exam-price" type="number" name="price" placeholder="Price" v-model="new_exam.price" required><br>
+                            <input id="exam-fee" type="number" name="fee" placeholder="Fee" v-model="new_exam.fee" required><br>
+                            <input id="exam-pay-type" type="text" name="pay" placeholder="Pay Type" v-model="new_exam.pay_type" required><br>
+                            <input id="exam-date" type="date" name="date" placeholder="Date" v-model="new_exam.date" required><br>
+                            <input id="exam-time" type="time" name="date" placeholder="Date" v-model="new_exam.time" required><br>
+                            <button id="add" data-dismiss="modal" v-on:click="send_new_exam(new_exam)" class="btn-secondary">Add</button>
                         </div>
 
                     </div>
@@ -24,7 +24,7 @@
                     <form method="post" :action="this.buyExamURL">
                         <input type="hidden" name="_token" v-model="csrf"><br/>
                         <!-- TODO       the address should be dynamic -->
-                        <table id="exams-table">
+                        <table id="exams-table" class="table">
                         <td v-for="exam in this.exams">
                             <div :id="exam.id" class="exam">
                                 <p class="exam-name">{{ exam.name }}</p>
@@ -58,7 +58,7 @@
                             <!--</div>-->
                         <!--</td>-->
                         </table>
-                        <input type="submit" value="Buy" id="buy-butt"/>
+                        <input type="submit" value="Buy" id="buy-butt" class="btn-secondary">
 
                     </form>
                 </div>
