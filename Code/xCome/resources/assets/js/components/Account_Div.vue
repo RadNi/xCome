@@ -15,7 +15,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Charge</span>
                     </div>
-                    <input id="amount" type="number" v-model="amount" class="form-control" placeholder="Amount You Need" aria-label="Amount You Need" aria-describedby="basic-addon2">
+                    <input id="amount" type="number" v-model="amount" class="form-control" placeholder="Amount You Need" aria-label="Amount You Need" aria-describedby="basic-addon2" required>
                     <div class="input-group-prepend">
                         <span class="input-group-text">Rials</span>
                     </div>

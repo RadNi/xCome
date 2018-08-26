@@ -61,8 +61,8 @@
             <select class="custom-select" id="CURR_TO">
                 <option selected>Choose...</option>
                 <option value="EUR">EUR</option>
-                <option value="IRR">IRR</option>
-                <option value="USD" selected="">USD</option>
+                <option value="IRR" selected="">IRR</option>
+                <option value="USD" >USD</option>
             </select>
             <button class="btn btn-outline-secondary" type="button" id="convert" onclick="getCurrencyUsingJQuery()">Convert</button>
             <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" name="CURR_FR_VAL" id="CURR_VAL" readonly="" placeholder="Press Convert">

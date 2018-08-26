@@ -19,14 +19,14 @@
         <form method="post" :action="this.applyPayURL">
             <input type="hidden" name="_token" v-model="csrf">
             <div class="input-group">
-                <input type="text" class="form-control" aria-label="Payee Credit Card" name="payee-id" id="payee-id" placeholder="Payee Credit Card">
+                <input type="text" class="form-control" aria-label="Payee Credit Card" name="payee-id" id="payee-id" placeholder="Payee Credit Card" required>
                 <select class="custom-select" name="type" id="Curr_Type">
                     <option selected>Choose...</option>
                     <option value="rial">Rial</option>
                     <option value="dollar">Dollar</option>
                     <option value="euro" selected="">Euro</option>
                 </select>
-                <input type="number" class="form-control" aria-label="Price" name="price" id="price" placeholder="Price" v-model="price">
+                <input type="number" class="form-control" aria-label="Price" name="price" id="price" placeholder="Price" v-model="price" required>
                 <span class="input-group-text" id="feeLabel">fee</span>
                 <input type="text" class="form-control" aria-label="Fee" name="fee" id="fee" readonly="" v-bind:placeholder=getFeePrice()>
                 <input class="btn btn-outline-secondary" type="submit" id="submit" name="submit" value="submit">
