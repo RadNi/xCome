@@ -15,12 +15,12 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Charge</span>
                     </div>
-                    <input id="amount" type="number" v-model="amount" class="form-control" placeholder="Amount You Need"  aria-label="Amount You Need" aria-describedby="basic-addon2" required>
+                    <input id="amount" type="number" v-model="amountt" class="form-control" placeholder="Amount You Need"  aria-label="Amount You Need" aria-describedby="basic-addon2" required>
                     <div class="input-group-prepend">
                         <span class="input-group-text">Rials</span>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" id="buy" type="button" v-on:click="buy_amount(amount)">Purchase</button>
+                        <button class="btn btn-outline-secondary" id="buy" type="button" v-on:click="buy_amount(amountt)">Purchase</button>
                     </div>
                 </div>
         </div>
@@ -38,7 +38,7 @@
             return {
                 type: '',
                 csrf : '',
-                amount: 'Amount You Need'
+                amountt: 'Amount You Need'
 
             }
         },
@@ -48,10 +48,11 @@
             this.csrf = this.csrf_field;
         },
         methods: {
-            buy_amount(amount) {
-                console.log(amount);
+            buy_amount(amountt) {
+                console.log(amountt);
+                console.log(window.customURLs.chargeCredit)
 
-                window.axios.post(window.customURLs.chargeCredit, amount, {
+                window.axios.post(window.customURLs.chargeCredit, amountt, {
                     Cookie: document.cookie,
                     'Access-Control-Allow-Origin': '*',
                     "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
