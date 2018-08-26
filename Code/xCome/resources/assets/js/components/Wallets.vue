@@ -64,7 +64,7 @@
                                         <div class="input-group-prepend">
                                             <button class="btn btn-outline-secondary" type="button" v-bind:id="'sell'+wallet.name" v-bind:name="'sell'+wallet.name" v-on:click="sell_currency(amount, wallet.name)">Sell</button>
                                         </div>
-                                        <input type="number" v-bind:id="wallet.name" v-bind:name="wallet.name" class="form-control" placeholder="Amount">
+                                        <input type="number" v-bind:id="wallet.name" v-bind:name="wallet.name" class="form-control" placeholder="Amount" v-model="amount">
                                     </div>
                                 </td>
                                 <td v-if="wallet.name !== 'rial'">
