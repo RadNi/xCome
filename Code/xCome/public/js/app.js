@@ -43849,8 +43849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(respond.data);
                 //                  console.log(JSON.parse(respond));
 
-                if (respond.data !== '\'not enough currency\'') {
-                    location.reload();
+                if (respond.data === 'done') {
+                    //                        location.reload()
                 }
                 _this.error_message = respond.data;
                 //                    location.href = 'http://localhost:8888/profile';
@@ -44863,6 +44863,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -44881,7 +44882,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 date: '',
                 fee: '',
                 price: '',
-                time: ''
+                time: '',
+                pay_type: ''
             }
 
         };
@@ -45020,6 +45022,33 @@ var render = function() {
                           return
                         }
                         _vm.$set(_vm.new_exam, "fee", $event.target.value)
+                      }
+                    }
+                  }),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.new_exam.pay_type,
+                        expression: "new_exam.pay_type"
+                      }
+                    ],
+                    attrs: {
+                      id: "exam-pay-type",
+                      type: "text",
+                      name: "pay",
+                      placeholder: "Pay Type"
+                    },
+                    domProps: { value: _vm.new_exam.pay_type },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.new_exam, "pay_type", $event.target.value)
                       }
                     }
                   }),

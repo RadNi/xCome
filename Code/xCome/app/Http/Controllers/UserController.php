@@ -1416,7 +1416,7 @@ class UserController extends Controller
 
         $this->x_exams->create($new_exam);
 
-
+        return \response('done');
 
     }
 
@@ -1467,11 +1467,12 @@ class UserController extends Controller
             $trans = $this->newTransaction($exam->price, date ("Y-m-d H:i:s", time()), [$user->id]);
 //            dd(UserController::$COMPANY_WALLET_ADDRESS);
 //            dd(strtolower($exam->name));
+//            dd($rial->getOriginal('address'));
             $new_trans=$this->x_exam_transactions->create([
                 'transaction_id' => $trans->transaction_id,
                 'fee' => $exam->fee,
                 'type' => $exam->name,
-                'from' => $rial->address,
+                'from' => $rial->getOriginal('address'),
                 'to' => UserController::$COMPANY_WALLET_ADDRESS['rial'],
                 'done' => false,
                 'clerk_id' => null,
