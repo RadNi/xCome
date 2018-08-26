@@ -43765,6 +43765,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43877,7 +43884,7 @@ var render = function() {
                             staticClass: "btn btn-outline-secondary",
                             attrs: {
                               type: "button",
-                              id: "sell" + wallet.name,
+                              id: "buy" + wallet.name,
                               name: "buy" + wallet.name
                             },
                             on: {
@@ -43887,8 +43894,10 @@ var render = function() {
                             }
                           },
                           [_vm._v("Buy")]
-                        ),
-                        _vm._v(" "),
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "input-group-prepend" }, [
                         _c(
                           "button",
                           {
@@ -43909,31 +43918,12 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.amount,
-                            expression: "amount"
-                          }
-                        ],
                         staticClass: "form-control",
                         attrs: {
                           type: "number",
-                          id: "sell" + wallet.name,
-                          name: "amount" + wallet.name,
-                          placeholder: "",
-                          "aria-label": "",
-                          "aria-describedby": "basic-addon1"
-                        },
-                        domProps: { value: _vm.amount },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.amount = $event.target.value
-                          }
+                          id: wallet.name,
+                          name: wallet.name,
+                          placeholder: "Amount"
                         }
                       })
                     ])
@@ -43941,8 +43931,12 @@ var render = function() {
               ]),
               _vm._v(" "),
               wallet.name !== "rial"
-                ? _c("td", [_vm._v(" Live exchange Price goes here")])
-                : _vm._e()
+                ? _c("td", [
+                    _vm._v(
+                      "\n                                Live exchange fee goes here\n                            "
+                    )
+                  ])
+                : _c("td")
             ])
           })
         )
