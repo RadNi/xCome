@@ -139,7 +139,7 @@ class UserController extends Controller
                 ]);
 
 //            dd($response);
-            $this->sendEmail($user->email, "Login", $user->name, ["You are in now"]);
+//            $this->sendEmail($user->email, "Login", $user->name, ["You are in now"]);
             return redirect('profile')->withCookie(cookie('x_user_cookie', $token, 60, null, null, false, false));
 //            return $response;
         }

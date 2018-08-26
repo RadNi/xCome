@@ -38,6 +38,18 @@
                         <!--</tr>-->
                         <!--</tbody>-->
                     <!--</table>-->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Charge</span>
+                        </div>
+                        <input id="amount" type="number" v-model="amountt" class="form-control" placeholder="Amount You Need"  aria-label="Amount You Need" aria-describedby="basic-addon2" required>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rials</span>
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" id="buy" type="button" v-on:click="buy_amount(amountt)">Purchase</button>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped col-12">
                             <thead>

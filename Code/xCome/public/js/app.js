@@ -43778,6 +43778,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -43870,9 +43882,60 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "input-group mb-3" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.amountt,
+            expression: "amountt"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: {
+          id: "amount",
+          type: "number",
+          placeholder: "Amount You Need",
+          "aria-label": "Amount You Need",
+          "aria-describedby": "basic-addon2",
+          required: ""
+        },
+        domProps: { value: _vm.amountt },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.amountt = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("div", { staticClass: "input-group-append" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-secondary",
+            attrs: { id: "buy", type: "button" },
+            on: {
+              click: function($event) {
+                _vm.buy_amount(_vm.amountt)
+              }
+            }
+          },
+          [_vm._v("Purchase")]
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [
       _c("table", { staticClass: "table table-striped col-12" }, [
-        _vm._m(0),
+        _vm._m(2),
         _vm._v(" "),
         _c(
           "tbody",
@@ -43991,6 +44054,22 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Charge")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [_vm._v("Rials")])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -47192,17 +47271,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -47254,76 +47322,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "input-group mb-3" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.amountt,
-              expression: "amountt"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            id: "amount",
-            type: "number",
-            placeholder: "Amount You Need",
-            "aria-label": "Amount You Need",
-            "aria-describedby": "basic-addon2",
-            required: ""
-          },
-          domProps: { value: _vm.amountt },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.amountt = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "input-group-append" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-outline-secondary",
-              attrs: { id: "buy", type: "button" },
-              on: {
-                click: function($event) {
-                  _vm.buy_amount(_vm.amountt)
-                }
-              }
-            },
-            [_vm._v("Purchase")]
-          )
-        ])
-      ])
-    ])
-  ])
+  return _vm._m(0)
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("span", { staticClass: "input-group-text" }, [_vm._v("Charge")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "input-group-prepend" }, [
-      _c("span", { staticClass: "input-group-text" }, [_vm._v("Rials")])
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "row" })
     ])
   }
 ]
