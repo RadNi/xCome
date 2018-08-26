@@ -44616,7 +44616,8 @@ var render = function() {
             "aria-label": "Payee Credit Card",
             name: "payee-id",
             id: "payee-id",
-            placeholder: "Payee Credit Card"
+            placeholder: "Payee Credit Card",
+            required: ""
           }
         }),
         _vm._v(" "),
@@ -44637,7 +44638,8 @@ var render = function() {
             "aria-label": "Price",
             name: "price",
             id: "price",
-            placeholder: "Price"
+            placeholder: "Price",
+            required: ""
           },
           domProps: { value: _vm.price },
           on: {
@@ -47201,7 +47203,8 @@ var render = function() {
             type: "number",
             placeholder: "Amount You Need",
             "aria-label": "Amount You Need",
-            "aria-describedby": "basic-addon2"
+            "aria-describedby": "basic-addon2",
+            required: ""
           },
           domProps: { value: _vm.amount },
           on: {

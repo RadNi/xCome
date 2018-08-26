@@ -173,7 +173,7 @@ class UserController extends Controller
 
         $data['family_name'] = $data['familyName'];
         unset($data['familyName']);
-        $data['phonenumber'] = $data['CellPhone'];
+        $data['phoneNumber'] = $data['CellPhone'];
         unset($data['CellPhone']);
 //        $data['national_id'] = $data['national_id'];
 //        unset($data['national_id']);
@@ -185,7 +185,6 @@ class UserController extends Controller
 //        dd($data);
 
 //        $this->makeBoss($data);
-
         $user = $this->x_user->create($data)->getKey();
 //
 //
