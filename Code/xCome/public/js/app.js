@@ -1169,7 +1169,9 @@ if (token) {
         'register': window.baseURL + '/register',
         'addClerk': window.baseURL + '/profile/add-clerk',
         'changeInfo': window.baseURL + '/profile/change-info',
-        'acceptTransaction': window.baseURL + '/profile/accept-trans'
+        'acceptTransaction': window.baseURL + '/profile/accept-trans',
+        'buyCurrency': window.baseURL + '/profile/buy-currency',
+        'sellCurrency': window.baseURL + '/profile/sell-currency'
     };
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -43807,7 +43809,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     methods: {
         sell_currency: function sell_currency(amount, wallet_name) {
-            window.axios.post('http://localhost:8888/profile/sell-currency', {
+            window.axios.post(window.customURLs.sellCurrency, {
                 'amount': amount,
                 'wallet_name': wallet_name
             }, {
@@ -43818,15 +43820,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 console.log(respond);
                 console.log(respond.data);
+                location.reload();
                 //                  console.log(JSON.parse(respond));
 
-                location.href = 'http://localhost:8888/profile';
+                //                    location.href = 'http://localhost:8888/profile';
             }).catch(function (e) {
                 console.log(e);
             });
         },
         buy_currency: function buy_currency(amount, wallet_name) {
-            window.axios.post('http://localhost:8888/profile/buy-currency', {
+            window.axios.post(window.customURLs.buyCurrency, {
                 'amount': amount,
                 'wallet_name': wallet_name
             }, {
@@ -43839,7 +43842,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(respond.data);
                 //                  console.log(JSON.parse(respond));
 
-                location.href = 'http://localhost:8888/profile';
+                //                    location.reload()
+                //                    location.href = 'http://localhost:8888/profile';
             }).catch(function (e) {
                 console.log(e);
             });

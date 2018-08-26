@@ -49,6 +49,8 @@ if (token) {
         'addClerk' : window.baseURL + '/profile/add-clerk',
         'changeInfo': window.baseURL + '/profile/change-info',
         'acceptTransaction': window.baseURL + '/profile/accept-trans',
+        'buyCurrency' : window.baseURL + '/profile/buy-currency',
+        'sellCurrency' : window.baseURL + '/profile/sell-currency',
     }
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
