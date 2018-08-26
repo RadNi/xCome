@@ -43850,7 +43850,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //                  console.log(JSON.parse(respond));
 
                 if (respond.data === 'done') {
-                    //                        location.reload()
+                    location.reload();
                 }
                 _this.error_message = respond.data;
                 //                    location.href = 'http://localhost:8888/profile';
@@ -43933,12 +43933,29 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.amount,
+                              expression: "amount"
+                            }
+                          ],
                           staticClass: "form-control",
                           attrs: {
                             type: "number",
                             id: wallet.name,
                             name: wallet.name,
                             placeholder: "Amount"
+                          },
+                          domProps: { value: _vm.amount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.amount = $event.target.value
+                            }
                           }
                         })
                       ])

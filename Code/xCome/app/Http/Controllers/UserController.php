@@ -402,7 +402,7 @@ class UserController extends Controller
 
 
         if (min($boss_wallet->primary_cash, $boss_wallet->cash) < $request->amount){
-            return \response('not enough currency');
+            return \response('Not enough currency in Institute');
         }
 
 
