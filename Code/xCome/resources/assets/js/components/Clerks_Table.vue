@@ -29,7 +29,7 @@
 
                 <!--<input id="search" name="searchbox" placeholder="Search here">-->
                 <div class="table-responsive">
-                    <table id="users-table" class="table table-striped table-bordered">
+                    <table id="clerks-table" class="table table-striped table-bordered">
                         <thead>
                         <tr >
                             <th class="col" v-for="th in table.ths">{{ th }}</th>
@@ -46,7 +46,7 @@
                         <tbody>
                         <tr v-for="tr in table.trs">
                             <td v-for="td in tr.tds" :class="td.class">{{ td.value }}</td>
-                            <td class="checkbox"><input type="checkbox" v-on:click=""/></td>
+                            <!--<td class="checkbox"><input type="checkbox" v-on:click=""/></td>-->
                             <!--<td class="name">Name</td>-->
                             <!--<td class="family">Family name</td>-->
                             <!--<td class="username">Username</td>-->
@@ -127,6 +127,9 @@
             },
 
             addClerk() {
+                if (this.clerk.password !== this.clerk.repass) {
+                    return;
+                }
                 window.axios.post(window.customURLs.addClerk, {
                     clerk: this.clerk
                 }, {
