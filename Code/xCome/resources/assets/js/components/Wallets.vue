@@ -80,7 +80,7 @@
                                     </div>
                                 </td>
                                 <td v-if="wallet.name !== 'rial'">
-                                    Live exchange fee goes here
+                                    {{ getFeePrice() }}
                                 </td>
                                 <td v-else >
                                 </td>
@@ -120,6 +120,7 @@
         data() {
             return {
                 amount: 0,
+                fee: 0,
                 wallets: [],
                 type: '',
                 exchange_amount: 0,
@@ -133,6 +134,7 @@
 //            };
 //            alert(this.x_data);
             this.type = this.x_data.type;
+            this.fee = this.x_data.fee;
             this.wallets = this.x_data.wallets;
 //            window.axios.post('http://localhost:8888/profile', {
 //                headers: {
@@ -149,6 +151,15 @@
         },
         methods: {
 
+
+            getFeePrice: function () {
+
+                let ret = parseFloat(this.fee) * parseFloat(this.amount);
+
+                if (!isNaN(ret))
+                    return ret;
+                return 0;
+            },
 
             sell_currency(amount, wallet_name) {
                 window.axios.post(window.customURLs.sellCurrency, {
