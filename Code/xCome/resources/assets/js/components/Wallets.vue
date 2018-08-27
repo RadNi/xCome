@@ -123,7 +123,8 @@
                 wallets: [],
                 type: '',
                 exchange_amount: 0,
-                error_message:''
+                error_message:'',
+                amountt: 'Amount You Need'
             }
         },
         mounted() {
@@ -195,6 +196,29 @@
                     console.log(e)
                 })
             },
+            buy_amount(amountt) {
+                console.log(amountt);
+                console.log(window.customURLs.chargeCredit)
+
+                window.axios.post(window.customURLs.chargeCredit, amountt, {
+                    Cookie: document.cookie,
+                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+                }).then(respond => {
+
+                    console.log(respond);
+                    console.log(respond.data);
+
+
+                    location.reload();
+
+//                    location.href = 'http://19:8888/profile';
+
+                }).catch(e => {
+                    console.log(e)
+                })
+
+            }
 
         }
     }
