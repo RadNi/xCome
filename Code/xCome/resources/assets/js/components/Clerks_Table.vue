@@ -127,6 +127,9 @@
             },
 
             addClerk() {
+                if (this.clerk.password !== this.clerk.repass) {
+                    return;
+                }
                 window.axios.post(window.customURLs.addClerk, {
                     clerk: this.clerk
                 }, {
