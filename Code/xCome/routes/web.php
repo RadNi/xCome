@@ -55,6 +55,16 @@ Route::get('/register', [
 //    "uses" => "UserController@getClerksTable",
 //    "as" => "clerk-table"
 //]);
+Route::get('/terms', [
+    "uses" => "UserController@showTerms",
+    "as" => "TermsOfUse",
+]);
+
+Route::get('/about', [
+    "uses" => "UserController@showAbout",
+    "as" => "AboutUS",
+]);
+
 
 Route::post('/register', [
     "uses" => "UserController@checkRegister",

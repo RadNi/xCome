@@ -87,6 +87,14 @@ class UserController extends Controller
         return view("boss.clerk-messages", array("type" => "boss"));
     }
 
+    public function showTerms(){
+        return view('new.terms');
+    }
+
+    public function showAbout(){
+        return view('new.about');
+    }
+
     public function clerk_send_message(Request $request) {
         $user = $this->getUser($request);
 //            dd($user->type);
