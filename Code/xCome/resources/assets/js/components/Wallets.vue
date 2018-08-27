@@ -158,7 +158,7 @@
 
                 if (!isNaN(ret))
                     return ret;
-                return 0;
+                return '';
             },
 
             sell_currency(amount, wallet_name) {

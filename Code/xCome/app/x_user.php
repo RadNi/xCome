@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class x_user extends Model
 {
 
-    protected $fillable = ['active', 'name', 'username', 'email', 'family_name', 'phoneNumber', 'national_id', 'address', 'type', 'password'];
+    protected $fillable = ['telegram_id', 'telegram_code', 'active', 'name', 'username', 'email', 'family_name', 'phoneNumber', 'national_id', 'address', 'type', 'password'];
 
 //$table->string('name', 25);
 //$table->string('family_name', 20);

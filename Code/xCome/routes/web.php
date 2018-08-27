@@ -104,7 +104,10 @@ Route::any('/criticism', [
     "as" => "Main.criticism"
 ]);
 
-
+Route::any('/telegram', [
+    "uses" => "UserController@telegram",
+    "as" => "telegram"
+]);
 
 Route::get('/transactions', [
     "uses" => "UserController@transactions",
@@ -144,6 +147,11 @@ Route::prefix('profile') -> group(function () {
     Route::any('change-info', [
         "uses" => "UserController@change_information",
         "as" => "profile.change-info"
+    ]);
+
+    Route::any('activateTelegram', [
+        "uses" => "UserController@activate_telegram",
+        "as" => "profile.activate-telegram"
     ]);
 
     Route::any('clerk-send-message', [

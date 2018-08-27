@@ -51,7 +51,8 @@ if (token) {
         'acceptTransaction': window.baseURL + '/profile/accept-trans',
         'buyCurrency' : window.baseURL + '/profile/buy-currency',
         'sellCurrency' : window.baseURL + '/profile/sell-currency',
-        'clerkSendMessage': window.baseURL + '/profile/clerk-send-message'
+        'clerkSendMessage': window.baseURL + '/profile/clerk-send-message',
+        'activateTelegram' :window.baseURL + '/profile/activateTelegram'
     }
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');

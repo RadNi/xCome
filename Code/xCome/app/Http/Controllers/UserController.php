@@ -7,6 +7,7 @@ use App\x_exam_transaction;
 use App\x_exchange_transaction;
 use App\x_message;
 use App\x_pay_transaction;
+use App\x_telegram;
 use App\x_transaction;
 use App\x_user;
 use App\x_wallet;
@@ -21,10 +22,15 @@ use function MongoDB\BSON\toJSON;
 use PhpParser\Node\Expr\List_;
 use function PHPSTORM_META\elementType;
 use function Sodium\add;
+use Telegram\Bot\Laravel\Facades\Telegram;
+use Telegram\Bot\Api;
+
 
 class UserController extends Controller
 {
 
+    static protected $TRANSACTION_HIGH_LIMIT = 999999;
+    static protected $TRANSACTION_LOW_LIMIT = 100;
     static protected $BOSS_USER_ID = 4;
     static protected $COMPANY_WALLET_ADDRESS = [        //TODO      still wallet is not real !!
         'rial' => 'AAAAAAAAAAAAAAAAAAAAAAAA',
@@ -57,9 +63,10 @@ class UserController extends Controller
     protected $x_exchange_transactions;
     protected $x_clerk_income;
     protected $x_message;
+    protected $x_telegram;
 
 
-    function __construct(x_message $x_message, x_clerk_income $x_clerk_income, x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
+    function __construct(x_telegram $x_telegram, x_message $x_message, x_clerk_income $x_clerk_income, x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
@@ -73,6 +80,7 @@ class UserController extends Controller
         $this->x_exchange_transactions = $x_exchange_transaction;
         $this->x_clerk_income = $x_clerk_income;
         $this->x_message = $x_message;
+        $this->x_telegram = $x_telegram;
     }
 
     public function showForget() {
@@ -178,6 +186,9 @@ class UserController extends Controller
         $pass = $user -> password;
         if (strcmp(md5($request->password), $pass) == 0) {
 //            echo 'Authentication succeeded';
+            if (!$user->active) {
+                return view("new.login");
+            }
 
             $response = new Response('Authentication succeeded');
 
@@ -195,6 +206,7 @@ class UserController extends Controller
 
 //            dd($response);
 //            $this->sendEmail($user->email, "Login", $user->name, ["You are in now"]);
+            $this->sendTelegramMessage($user, 'Somebody now login with your account');
             return redirect('profile')->withCookie(cookie('x_user_cookie', $token, 60, null, null, false, false));
 //            return $response;
         }
@@ -203,6 +215,18 @@ class UserController extends Controller
 
 //        return view("extra.login", array('check' => true));
 
+    }
+
+    private function sendTelegramMessage($user, $message) {
+
+
+        $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+
+
+        $telegram->sendMessage([
+            'chat_id' => $user->getAttribute('telegram_id'),
+            'text' => $message
+        ]);
     }
 
     public function showRegister(Request $request) {
@@ -478,6 +502,16 @@ class UserController extends Controller
 
         $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$user->getKey(), $boss->getKey()]);
 
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
+
+
+        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$boss->getKey(), $user->getKey()]);
+
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
 
         $this->x_pay_transactions->create([
             'transaction_id' => $trans->getKey(),
@@ -500,9 +534,6 @@ class UserController extends Controller
             'primary_cash' => $requested_wallet->primary_cash + $request->amount,
             'cash' => $requested_wallet->cash + $request->amount,
         ]);
-
-        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$boss->getKey(), $user->getKey()]);
-
 
         $this->x_pay_transactions->create([
             'transaction_id' => $trans->getKey(),
@@ -571,6 +602,17 @@ class UserController extends Controller
 
         $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$user->getKey(), $boss->getKey()]);
 
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
+
+
+
+        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$boss->getKey(), $user->getKey()]);
+
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
 
         $this->x_pay_transactions->create([
             'transaction_id' => $trans->getKey(),
@@ -593,9 +635,6 @@ class UserController extends Controller
             'primary_cash' => $requested_wallet->primary_cash - $request->amount,
             'cash' => $requested_wallet->cash - $request->amount,
         ]);
-
-        $trans = $this->newTransaction($request->amount,  date ("Y-m-d H:i:s", time()), [$boss->getKey(), $user->getKey()]);
-
 
         $this->x_pay_transactions->create([
             'transaction_id' => $trans->getKey(),
@@ -986,11 +1025,17 @@ class UserController extends Controller
         if (min($wallet->cash, $wallet->primary_cash) < $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
+
+        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
+
         $wallet->update(['primary_cash' => (string)((integer)$wallet->primary_cash - $price)]);
 
 
 
-        $trans = $this->newTransaction($price, date ("Y-m-d H:i:s", time()), [$user->id]);
 
         $app_trans = $this->x_pay_transactions->create([
             'transaction_id' => $trans->transaction_id,
@@ -1046,6 +1091,13 @@ class UserController extends Controller
             ]);
         }
 
+        $trans = $this->newTransaction($request->price, date ("Y-m-d H:i:s", time()), [$user->id, $payee_wallet->user_id]);
+
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
+
+
         $payee_wallet->update(['primary_cash' => (string)($request->price + (integer)$payee_wallet->primary_cash)]);
 
 
@@ -1058,7 +1110,7 @@ class UserController extends Controller
 //
 //
 //
-        $trans = $this->newTransaction($request->price, date ("Y-m-d H:i:s", time()), [$user->id, $payee_wallet->user_id]);
+
 //      TODO  we have a problem here        both users are added to fee transaction !
         //        return $trans;
         //        return $wallet->getOriginal('address');
@@ -1147,6 +1199,12 @@ class UserController extends Controller
             return \response('user');
         }
 
+        $trans = $this->newTransaction($request->price, date ("Y-m-d H:i:s", time()), [$user->id, $payee_wallet->user_id]);
+
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
+
         $payee_wallet->update(['primary_cash' => (string)($request->price + (integer)$payee_wallet->primary_cash)]);
 
 
@@ -1158,7 +1216,8 @@ class UserController extends Controller
 //
 //
 //
-        $trans = $this->newTransaction($request->price, date ("Y-m-d H:i:s", time()), [$user->id, $payee_wallet->user_id]);
+
+
 //      TODO  we have a problem here        both users are added to fee transaction !
 
 //        return $trans;
@@ -1257,17 +1316,89 @@ class UserController extends Controller
 
 //        unset($request)
 //
-//        return $data;
+
+//        return $request->telegram_code;
+
+
+        $tg = $this->x_telegram->where('token', '=', $request->telegram_code)->first();
+
+        if (sizeof($tg) == 0)
+            return false;
+
 
         $user->update([
             'password' => md5($request->password),
             'email' => $request->email,
-            'phoneNumber' => $request->phonenumber
+            'phoneNumber' => $request->phonenumber,
+            'telegram_id' => $tg->getAttribute('chat_id'),
+            'telegram_code' => $tg->getAttribute('token')
+        ]);
+
+        $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+
+        $telegram->sendMessage([
+            'chat_id' => $tg->getAttribute('chat_id'),
+            'text' => 'your telegram activated'
         ]);
 
         return \response($data);
 
     }
+
+    public function telegram(Request $request) {
+
+        $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+        $response = $telegram->getUpdates();
+        $response = collect(end($response));
+
+//        dd($response->message->messageId);
+
+        $token = str_random('16');
+
+
+
+        $this->x_telegram->create([
+            'chat_id' => $response['message']['chat']['id'],
+            'token' => $token
+        ]);
+
+
+        $telegram->sendMessage([
+            'chat_id' => $response['message']['chat']['id'],
+            'text' => $token
+        ]);
+
+//        dd($response);
+    }
+
+    public function activate_telegram(Request $request) {
+
+        $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+        $response = $telegram->getUpdates();
+        $response = collect(end($response));
+
+//        dd($response->message->messageId);
+
+        $token = str_random('16');
+
+
+
+        $this->x_telegram->create([
+            'chat_id' => $response['message']['chat']['id'],
+            'token' => $token
+        ]);
+
+
+        $telegram->sendMessage([
+            'chat_id' => $response['message']['chat']['id'],
+            'text' => $token
+        ]);
+
+        return 'done';
+
+//        dd($response);
+    }
+
 
     private function fill_wp_items($type) {
         $wp_items=[];
@@ -1539,6 +1670,10 @@ class UserController extends Controller
         $boss = $this->x_user->where('type', '=', 'manager')->firstOrFail();
         $trans = $this->newTransaction($value, date ("Y-m-d H:i:s", time()), [$user->id, $boss->id]);
 
+        if ($trans == false) {
+            return \response('the value of this transaction is out of valid range');
+        }
+
 //        dd($trans);
         $new_fee_trans = $this->x_fee_transactions->create([
             'transaction_id' => $trans->transaction_id,
@@ -1580,6 +1715,10 @@ class UserController extends Controller
     }
 
     private function newTransaction($value, $time, array $userID) {
+
+        if ($value < UserController::$TRANSACTION_LOW_LIMIT || $value > UserController::$TRANSACTION_HIGH_LIMIT)
+            return false;
+
         $trans = $this->x_transaction->create([
             'value' => $value,
             'calender' => $time
@@ -1617,13 +1756,24 @@ class UserController extends Controller
                 return \response('not enough money for this exam. Please charge your Rial wallet'); // TODO for this kind of errors we should make a page
 //                dd('not enough mouney !'. $exam->price. ' '. $rial->cash. ' '. $rial->user_id);
 //            dd($rial);
+
+
+
+            $trans = $this->newTransaction($exam->price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+            if ($trans == false) {
+                return \response('the value of this transaction is out of valid range');
+            }
+
+
             $rial->update([
                 'primary_cash' => (string)((integer)$rial->primary_cash - (integer)$exam->price - (integer)$exam->fee)
             ]);
 
 //            dd($rial);
 
-            $trans = $this->newTransaction($exam->price, date ("Y-m-d H:i:s", time()), [$user->id]);
+
+
 //            dd(UserController::$COMPANY_WALLET_ADDRESS);
 //            dd(strtolower($exam->name));
 //            dd($rial->getOriginal('address'));
@@ -1711,6 +1861,10 @@ class UserController extends Controller
                     'wp_items' => $wp_items,
                     'hyperLinks' => $hyperLinks,
                     'actions' => $actions,
+                    'fee' => [
+                        'sell' => UserController::$EXCHANGE_SELL,
+                        'buy' => UserController::$EXCHANGE_BUY
+                        ]
                 ];
                 $arr = array('x_data' => json_encode($sending_data));
                 return view('new.default', $arr);

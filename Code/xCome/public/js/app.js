@@ -1174,7 +1174,8 @@ if (token) {
         'acceptTransaction': window.baseURL + '/profile/accept-trans',
         'buyCurrency': window.baseURL + '/profile/buy-currency',
         'sellCurrency': window.baseURL + '/profile/sell-currency',
-        'clerkSendMessage': window.baseURL + '/profile/clerk-send-message'
+        'clerkSendMessage': window.baseURL + '/profile/clerk-send-message',
+        'activateTelegram': window.baseURL + '/profile/activateTelegram'
     };
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -46451,6 +46452,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46460,6 +46462,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             type: '',
             csrf: '',
+            hidden_tg: true,
             //                person_id: '',
             //                user_name: '',
             //                user_family_name: '',
@@ -46492,6 +46495,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 console.log(respond);
                 console.log(respond.data);
+
+                //                  console.log(JSON.parse(respond));
+            }).catch(function (e) {
+                console.log(e);
+            });
+        },
+        ActivateTelegram: function ActivateTelegram() {
+            var _this = this;
+
+            window.axios.post(window.customURLs.activateTelegram, {}, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                console.log(respond);
+                console.log(respond.data);
+                if (respond.data === 'done') {
+                    _this.hidden_tg = false;
+                }
                 //                  console.log(JSON.parse(respond));
             }).catch(function (e) {
                 console.log(e);
@@ -46710,6 +46733,18 @@ var render = function() {
           _c("div", { staticClass: "form-check" }),
           _vm._v(" "),
           _c("div", { staticClass: "form-check" }, [
+            _c(
+              "button",
+              {
+                on: {
+                  click: function($event) {
+                    _vm.ActivateTelegram()
+                  }
+                }
+              },
+              [_vm._v("Activate Telegram")]
+            ),
+            _vm._v(" "),
             _c("input", {
               directives: [
                 {
@@ -46720,7 +46755,12 @@ var render = function() {
                 }
               ],
               staticClass: "report",
-              attrs: { type: "text", id: "tgReport", name: "tg_report" },
+              attrs: {
+                hidden: this.hidden_tg,
+                type: "text",
+                id: "tgReport",
+                name: "tg_report"
+              },
               domProps: { value: _vm.new_info.telegram_code },
               on: {
                 input: function($event) {

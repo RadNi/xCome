@@ -98,7 +98,8 @@
                         <!--</label>-->
                     </div>
                     <div class="form-check">
-                        <input class="report" type="text" id="tgReport" name="tg_report" v-model="new_info.telegram_code">
+                        <button v-on:click="ActivateTelegram()">Activate Telegram</button>
+                        <input v-bind:hidden="this.hidden_tg" class="report" type="text" id="tgReport" name="tg_report" v-model="new_info.telegram_code">
                         <label class="form-check-label" for="tgReport">
                             Telegram
                         </label>
@@ -132,6 +133,7 @@
             return {
                 type: '',
                 csrf : '',
+                hidden_tg: true,
 //                person_id: '',
 //                user_name: '',
 //                user_family_name: '',
@@ -163,13 +165,34 @@
               }).then(respond => {
 
                   console.log(respond);
-                  console.log(respond.data)
+                  console.log(respond.data);
+
+
 //                  console.log(JSON.parse(respond));
 
               }).catch(e => {
                   console.log(e)
                 })
             },
+            ActivateTelegram() {
+                window.axios.post(window.customURLs.activateTelegram, {}, {
+                    Cookie: document.cookie,
+                    'Access-Control-Allow-Origin': '*',
+                    "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+                }).then(respond => {
+
+                    console.log(respond);
+                    console.log(respond.data)
+                    if (respond.data === 'done'){
+                        this.hidden_tg = false
+                    }
+//                  console.log(JSON.parse(respond));
+
+                }).catch(e => {
+                    console.log(e)
+                })
+
+            }
 
         }
     }
