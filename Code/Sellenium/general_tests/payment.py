@@ -18,10 +18,8 @@ class Payment(unittest.TestCase):
         self.driver.find_element_by_id("Curr_Type").send_keys("Rial")
         fields.get_components_by_name(self.driver, ["payee-id=" + static_data.valid_rial_wallet_address,
                                                     "price=10"])
-        sleep(2)
         self.driver.find_element_by_id('login').click()
-        sleep(10)
-        assert "successful" in self.driver.find_element_by_tag_name("body").text
+        assert "profile/int-trans" in self.driver.current_url
 
     def test_pay_dollar(self):  # Assume Money > Needed
         self.driver.find_element_by_id("Curr_Type").send_keys("Rial")

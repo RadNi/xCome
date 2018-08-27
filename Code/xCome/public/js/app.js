@@ -47784,6 +47784,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             addShow.hidden = true;
         },
         addClerk: function addClerk() {
+            if (this.clerk.password !== this.clerk.repass) {
+                return;
+            }
             window.axios.post(window.customURLs.addClerk, {
                 clerk: this.clerk
             }, {
@@ -48187,7 +48190,7 @@ var render = function() {
         "table",
         {
           staticClass: "table table-striped table-bordered",
-          attrs: { id: "users-table" }
+          attrs: { id: "clerks-table" }
         },
         [
           _c("thead", [
@@ -48210,13 +48213,6 @@ var render = function() {
                       _vm._v(_vm._s(td.value))
                     ])
                   }),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "checkbox" }, [
-                    _c("input", {
-                      attrs: { type: "checkbox" },
-                      on: { click: function($event) {} }
-                    })
-                  ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "checkbox" }, [
                     _c(
