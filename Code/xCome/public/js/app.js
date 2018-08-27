@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(84);
+module.exports = __webpack_require__(87);
 
 
 /***/ }),
@@ -1111,6 +1111,7 @@ Vue.component('account_div', __webpack_require__(72));
 Vue.component('users_table', __webpack_require__(75));
 Vue.component('clerks_table', __webpack_require__(78));
 Vue.component('clerk_send_message', __webpack_require__(81));
+Vue.component('clerk_messages', __webpack_require__(84));
 
 var app = new Vue({
   el: '#app'
@@ -1173,7 +1174,7 @@ if (token) {
         'acceptTransaction': window.baseURL + '/profile/accept-trans',
         'buyCurrency': window.baseURL + '/profile/buy-currency',
         'sellCurrency': window.baseURL + '/profile/sell-currency',
-        'clerkSendMessage': window.baseURL + 'profile/clerk-send-message'
+        'clerkSendMessage': window.baseURL + '/profile/clerk-send-message'
     };
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -47784,6 +47785,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             addShow.hidden = true;
         },
         addClerk: function addClerk() {
+            if (this.clerk.password !== this.clerk.repass) {
+                return;
+            }
             window.axios.post(window.customURLs.addClerk, {
                 clerk: this.clerk
             }, {
@@ -48187,7 +48191,7 @@ var render = function() {
         "table",
         {
           staticClass: "table table-striped table-bordered",
-          attrs: { id: "users-table" }
+          attrs: { id: "clerks-table" }
         },
         [
           _c("thead", [
@@ -48210,13 +48214,6 @@ var render = function() {
                       _vm._v(_vm._s(td.value))
                     ])
                   }),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "checkbox" }, [
-                    _c("input", {
-                      attrs: { type: "checkbox" },
-                      on: { click: function($event) {} }
-                    })
-                  ]),
                   _vm._v(" "),
                   _c("td", { staticClass: "checkbox" }, [
                     _c(
@@ -48350,7 +48347,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'wallets',
+    name: 'clerk_send_message',
     props: ['x_data', 'csrf_field'],
     data: function data() {
         return {
@@ -48470,6 +48467,205 @@ if (false) {
 
 /***/ }),
 /* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(85)
+/* template */
+var __vue_template__ = __webpack_require__(86)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Clerk_Messages.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-496e390d", Component.options)
+  } else {
+    hotAPI.reload("data-v-496e390d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 85 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'clerk_messages',
+    props: ['x_data', 'csrf_field'],
+    data: function data() {
+        return {
+            type: '',
+            csrf: '',
+            messages: []
+        };
+    },
+    mounted: function mounted() {
+        console.log(this.x_data.tables);
+        this.tables = this.x_data.messages;
+        //            this.transactions = this.x_data.transactions;
+        this.type = this.x_data.type;
+        //            this.csrf = this.csrf_field;
+        //            this.fee = this.x_data.fee;
+        //            this.internalTransURL = window.customURLs.internalTransURL;
+    },
+
+    methods: {
+        acceptTrans: function acceptTrans(transaction, accept) {
+            window.axios.post(window.customURLs.acceptTransaction, {
+                transaction: transaction,
+                accept: accept
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                console.log(respond);
+                console.log(respond.data);
+
+                location.reload();
+
+                //                  console.log(JSON.parse(respond));
+            }).catch(function (e) {
+                console.log(e);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "table-responsive", attrs: { id: "clerk-messages-table" } },
+    [
+      _c(
+        "table",
+        {
+          staticClass: "table table-striped col-12",
+          attrs: { id: "messages-table" }
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.messages, function(message) {
+              return _c("tr", [
+                _c("td", { staticClass: "message" }, [
+                  _vm._v(_vm._s(message.value))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "clerk-id" }, [
+                  _vm._v(_vm._s(message.creator_id))
+                ]),
+                _vm._v(" "),
+                _c("td", { staticClass: "clerk-name" }, [
+                  _vm._v(_vm._s(message.creator_name))
+                ])
+              ])
+            })
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Message")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Clerk ID")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Clerk Name")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-496e390d", module.exports)
+  }
+}
+
+/***/ }),
+/* 87 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

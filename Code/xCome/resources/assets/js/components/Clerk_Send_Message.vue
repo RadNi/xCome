@@ -28,7 +28,7 @@
 <script>
 
     export default {
-        name: 'wallets',
+        name: 'clerk_send_message',
         props: ['x_data', 'csrf_field'],
         data() {
             return {

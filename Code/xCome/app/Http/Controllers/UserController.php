@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\x_clerk_income;
 use App\x_exam_transaction;
 use App\x_exchange_transaction;
+use App\x_message;
 use App\x_pay_transaction;
 use App\x_transaction;
 use App\x_user;
@@ -55,9 +56,10 @@ class UserController extends Controller
     protected $x_pay_transactions;
     protected $x_exchange_transactions;
     protected $x_clerk_income;
+    protected $x_message;
 
 
-    function __construct(x_clerk_income $x_clerk_income, x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
+    function __construct(x_message $x_message, x_clerk_income $x_clerk_income, x_exchange_transaction $x_exchange_transaction, x_pay_transaction $x_pay_transaction, x_fee_transaction $x_fee_transactions, x_user $x_user, x_wallet $x_wallet, x_cookie $x_cookie, x_exam $x_exam, x_transaction $x_transaction, x_exam_transaction $x_exam_transaction)
     {
         $this->middleware('App\Http\Middleware\\XCookie');
         $this->x_user = $x_user;
@@ -70,6 +72,7 @@ class UserController extends Controller
         $this->x_pay_transactions = $x_pay_transaction;
         $this->x_exchange_transactions = $x_exchange_transaction;
         $this->x_clerk_income = $x_clerk_income;
+        $this->x_message = $x_message;
     }
 
     public function showForget() {
@@ -92,12 +95,34 @@ class UserController extends Controller
             return \response("You need to login again", 401);
         }
 
-        return $request->message;
+//        return $user->getAttributes()['id'];
+        $this->x_message->create([
+            'creator_id' => $user->getAttributes()['id'],
+            'message' => $request->message
+        ]);
+
+
+        return 'done';
 
     }
 
     public function show_clerk_send_message(Request $request) {
-        return view('new.clerk_send_message');
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+
+        $data = [
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'wp_items' => $this->fill_wp_items($user->type),
+            'actions' => $this->fill_actions($user->type),
+        ];
+
+        return view('new.clerk_send_message', ['x_data' => json_encode($data)]);
 
     }
 
@@ -1320,27 +1345,13 @@ class UserController extends Controller
     }
 
     private function fill_actions($type){
-        $actions = [];
-        switch ($type){
-            case "manager":
-                $actions = [
-                    [
-                        "id" => "logout",
-                        "link" => route('profile.logout'),
-                        "text" => "Logout"
-                    ]
-                ];
-                break;
-            case "user":
-                $actions = [
-                    [
-                        "id" => "logout",
-                        "link" => route('profile.logout'),
-                        "text" => "Logout"
-                    ]
-                ];
-                break;
-        }
+        $actions = [
+            [
+                "id" => "logout",
+                "link" => route('profile.logout'),
+                "text" => "Logout"
+            ]
+        ];
         return $actions;
     }
 
@@ -1373,6 +1384,11 @@ class UserController extends Controller
                         "id" => "clerks-table",
                         "link" => route('clerks-table'),
                         "text" => "Clerks Table"
+                    ],
+                    [
+                        "id" => "clerk-messages",
+                        "link" => route('boss.clerk-messages'),
+                        "text" => "Clerk Messages"
                     ]
                 ];
                 break;
@@ -1427,6 +1443,37 @@ class UserController extends Controller
                 break;
         }
         return $hyperLinks;
+    }
+
+    public function boss_show_clerk_messages(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        if ($user->getAttributes()['type'] != 'manager')
+            return \response()->redirectToRoute('profile');
+
+        $messages = $this->x_message->get();
+
+
+        $data = [
+            'messages' => $messages,
+            'type' => $user->type,
+            'hyperLinks' => $this->fill_hyperLinks($user->type),
+            'actions' => $this->fill_actions($user->type),
+            'wp_items' => $this->fill_wp_items($user->type)
+        ];
+
+//        dd($data);
+
+        return view('new.clerk-messages', ['x_data' => json_encode($data)]);
+
+
+//        dd($messages);
+
     }
 
     public function exam_reg(Request $request) {

@@ -146,6 +146,11 @@ Route::prefix('profile') -> group(function () {
         "as" => "profile.show-clerk-send-message"
     ]);
 
+    Route::any('show-clerk-messages', [
+        "uses" => "UserController@boss_show_clerk_messages",
+        "as" => "boss.clerk-messages"
+    ]);
+
     Route::any('register-new-user', [
        "uses" => "UserController@register_new_user",
        "as" => "profile.reg-new-user"
