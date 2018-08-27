@@ -22,8 +22,8 @@
                         <tbody>
                         <tr v-for="trans in table.transactions">
                             <td v-for="td in trans.tds" v-bind:class="td.class">{{ td.value }}</td>
-                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, true)" class="btn-secondary">Accept</button>
-                            <button v-if="table.id == 'unchecked-trans-table'" v-on:click="acceptTrans(trans, false)" class="btn-secondary">Reject</button>
+                            <button v-if="table.id == 'unchecked-trans-table' && type != 'user'"  v-on:click="acceptTrans(trans, true)" class="btn-secondary">Accept</button>
+                            <button v-if="table.id == 'unchecked-trans-table' && type != 'user'" v-on:click="acceptTrans(trans, false)" class="btn-secondary">Reject</button>
                             <!--<td class="fee">{{ trans.fee }}</td>-->
                             <!--<td class="currency">{{ trans.type }}</td>-->
                             <!--<td class="from">{{ trans.from }}</td>-->
@@ -58,7 +58,7 @@
             console.log(this.x_data.tables);
             this.tables = this.x_data.tables;
 //            this.transactions = this.x_data.transactions;
-//            this.type = this.x_data.type;
+            this.type = this.x_data.type;
 //            this.csrf = this.csrf_field;
 //            this.fee = this.x_data.fee;
 //            this.internalTransURL = window.customURLs.internalTransURL;

@@ -608,12 +608,13 @@ class UserController extends Controller
     }
 
 
-    public function transactions(Request $request) {
+    public function transactions(Request $request)
+    {
 
         $user = $this->getUser($request);
 //            dd($user->type);
 
-        if ($user == null){
+        if ($user == null) {
             return \response("You need to login again", 401);
         }
 
@@ -629,14 +630,14 @@ class UserController extends Controller
             $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', $user, $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', $user, $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', $user, $all_transactions);
-        }elseif ($user->type == 'manager') {
+        } elseif ($user->type == 'manager') {
             $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_salary_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', [], $all_transactions);
-        }else{
+        } else {
             $all_transactions = $this->get_user_transactions_from_table('x_pay_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_fee_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_exam_transactions', [], $all_transactions);
@@ -644,11 +645,6 @@ class UserController extends Controller
             $all_transactions = $this->get_user_transactions_from_table('x_exchange_transactions', [], $all_transactions);
             $all_transactions = $this->get_user_transactions_from_table('x_charge_transactions', [], $all_transactions);
         }
-
-
-
-
-
 
 
 //        $data = [
@@ -673,6 +669,19 @@ class UserController extends Controller
 //        }
 //        return view('new.transaction-history', ['x_data' => json_encode(->attributes)]);
 
+
+        if (sizeof($all_transactions) == 0) {
+            $data = [
+                'type' => $user->type,
+                'hyperLinks' => $this->fill_hyperLinks($user->type),
+                'wp_items' => $this->fill_wp_items($user->type),
+                'actions' => $this->fill_actions($user->type),
+                'tables' => []
+            ];
+
+//        dd($data);
+            return view('new.transaction-history', ['x_data' => json_encode($data)]);
+        }
 
         $json = array_keys((array)json_decode(json_encode($all_transactions[0])));
 
@@ -742,19 +751,22 @@ class UserController extends Controller
             }
         }
 
-        $this->x_pay_transactions->where(['transaction_id' => $id])->update([
-            'done' => $request->accept
-        ]);
+        if (sizeof($this->x_pay_transactions->where(['transaction_id' => $id])->get()) > 0) {
+            $trans = $this->x_pay_transactions->where(['transaction_id' => $id])->update([
+                'done' => $request->accept
+            ]);
 
+            return $trans;
+        }
 
 
         if (sizeof($this->x_exam_transactions->where(['transaction_id' => $id])->get()) > 0) {
-
+            $this->x_exam_transactions->where(['transaction_id' => $id])->update([
+                'done' => $request->accept
+            ]);
         }
 
-        $this->x_exam_transactions->where(['transaction_id' => $id])->update([
-            'done' => $request->accept
-        ]);
+
 
         return $id;
     }
@@ -902,7 +914,7 @@ class UserController extends Controller
             'to' => $request->{'payee-id'}
         ]);
 
-        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user, $app_trans->getOriginal('transaction_id'));
+        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user, $app_trans->getOriginal('transaction_id'), $wallet->address, $request->{'payee-id'});
 
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
@@ -977,7 +989,7 @@ class UserController extends Controller
 
 //        $this->feePayment($request->price * UserController::$APPLY_PAYMENT_FEE, $user);
 
-        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user, $int_trans->getOriginal('transaction_id'));
+        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user, $int_trans->getOriginal('transaction_id'), $wallet->getOriginal('address'), $payee_wallet->getOriginal('address'));
 
         return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
@@ -1028,14 +1040,14 @@ class UserController extends Controller
 //        return $user->getOriginal('id');
         $wallet = $this->x_wallet->where('user_id', '=', $user->getOriginal('id'))->where('type', '=', $request->type)->firstOrFail();
 
-        return $wallet->getOriginal('cash');
+//        return $wallet->getOriginal('cash');
 
 //        return $wallet->getKey();
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        return $wallet;
-        return min((integer)$wallet->getOriginal('cash'), (integer)$wallet->getOriginal('primary_cash') );
+//        return $wallet;
+//        return min((integer)$wallet->getOriginal('cash'), (integer)$wallet->getOriginal('primary_cash') );
 
         if (min((integer)$wallet->cash, (integer)$wallet->primary_cash )< $price)
             return \response('not Enough money in your Wallet');        //TODO error page
@@ -1044,9 +1056,7 @@ class UserController extends Controller
         $payee_wallet = $this->x_wallet->where('address', '=', $request->address)->where('type', '=', $request->type)->first();
 
         if (sizeof($payee_wallet) == 0) {
-            return \response()->json([
-                'user' => false
-            ]);
+            return \response('user');
         }
 
         $payee_wallet->update(['primary_cash' => (string)($request->price + (integer)$payee_wallet->primary_cash)]);
@@ -1077,9 +1087,9 @@ class UserController extends Controller
             'to' => $payee_wallet->getOriginal('address')
         ]);
 //
-        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user, $int_trans->getOriginal('transaction_id'));
+        $this->feePayment($request->price * UserController::$INTERNAL_TRANSACTION, $user, $int_trans->getOriginal('transaction_id'), $wallet->getOriginal('address'), $payee_wallet->getOriginal('address'));
 //
-        return \response('Payment was successful.');     //TODO or this kind of succeed we should make a page
+        return \response('done');     //TODO or this kind of succeed we should make a page
 //            dd($rial);
 //            dd($request->exam);
 
@@ -1399,7 +1409,7 @@ class UserController extends Controller
         ]);
     }
 
-    private function feePayment($value,  $user, $related_id){
+    private function feePayment($value,  $user, $related_id, $from, $to){
 
 //        dd($related_id);
 
@@ -1409,8 +1419,8 @@ class UserController extends Controller
 //        dd($trans);
         $new_fee_trans = $this->x_fee_transactions->create([
             'transaction_id' => $trans->transaction_id,
-            'from' =>  $user->id,
-            'too' => $boss->id,
+            'from' =>  $from,
+            'too' => $to,
             'related_transaction' => $related_id
         ]);
 
@@ -1505,9 +1515,10 @@ class UserController extends Controller
                 'to' => UserController::$COMPANY_WALLET_ADDRESS['rial'],
                 'done' => false,
                 'clerk_id' => null,
+                'exam_id' => $exam->getOriginal('exam_id')
             ]);
 
-            $this->feePayment($exam->fee, $user, $new_trans->getOriginal('transaction_id'));
+            $this->feePayment($exam->fee, $user, $new_trans->getOriginal('transaction_id'), $rial->getOriginal('address'), UserController::$COMPANY_WALLET_ADDRESS['rial']);
 
             return \response('Exam bought successfully');     //TODO for this kind of succeed we should make a page
 //            dd($rial);
