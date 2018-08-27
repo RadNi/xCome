@@ -45777,10 +45777,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(respond);
                 console.log(respond.data);
                 //                  console.log(JSON.parse(respond));
-                if (!respond.data.user) {
+                if (respond.data === 'user') {
                     _this.hide_form = false;
                     console.log(_this.hide_form);
-                }
+                } else if (respond.data === 'done') {
+                    //TODO    payment was done
+                } else {
+                        //TODO        payment was corrupted
+                    }
             }).catch(function (e) {
                 console.log(e);
             });
@@ -47038,7 +47042,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         console.log(this.x_data.tables);
         this.tables = this.x_data.tables;
         //            this.transactions = this.x_data.transactions;
-        //            this.type = this.x_data.type;
+        this.type = this.x_data.type;
         //            this.csrf = this.csrf_field;
         //            this.fee = this.x_data.fee;
         //            this.internalTransURL = window.customURLs.internalTransURL;
@@ -47109,7 +47113,7 @@ var render = function() {
                     ])
                   }),
                   _vm._v(" "),
-                  table.id == "unchecked-trans-table"
+                  table.id == "unchecked-trans-table" && _vm.type != "user"
                     ? _c(
                         "button",
                         {
@@ -47124,7 +47128,7 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  table.id == "unchecked-trans-table"
+                  table.id == "unchecked-trans-table" && _vm.type != "user"
                     ? _c(
                         "button",
                         {

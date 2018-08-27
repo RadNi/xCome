@@ -157,9 +157,13 @@
                   console.log(respond);
                   console.log(respond.data);
 //                  console.log(JSON.parse(respond));
-                  if (!respond.data.user) {
+                  if (respond.data === 'user') {
                       this.hide_form = false;
                       console.log(this.hide_form);
+                  }else if (respond.data === 'done'){
+                      //TODO    payment was done
+                  }else{
+                      //TODO        payment was corrupted
                   }
 
               }).catch(e => {
