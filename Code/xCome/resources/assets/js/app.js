@@ -29,6 +29,7 @@ Vue.component('transaction_history', require('./components/Transaction_History.v
 Vue.component('account_div', require('./components/Account_Div.vue'));
 Vue.component('users_table', require('./components/Users_Table.vue'));
 Vue.component('clerks_table', require('./components/Clerks_Table.vue'));
+Vue.component('clerk_send_message', require('./components/Clerk_Send_Message.vue'));
 
 const app = new Vue({
     el: '#app'

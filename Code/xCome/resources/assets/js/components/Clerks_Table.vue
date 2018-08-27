@@ -9,7 +9,7 @@
 
                     <div id="popupAdd" hidden>
                         <h4>new Clerk Information</h4>
-                        <form>
+                        <div>
                             <input id="email" type="email" name="email" placeholder="Email" v-model="clerk.email" required><br>
                             <input id="password" type="password" name="password" placeholder="Password" v-model="clerk.password" required><br>
                             <input id="repass" type="password" name="retryPass" placeholder="Repeat Password" v-model="clerk.repass" required><br>
@@ -21,8 +21,8 @@
                             <!--<input id="captcha" type="text" name="captcha" placeholder="captcha" v-model="clerk.captcha"><br>-->
                             <input id="person_id" type="text" name="PersonID" placeholder="Person ID" v-model="clerk.national_id" required size="10"><br>
                             <input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number" v-model="clerk.phoneNumber" required pattern="(\+98|0)?9\d{9}"><br>
-                            <button id="submit" class="btn-secondary" type="submit" data-dismiss="modal" v-bind:onclick="addClerk()">Add </button>
-                        </form>
+                            <button id="submit" class="btn-secondary" type="submit" data-dismiss="modal" v-on:click="addClerk()">Add </button>
+                        </div>
                     </div>
 
                 </div>

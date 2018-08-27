@@ -84,8 +84,30 @@ class UserController extends Controller
         return view("boss.clerk-messages", array("type" => "boss"));
     }
 
+    public function clerk_send_message(Request $request) {
+        $user = $this->getUser($request);
+//            dd($user->type);
+
+        if ($user == null){
+            return \response("You need to login again", 401);
+        }
+
+        return $request->message;
+
+    }
+
+    public function show_clerk_send_message(Request $request) {
+        return view('new.clerk_send_message');
+
+    }
+
+
+
     public function sendMessage() {
-        return view("clerk.send-message", array("type" => "clerk"));
+
+
+
+//        return view("clerk.send-message", array("type" => "clerk"));
     }
 
     public function showLogin() {
@@ -753,22 +775,55 @@ class UserController extends Controller
 
         if (sizeof($this->x_pay_transactions->where(['transaction_id' => $id])->get()) > 0) {
             $trans = $this->x_pay_transactions->where(['transaction_id' => $id])->update([
-                'done' => $request->accept
+                'done' => true,
             ]);
-
-            return $trans;
         }
 
 
-        if (sizeof($this->x_exam_transactions->where(['transaction_id' => $id])->get()) > 0) {
+        if ($this->x_exam_transactions->where(['transaction_id' => $id])->get()) {
             $this->x_exam_transactions->where(['transaction_id' => $id])->update([
-                'done' => $request->accept
+                'done' => true,
             ]);
         }
 
+        $trans = $this->x_transaction->where(['transaction_id' => $id])->first();
 
 
-        return $id;
+        $from_wallet = $this->x_exam_transactions->where(['transaction_id' => $id])->first();
+        $from_wallet = $this->x_wallet->where('address' , '=' , $from_wallet->getOriginal('from'))->first();
+
+
+
+        $to_wallet = $this->x_exam_transactions->where(['transaction_id' => $id])->first();
+        $to_wallet = $this->x_wallet->where('address' , '=' , $to_wallet->getOriginal('to'))->first();
+
+
+        if ($request->accept) {
+
+
+
+
+            $trans->update(['condition' => 'accept']);
+
+            $from_wallet->update(['cash' => (integer)$from_wallet->getAttributes()['cash'] - (integer)$trans->getAttributes()['value']]);
+
+
+            $to_wallet->update(['cash' => (integer)$from_wallet->getAttributes()['cash'] + (integer)$trans->getAttributes()['value']]);
+
+        }else{
+
+            $trans->update(['condition' => 'reject']);
+
+
+            $from_wallet->update(['primary_cash' => (integer)$from_wallet->getAttributes()['primary_cash'] + (integer)$trans->getAttributes()['value']]);
+
+
+            $to_wallet->update(['primary_cash' => (integer)$from_wallet->getAttributes()['primary_cash'] + (integer)$trans->getAttributes()['value']]);
+
+        }
+
+        return [$from_wallet->getAttributes(), $to_wallet->getAttributes()];
+
     }
 
     public function charge_credit(Request $request) {
@@ -1365,7 +1420,7 @@ class UserController extends Controller
                     ],
                     [
                         "id" => "clerks-table",
-                        "link" => route('send-message'),
+                        "link" => route('profile.show-clerk-send-message'),
                         "text" => "Send Message"
                     ]
                 ];

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class x_transaction extends Model
 {
 
-    protected $fillable = ['value', 'calender'];
+    protected $fillable = ['condition', 'value', 'calender'];
     protected $primaryKey = 'transaction_id';
 
     public function x_users() {

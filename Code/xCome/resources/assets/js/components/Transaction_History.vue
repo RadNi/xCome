@@ -75,7 +75,10 @@
                     }).then(respond => {
 
                         console.log(respond);
-                        console.log(respond.data)
+                        console.log(respond.data);
+
+                        location.reload();
+
 //                  console.log(JSON.parse(respond));
 
                     }).catch(e => {

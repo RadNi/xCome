@@ -1072,7 +1072,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);
-module.exports = __webpack_require__(81);
+module.exports = __webpack_require__(84);
 
 
 /***/ }),
@@ -1110,6 +1110,7 @@ Vue.component('transaction_history', __webpack_require__(69));
 Vue.component('account_div', __webpack_require__(72));
 Vue.component('users_table', __webpack_require__(75));
 Vue.component('clerks_table', __webpack_require__(78));
+Vue.component('clerk_send_message', __webpack_require__(81));
 
 var app = new Vue({
   el: '#app'
@@ -1171,7 +1172,8 @@ if (token) {
         'changeInfo': window.baseURL + '/profile/change-info',
         'acceptTransaction': window.baseURL + '/profile/accept-trans',
         'buyCurrency': window.baseURL + '/profile/buy-currency',
-        'sellCurrency': window.baseURL + '/profile/sell-currency'
+        'sellCurrency': window.baseURL + '/profile/sell-currency',
+        'clerkSendMessage': window.baseURL + 'profile/clerk-send-message'
     };
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
@@ -47061,6 +47063,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 console.log(respond);
                 console.log(respond.data);
+
+                location.reload();
+
                 //                  console.log(JSON.parse(respond));
             }).catch(function (e) {
                 console.log(e);
@@ -47877,7 +47882,7 @@ var render = function() {
       _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
         _c("h4", [_vm._v("new Clerk Information")]),
         _vm._v(" "),
-        _c("form", [
+        _c("div", [
           _c("input", {
             directives: [
               {
@@ -48160,15 +48165,19 @@ var render = function() {
           }),
           _c("br"),
           _vm._v(" "),
-          _c("input", {
-            staticClass: "btn-secondary",
-            attrs: {
-              id: "submit",
-              type: "submit",
-              "data-dismiss": "modal",
-              onclick: _vm.addClerk()
-            }
-          })
+          _c(
+            "button",
+            {
+              staticClass: "btn-secondary",
+              attrs: { id: "submit", type: "submit", "data-dismiss": "modal" },
+              on: {
+                click: function($event) {
+                  _vm.addClerk()
+                }
+              }
+            },
+            [_vm._v("Add ")]
+          )
         ])
       ])
     ]),
@@ -48260,6 +48269,207 @@ if (false) {
 
 /***/ }),
 /* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(0)
+/* script */
+var __vue_script__ = __webpack_require__(82)
+/* template */
+var __vue_template__ = __webpack_require__(83)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/Clerk_Send_Message.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4f2d6f71", Component.options)
+  } else {
+    hotAPI.reload("data-v-4f2d6f71", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 82 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'wallets',
+    props: ['x_data', 'csrf_field'],
+    data: function data() {
+        return {
+            amount: 0,
+            wallets: [],
+            type: '',
+            exchange_amount: 0,
+            error_message: '',
+            message: ''
+        };
+    },
+    mounted: function mounted() {
+        //            window.Laravel = {
+        //               csrfToken: this.csrf_field
+        //            };
+        //            alert(this.x_data);
+        this.type = this.x_data.type;
+        this.wallets = this.x_data.wallets;
+        //            window.axios.post('http://localhost:8888/profile', {
+        //                headers: {
+        //                    Cookie: document.cookie
+        //                }
+        //            }).then(respond => {
+        //                console.log(respond);
+        //            })
+        //            console.log(this.wallets)
+        //            for(let w of this.wallets){
+        //                console.log(w)
+        //            }
+    },
+
+    methods: {
+        sendMessage: function sendMessage(message) {
+            var _this = this;
+
+            window.axios.post(window.customURLs.clerkSendMessage, {
+                'message': message
+            }, {
+                Cookie: document.cookie,
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
+            }).then(function (respond) {
+
+                console.log(respond);
+                console.log(respond.data);
+                //                  console.log(JSON.parse(respond));
+
+                if (respond.data === 'done') {
+                    location.reload();
+                }
+                _this.error_message = respond.data;
+                //                    location.href = 'http://localhost:8888/profile';
+            }).catch(function (e) {
+                console.log(e);
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "input-group mb-3" }, [
+      _c("div", { attrs: { id: "send-message" } }, [
+        _c(
+          "textarea",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.message,
+                expression: "message"
+              }
+            ],
+            attrs: { id: "message" },
+            domProps: { value: _vm.message },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.message = $event.target.value
+              }
+            }
+          },
+          [_vm._v("Message")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          attrs: { id: "send", type: "submit", value: "Send" },
+          on: {
+            click: function($event) {
+              _vm.sendMessage(_vm.message)
+            }
+          }
+        })
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-4f2d6f71", module.exports)
+  }
+}
+
+/***/ }),
+/* 84 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
