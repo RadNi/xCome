@@ -45252,65 +45252,72 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("form", { attrs: { method: "post", action: this.buyExamURL } }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.csrf,
-                  expression: "csrf"
-                }
-              ],
-              attrs: { type: "hidden", name: "_token" },
-              domProps: { value: _vm.csrf },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+          _c(
+            "form",
+            {
+              staticClass: "table table-striped",
+              attrs: { method: "post", action: this.buyExamURL }
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.csrf,
+                    expression: "csrf"
                   }
-                  _vm.csrf = $event.target.value
+                ],
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.csrf = $event.target.value
+                  }
                 }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "table",
-              { staticClass: "table", attrs: { id: "exams-table" } },
-              _vm._l(this.exams, function(exam) {
-                return _c("td", [
-                  _c("div", { staticClass: "exam", attrs: { id: exam.id } }, [
-                    _c("p", { staticClass: "exam-name" }, [
-                      _vm._v(_vm._s(exam.name))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "exam-price" }, [
-                      _vm._v(_vm._s(exam.price))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "exam-fee" }, [
-                      _vm._v(_vm._s(exam.fee))
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "exam-date" }, [
-                      _vm._v(_vm._s(exam.date))
-                    ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      attrs: { type: "radio", name: "exam" },
-                      domProps: { value: exam.id }
-                    })
+              }),
+              _c("br"),
+              _vm._v(" "),
+              _c(
+                "table",
+                { staticClass: "table", attrs: { id: "exams-table" } },
+                _vm._l(this.exams, function(exam) {
+                  return _c("td", [
+                    _c("div", { staticClass: "exam", attrs: { id: exam.id } }, [
+                      _c("p", { staticClass: "exam-name" }, [
+                        _vm._v(_vm._s(exam.name))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "exam-price" }, [
+                        _vm._v(_vm._s(exam.price))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "exam-fee" }, [
+                        _vm._v(_vm._s(exam.fee))
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "exam-date" }, [
+                        _vm._v(_vm._s(exam.date))
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: { type: "radio", name: "exam", id: exam.name },
+                        domProps: { value: exam.id }
+                      })
+                    ])
                   ])
-                ])
+                })
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn-secondary",
+                attrs: { type: "submit", value: "Buy", id: "buy-butt" }
               })
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "btn-secondary",
-              attrs: { type: "submit", value: "Buy", id: "buy-butt" }
-            })
-          ])
+            ]
+          )
         ])
       ])
     ])
@@ -47934,309 +47941,299 @@ var render = function() {
       _c("div", { attrs: { id: "popupAdd", hidden: "" } }, [
         _c("h4", [_vm._v("new Clerk Information")]),
         _vm._v(" "),
-        _c(
-          "form",
-          {
+        _c("form", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.email,
+                expression: "clerk.email"
+              }
+            ],
+            attrs: {
+              id: "email",
+              type: "email",
+              name: "email",
+              placeholder: "Email",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.email },
             on: {
-              submit: function($event) {
-                $event.preventDefault()
-                return _vm.addClerk($event)
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "email", $event.target.value)
               }
             }
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.email,
-                  expression: "clerk.email"
-                }
-              ],
-              attrs: {
-                id: "email",
-                type: "email",
-                name: "email",
-                placeholder: "Email",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "email", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.password,
-                  expression: "clerk.password"
-                }
-              ],
-              attrs: {
-                id: "password",
-                type: "password",
-                name: "password",
-                placeholder: "Password",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.password },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "password", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.repass,
-                  expression: "clerk.repass"
-                }
-              ],
-              attrs: {
-                id: "repass",
-                type: "password",
-                name: "retryPass",
-                placeholder: "Repeat Password",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.repass },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "repass", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.name,
-                  expression: "clerk.name"
-                }
-              ],
-              attrs: {
-                id: "name",
-                type: "name",
-                name: "name",
-                placeholder: "Name",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "name", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.family_name,
-                  expression: "clerk.family_name"
-                }
-              ],
-              attrs: {
-                id: "family",
-                type: "name",
-                name: "familyName",
-                placeholder: "Family",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.family_name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "family_name", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.username,
-                  expression: "clerk.username"
-                }
-              ],
-              attrs: {
-                id: "username",
-                type: "name",
-                name: "username",
-                placeholder: "Username",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.username },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "username", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.income,
-                  expression: "clerk.income"
-                }
-              ],
-              attrs: {
-                id: "income",
-                type: "number",
-                name: "income",
-                placeholder: "income",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.income },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "income", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.address,
-                  expression: "clerk.address"
-                }
-              ],
-              attrs: {
-                id: "address",
-                type: "address",
-                name: "address",
-                placeholder: "address",
-                required: ""
-              },
-              domProps: { value: _vm.clerk.address },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "address", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.national_id,
-                  expression: "clerk.national_id"
-                }
-              ],
-              attrs: {
-                id: "person_id",
-                type: "text",
-                name: "PersonID",
-                placeholder: "Person ID",
-                required: "",
-                size: "10"
-              },
-              domProps: { value: _vm.clerk.national_id },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "national_id", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.clerk.phoneNumber,
-                  expression: "clerk.phoneNumber"
-                }
-              ],
-              attrs: {
-                id: "cellphone",
-                type: "text",
-                name: "CellPhone",
-                placeholder: "Phone Number",
-                required: "",
-                pattern: "(\\+98|0)?9\\d{9}"
-              },
-              domProps: { value: _vm.clerk.phoneNumber },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.clerk, "phoneNumber", $event.target.value)
-                }
-              }
-            }),
-            _c("br"),
-            _vm._v(" "),
-            _c(
-              "button",
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
               {
-                staticClass: "btn-secondary",
-                attrs: { id: "add", type: "submit", "data-dismiss": "modal" }
-              },
-              [_vm._v("Add")]
-            )
-          ]
-        )
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.password,
+                expression: "clerk.password"
+              }
+            ],
+            attrs: {
+              id: "password",
+              type: "password",
+              name: "password",
+              placeholder: "Password",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "password", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.repass,
+                expression: "clerk.repass"
+              }
+            ],
+            attrs: {
+              id: "repass",
+              type: "password",
+              name: "retryPass",
+              placeholder: "Repeat Password",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.repass },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "repass", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.name,
+                expression: "clerk.name"
+              }
+            ],
+            attrs: {
+              id: "name",
+              type: "name",
+              name: "name",
+              placeholder: "Name",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "name", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.family_name,
+                expression: "clerk.family_name"
+              }
+            ],
+            attrs: {
+              id: "family",
+              type: "name",
+              name: "familyName",
+              placeholder: "Family",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.family_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "family_name", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.username,
+                expression: "clerk.username"
+              }
+            ],
+            attrs: {
+              id: "username",
+              type: "name",
+              name: "username",
+              placeholder: "Username",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.username },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "username", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.income,
+                expression: "clerk.income"
+              }
+            ],
+            attrs: {
+              id: "income",
+              type: "number",
+              name: "income",
+              placeholder: "income",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.income },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "income", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.address,
+                expression: "clerk.address"
+              }
+            ],
+            attrs: {
+              id: "address",
+              type: "address",
+              name: "address",
+              placeholder: "address",
+              required: ""
+            },
+            domProps: { value: _vm.clerk.address },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "address", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.national_id,
+                expression: "clerk.national_id"
+              }
+            ],
+            attrs: {
+              id: "person_id",
+              type: "text",
+              name: "PersonID",
+              placeholder: "Person ID",
+              required: "",
+              size: "10"
+            },
+            domProps: { value: _vm.clerk.national_id },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "national_id", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.clerk.phoneNumber,
+                expression: "clerk.phoneNumber"
+              }
+            ],
+            attrs: {
+              id: "cellphone",
+              type: "text",
+              name: "CellPhone",
+              placeholder: "Phone Number",
+              required: "",
+              pattern: "(\\+98|0)?9\\d{9}"
+            },
+            domProps: { value: _vm.clerk.phoneNumber },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.clerk, "phoneNumber", $event.target.value)
+              }
+            }
+          }),
+          _c("br"),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "btn-secondary",
+            attrs: {
+              id: "submit",
+              type: "submit",
+              "data-dismiss": "modal",
+              onclick: _vm.addClerk()
+            }
+          })
+        ])
       ])
     ]),
     _vm._v(" "),
