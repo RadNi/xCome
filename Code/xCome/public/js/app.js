@@ -44926,6 +44926,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                 console.log(respond);
                 console.log(respond.data);
+                if (respond.data === 'done') {
+                    location.reload();
+                }
                 //                  console.log(JSON.parse(respond));
             }).catch(function (e) {
                 console.log(e);
@@ -44951,6 +44954,7 @@ var render = function() {
                 _c(
                   "button",
                   {
+                    staticClass: "btn-secondary",
                     attrs: {
                       id: "addExam",
                       onclick:
@@ -44976,7 +44980,8 @@ var render = function() {
                       id: "exam-type",
                       type: "name",
                       name: "name",
-                      placeholder: "Name"
+                      placeholder: "Name",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.name },
                     on: {
@@ -45003,7 +45008,8 @@ var render = function() {
                       id: "exam-price",
                       type: "number",
                       name: "price",
-                      placeholder: "Price"
+                      placeholder: "Price",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.price },
                     on: {
@@ -45030,7 +45036,8 @@ var render = function() {
                       id: "exam-fee",
                       type: "number",
                       name: "fee",
-                      placeholder: "Fee"
+                      placeholder: "Fee",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.fee },
                     on: {
@@ -45057,7 +45064,8 @@ var render = function() {
                       id: "exam-pay-type",
                       type: "text",
                       name: "pay",
-                      placeholder: "Pay Type"
+                      placeholder: "Pay Type",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.pay_type },
                     on: {
@@ -45084,7 +45092,8 @@ var render = function() {
                       id: "exam-date",
                       type: "date",
                       name: "date",
-                      placeholder: "Date"
+                      placeholder: "Date",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.date },
                     on: {
@@ -45111,7 +45120,8 @@ var render = function() {
                       id: "exam-time",
                       type: "time",
                       name: "date",
-                      placeholder: "Date"
+                      placeholder: "Date",
+                      required: ""
                     },
                     domProps: { value: _vm.new_exam.time },
                     on: {
@@ -45128,6 +45138,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn-secondary",
                       attrs: { id: "add", "data-dismiss": "modal" },
                       on: {
                         click: function($event) {
@@ -45166,7 +45177,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "table",
-              { attrs: { id: "exams-table" } },
+              { staticClass: "table", attrs: { id: "exams-table" } },
               _vm._l(this.exams, function(exam) {
                 return _c("td", [
                   _c("div", { staticClass: "exam", attrs: { id: exam.id } }, [
@@ -45196,6 +45207,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("input", {
+              staticClass: "btn-secondary",
               attrs: { type: "submit", value: "Buy", id: "buy-butt" }
             })
           ])
@@ -45616,7 +45628,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 username: '',
                 national_id: '',
                 address: '',
-                phonenumber: '',
+                phoneNumber: '',
                 wallet_type: '',
                 wallet_address: ''
                 //                price: '',
@@ -45864,7 +45876,7 @@ var render = function() {
               }),
               _vm._v(" "),
               _c("input", {
-                staticClass: "btn btn-outline-secondary",
+                staticClass: "btn-secondary",
                 attrs: {
                   type: "submit",
                   id: "login",
@@ -45877,328 +45889,260 @@ var render = function() {
         ),
         _vm._v(" "),
         _c(
-          "form",
+          "div",
           { attrs: { id: "user-registration", hidden: this.hide_form } },
           [
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "username" } },
-                [_vm._v("Username")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.username,
-                    expression: "new_user.username"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "username",
-                  name: "username",
-                  placeholder: "username"
-                },
-                domProps: { value: _vm.new_user.username },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "username", $event.target.value)
-                  }
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.email,
+                  expression: "new_user.email"
                 }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "sr-only", attrs: { for: "email" } }, [
-                _vm._v("Email Address")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.email,
-                    expression: "new_user.email"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "email",
-                  name: "email",
-                  placeholder: "Email Address"
-                },
-                domProps: { value: _vm.new_user.email },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "email", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "password" } },
-                [_vm._v("Password")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.password,
-                    expression: "new_user.password"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "password",
-                  id: "password",
-                  name: "password",
-                  placeholder: "password"
-                },
-                domProps: { value: _vm.new_user.password },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "password", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "repass" } },
-                [_vm._v("Password Confirmation")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.repass,
-                    expression: "new_user.repass"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "password",
-                  id: "repass",
-                  name: "password_confirmation",
-                  placeholder: "Password Confirmation"
-                },
-                domProps: { value: _vm.new_user.repass },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "repass", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c("label", { staticClass: "sr-only", attrs: { for: "name" } }, [
-                _vm._v("Name")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.name,
-                    expression: "new_user.name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "name",
-                  name: "name",
-                  placeholder: "Name"
-                },
-                domProps: { value: _vm.new_user.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "name", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "family" } },
-                [_vm._v("Family Name")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.family_name,
-                    expression: "new_user.family_name"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "family",
-                  name: "familyName",
-                  placeholder: "Family Name"
-                },
-                domProps: { value: _vm.new_user.family_name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "family_name", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "address" } },
-                [_vm._v("Address")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.address,
-                    expression: "new_user.address"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "address",
-                  name: "address",
-                  placeholder: "Address"
-                },
-                domProps: { value: _vm.new_user.address },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "address", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "person_id" } },
-                [_vm._v("National ID")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.national_id,
-                    expression: "new_user.national_id"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "person_id",
-                  name: "national_id",
-                  placeholder: "National ID"
-                },
-                domProps: { value: _vm.new_user.national_id },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "national_id", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "label",
-                { staticClass: "sr-only", attrs: { for: "cellphone" } },
-                [_vm._v("Phone Number")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.new_user.phonenumber,
-                    expression: "new_user.phonenumber"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  type: "text",
-                  id: "cellphone",
-                  name: "CellPhone",
-                  placeholder: "Phone Number"
-                },
-                domProps: { value: _vm.new_user.phonenumber },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.new_user, "phonenumber", $event.target.value)
-                  }
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-secondary",
-                attrs: { type: "submit", id: "submit" }
+              ],
+              attrs: {
+                id: "email",
+                type: "email",
+                name: "email",
+                placeholder: "Email"
               },
-              [_vm._v("Submit")]
-            )
+              domProps: { value: _vm.new_user.email },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "email", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.password,
+                  expression: "new_user.password"
+                }
+              ],
+              attrs: {
+                id: "password",
+                type: "password",
+                name: "password",
+                placeholder: "Password"
+              },
+              domProps: { value: _vm.new_user.password },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "password", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.repass,
+                  expression: "new_user.repass"
+                }
+              ],
+              attrs: {
+                id: "repass",
+                type: "password",
+                name: "password_confirmation",
+                placeholder: "Repeat Password"
+              },
+              domProps: { value: _vm.new_user.repass },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "repass", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.name,
+                  expression: "new_user.name"
+                }
+              ],
+              attrs: {
+                id: "name",
+                type: "name",
+                name: "name",
+                placeholder: "Name"
+              },
+              domProps: { value: _vm.new_user.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "name", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.family_name,
+                  expression: "new_user.family_name"
+                }
+              ],
+              attrs: {
+                id: "family",
+                type: "name",
+                name: "familyName",
+                placeholder: "Family"
+              },
+              domProps: { value: _vm.new_user.family_name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "family_name", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.username,
+                  expression: "new_user.username"
+                }
+              ],
+              attrs: {
+                id: "username",
+                type: "name",
+                name: "username",
+                placeholder: "Username"
+              },
+              domProps: { value: _vm.new_user.username },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "username", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.address,
+                  expression: "new_user.address"
+                }
+              ],
+              attrs: {
+                id: "address",
+                type: "address",
+                name: "address",
+                placeholder: "address"
+              },
+              domProps: { value: _vm.new_user.address },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "address", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.national_id,
+                  expression: "new_user.national_id"
+                }
+              ],
+              attrs: {
+                id: "person_id",
+                type: "text",
+                name: "PersonID",
+                placeholder: "Person ID"
+              },
+              domProps: { value: _vm.new_user.national_id },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "national_id", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.new_user.phoneNumber,
+                  expression: "new_user.phoneNumber"
+                }
+              ],
+              attrs: {
+                id: "cellphone",
+                type: "text",
+                name: "CellPhone",
+                placeholder: "Phone Number"
+              },
+              domProps: { value: _vm.new_user.phoneNumber },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.new_user, "phoneNumber", $event.target.value)
+                }
+              }
+            }),
+            _c("br"),
+            _vm._v(" "),
+            _c("input", {
+              attrs: { id: "submit-user", type: "submit", value: "register" },
+              on: {
+                click: function($event) {
+                  _vm.createUser()
+                }
+              }
+            })
           ]
         )
       ])
@@ -47200,7 +47144,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             type: '',
             csrf: '',
-            amount: 'Amount You Need'
+            amountt: 'Amount You Need'
 
         };
     },
@@ -47211,10 +47155,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
-        buy_amount: function buy_amount(amount) {
-            console.log(amount);
+        buy_amount: function buy_amount(amountt) {
+            console.log(amountt);
+            console.log(window.customURLs.chargeCredit);
 
-            window.axios.post(window.customURLs.chargeCredit, amount, {
+            window.axios.post(window.customURLs.chargeCredit, amountt, {
                 Cookie: document.cookie,
                 'Access-Control-Allow-Origin': '*',
                 "Access-Control-Allow-Headers": "X-CSRF-TOKEN, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
@@ -47251,8 +47196,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.amount,
-              expression: "amount"
+              value: _vm.amountt,
+              expression: "amountt"
             }
           ],
           staticClass: "form-control",
@@ -47264,13 +47209,13 @@ var render = function() {
             "aria-describedby": "basic-addon2",
             required: ""
           },
-          domProps: { value: _vm.amount },
+          domProps: { value: _vm.amountt },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.amount = $event.target.value
+              _vm.amountt = $event.target.value
             }
           }
         }),
@@ -47285,7 +47230,7 @@ var render = function() {
               attrs: { id: "buy", type: "button" },
               on: {
                 click: function($event) {
-                  _vm.buy_amount(_vm.amount)
+                  _vm.buy_amount(_vm.amountt)
                 }
               }
             },
@@ -47562,35 +47507,39 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("td", { staticClass: "checkbox" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn-secondary",
-                      on: {
-                        click: function($event) {
-                          _vm.ActiveUser(tr, true)
-                        }
-                      }
-                    },
-                    [_vm._v("Active User")]
-                  )
-                ]),
+                _vm.x_data.type !== "user"
+                  ? _c("td", { staticClass: "checkbox" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-secondary",
+                          on: {
+                            click: function($event) {
+                              _vm.ActiveUser(tr, true)
+                            }
+                          }
+                        },
+                        [_vm._v("Active User")]
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
-                _c("td", { staticClass: "checkbox" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn-secondary",
-                      on: {
-                        click: function($event) {
-                          _vm.ActiveUser(tr, false)
-                        }
-                      }
-                    },
-                    [_vm._v("Deactivate User")]
-                  )
-                ])
+                _vm.x_data.type !== "user"
+                  ? _c("td", { staticClass: "checkbox" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn-secondary",
+                          on: {
+                            click: function($event) {
+                              _vm.ActiveUser(tr, false)
+                            }
+                          }
+                        },
+                        [_vm._v("Deactivate User")]
+                      )
+                    ])
+                  : _vm._e()
               ],
               2
             )

@@ -30,58 +30,58 @@
                         <input class="btn-secondary" type="submit" id="login" name="submit" value="submit">
                     </div>
                 </form>
-                <!--<div id="user-registration" v-bind:hidden="this.hide_form">-->
-                    <!--<input id="email" type="email" name="email" placeholder="Email" v-model="new_user.email"><br>-->
-                    <!--<input id="password" type="password" name="password" placeholder="Password" v-model="new_user.password"><br>-->
-                    <!--<input id="repass" type="password" name="password_confirmation" placeholder="Repeat Password" v-model="new_user.repass"><br>-->
-                    <!--<input id="name" type="name" name="name" placeholder="Name" v-model="new_user.name"><br>-->
-                    <!--<input id="family" type="name" name="familyName" placeholder="Family" v-model="new_user.family_name"><br>-->
-                    <!--<input id="username" type="name" name="username" placeholder="Username" v-model="new_user.username"><br>-->
-                    <!--<input id="address" type="address" name="address" placeholder="address" v-model="new_user.address"><br>-->
-                    <!--<input id="person_id" type="text" name="PersonID" placeholder="Person ID" v-model="new_user.national_id"><br>-->
-                    <!--<input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number" v-model="new_user.phonenumber"><br>-->
+                <div id="user-registration" v-bind:hidden="this.hide_form">
+                    <input id="email" type="email" name="email" placeholder="Email" v-model="new_user.email"><br>
+                    <input id="password" type="password" name="password" placeholder="Password" v-model="new_user.password"><br>
+                    <input id="repass" type="password" name="password_confirmation" placeholder="Repeat Password" v-model="new_user.repass"><br>
+                    <input id="name" type="name" name="name" placeholder="Name" v-model="new_user.name"><br>
+                    <input id="family" type="name" name="familyName" placeholder="Family" v-model="new_user.family_name"><br>
+                    <input id="username" type="name" name="username" placeholder="Username" v-model="new_user.username"><br>
+                    <input id="address" type="address" name="address" placeholder="address" v-model="new_user.address"><br>
+                    <input id="person_id" type="text" name="PersonID" placeholder="Person ID" v-model="new_user.national_id"><br>
+                    <input id="cellphone" type="text" name="CellPhone" placeholder="Phone Number" v-model="new_user.phoneNumber"><br>
+                    <input id="submit-user" type="submit" value="register" v-on:click="createUser()">
+                </div>
+
+                <!--<div id="user-registration" v-bind:hidden="this.hide_form" >-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="username" class="sr-only">Username</label>-->
+                        <!--<input type="text" class="form-control" id="username" name="username" placeholder="username" v-model="new_user.username">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="email" class="sr-only">Email Address</label>-->
+                        <!--<input type="text" class="form-control" id="email" name="email" placeholder="Email Address" v-model="new_user.email">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="password" class="sr-only">Password</label>-->
+                        <!--<input type="password" class="form-control" id="password" name="password" placeholder="password" v-model="new_user.password">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="repass" class="sr-only">Password Confirmation</label>-->
+                        <!--<input type="password" class="form-control" id="repass" name="password_confirmation" placeholder="Password Confirmation" v-model="new_user.repass">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="name" class="sr-only">Name</label>-->
+                        <!--<input type="text" class="form-control" id="name" name="name" placeholder="Name" v-model="new_user.name">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="family" class="sr-only">Family Name</label>-->
+                        <!--<input type="text" class="form-control" id="family" name="familyName" placeholder="Family Name" v-model="new_user.family_name">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="address" class="sr-only">Address</label>-->
+                        <!--<input type="text" class="form-control" id="address" name="address" placeholder="Address" v-model="new_user.address">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="person_id" class="sr-only">National ID</label>-->
+                        <!--<input type="text" class="form-control" id="person_id" name="national_id" placeholder="National ID" v-model="new_user.national_id">-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label for="cellphone" class="sr-only">Phone Number</label>-->
+                        <!--<input type="text" class="form-control" id="cellphone" name="CellPhone" placeholder="Phone Number" v-model="new_user.phonenumber">-->
+                    <!--</div>-->
                     <!--<input id="submit-user" type="submit" value="register" v-on:click="createUser()">-->
                 <!--</div>-->
-
-                <form id="user-registration" v-bind:hidden="this.hide_form">
-                    <div class="form-group">
-                        <label for="username" class="sr-only">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="username" v-model="new_user.username">
-                    </div>
-                    <div class="form-group">
-                        <label for="email" class="sr-only">Email Address</label>
-                        <input type="text" class="form-control" id="email" name="email" placeholder="Email Address" v-model="new_user.email">
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="sr-only">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="password" v-model="new_user.password">
-                    </div>
-                    <div class="form-group">
-                        <label for="repass" class="sr-only">Password Confirmation</label>
-                        <input type="password" class="form-control" id="repass" name="password_confirmation" placeholder="Password Confirmation" v-model="new_user.repass">
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="sr-only">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name" v-model="new_user.name">
-                    </div>
-                    <div class="form-group">
-                        <label for="family" class="sr-only">Family Name</label>
-                        <input type="text" class="form-control" id="family" name="familyName" placeholder="Family Name" v-model="new_user.family_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="address" class="sr-only">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Address" v-model="new_user.address">
-                    </div>
-                    <div class="form-group">
-                        <label for="person_id" class="sr-only">National ID</label>
-                        <input type="text" class="form-control" id="person_id" name="national_id" placeholder="National ID" v-model="new_user.national_id">
-                    </div>
-                    <div class="form-group">
-                        <label for="cellphone" class="sr-only">Phone Number</label>
-                        <input type="text" class="form-control" id="cellphone" name="CellPhone" placeholder="Phone Number" v-model="new_user.phonenumber">
-                    </div>
-                    <button type="submit" id="submit" class="btn btn-secondary">Submit</button>
-                </form>
             </div>
         </div>
     </div>
@@ -115,7 +115,7 @@
                     username: '',
                     national_id: '',
                     address: '',
-                    phonenumber: '',
+                    phoneNumber: '',
                     wallet_type: '',
                     wallet_address: '',
                 }

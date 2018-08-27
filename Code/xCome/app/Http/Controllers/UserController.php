@@ -745,6 +745,10 @@ class UserController extends Controller
 
 
 
+        if (sizeof($this->x_exam_transactions->where(['transaction_id' => $id])->get()) > 0) {
+
+        }
+
         $this->x_exam_transactions->where(['transaction_id' => $id])->update([
             'done' => $request->accept
         ]);
@@ -1018,13 +1022,19 @@ class UserController extends Controller
 //        return $request->getContent();
 //        return (integer)$request->price;
 
-        $wallet = $this->x_wallet->where('user_id', '=', $user->id)->where('type', '=', $request->type)->firstOrFail();
+//        return $user->getOriginal('id');
+        $wallet = $this->x_wallet->where('user_id', '=', $user->getOriginal('id'))->where('type', '=', $request->type)->firstOrFail();
+
+        return $wallet->getOriginal('cash');
 
 //        return $wallet->getKey();
 
         $price = (integer)($request->price)*( 1 + UserController::$APPLY_PAYMENT_FEE);
 
-        if (min($wallet->cash, $wallet->primary_cash )< $price)
+        return $wallet;
+        return min((integer)$wallet->getOriginal('cash'), (integer)$wallet->getOriginal('primary_cash') );
+
+        if (min((integer)$wallet->cash, (integer)$wallet->primary_cash )< $price)
             return \response('not Enough money in your Wallet');        //TODO error page
 
 
@@ -1091,7 +1101,7 @@ class UserController extends Controller
 
 
 //        dd($data);
-
+//        return $data;
 //        $this->makeBoss($data);
 
         $user = $this->x_user->create($data)->getKey();
@@ -1099,8 +1109,11 @@ class UserController extends Controller
 //
 //        $this->makeWallets($user);
 
-        $arr = ['dollar', 'euro', 'rial'];
-        unset($arr[$request->wallet_type]);
+        $arr = ["dollar", "euro", "rial"];
+//        unset($arr[$request->wallet_type]);
+//        unset($arr["rial"]);
+        $arr = array_diff($arr, [$request->wallet_type]);
+//        return $arr;
         foreach ( $arr as $t) {
             $wallet = new x_wallet();
             $wallet->user_id = $user;
