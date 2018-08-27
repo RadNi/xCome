@@ -195,8 +195,8 @@ class UserController extends Controller
 
 //        $this->makeBoss($data);
         $user = $this->x_user->create($data)->getKey();
-//
-//
+
+
         $this->makeWallets($user);
 
 
