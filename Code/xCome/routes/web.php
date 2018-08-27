@@ -60,6 +60,11 @@ Route::get('/terms', [
     "as" => "TermsOfUse",
 ]);
 
+Route::get('/about', [
+    "uses" => "UserController@showAbout",
+    "as" => "AboutUS",
+]);
+
 
 Route::post('/register', [
     "uses" => "UserController@checkRegister",
