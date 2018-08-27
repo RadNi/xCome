@@ -1252,10 +1252,12 @@ class UserController extends Controller
 
 //        unset($request)
 //
+//        return $data;
+
         $user->update([
             'password' => md5($request->password),
             'email' => $request->email,
-            'phonenumber' => $request->phonenumber
+            'phoneNumber' => $request->phonenumber
         ]);
 
         return \response($data);
@@ -1459,7 +1461,18 @@ class UserController extends Controller
         if ($user->getAttributes()['type'] != 'manager')
             return \response()->redirectToRoute('profile');
 
-        $messages = $this->x_message->get();
+        $query = $this->x_message->join('x_users', 'x_messages.creator_id', '=', 'x_users.id')->get();
+
+        $messages = [];
+
+        foreach ($query as $item) {
+            array_push($messages, [
+                'value' => $item->getAttributes()['message'],
+                'creator_id' => $item->getAttributes()['creator_id'],
+                'creator_name' => $item->getAttributes()['family_name']
+            ]);
+        }
+
 
 
         $data = [
