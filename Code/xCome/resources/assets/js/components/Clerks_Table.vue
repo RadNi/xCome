@@ -46,7 +46,7 @@
                         <tbody>
                         <tr v-for="tr in table.trs">
                             <td v-for="td in tr.tds" :class="td.class">{{ td.value }}</td>
-                            <td class="checkbox"><input type="checkbox" v-on:click=""/></td>
+                            <!--<td class="checkbox"><input type="checkbox" v-on:click=""/></td>-->
                             <!--<td class="name">Name</td>-->
                             <!--<td class="family">Family name</td>-->
                             <!--<td class="username">Username</td>-->

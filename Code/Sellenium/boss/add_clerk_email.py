@@ -14,11 +14,13 @@ class AddClerk(unittest.TestCase):
         self.driver.find_element_by_id("addShow").click()
 
     def test_add_clerk_email(self):
+        a = len(self.driver.find_elements_by_tag_name('tr'))
         fields.get_components_by_name(self.driver, ["name=clerk", "family=feyzabadisani", "email=smjfaail.com",
                                                     "person_id=1234565987", "username=smjfas", "password=hello123",
                                                     "repass=hello123", "cellphone=09398604014", "income=100",
                                                     "address=21st number baker st.", "submit"])[10].click()
-        assert "profile/clerks-table" in self.driver.current_url
+        b = len(self.driver.find_elements_by_tag_name('tr'))
+        assert a-b is 0
 
     def tearDown(self):
         self.driver.close()

@@ -47779,6 +47779,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             addShow.hidden = true;
         },
         addClerk: function addClerk() {
+            if (this.clerk.password !== this.clerk.repass) {
+                return;
+            }
             window.axios.post(window.customURLs.addClerk, {
                 clerk: this.clerk
             }, {
