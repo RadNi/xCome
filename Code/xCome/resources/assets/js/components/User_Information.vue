@@ -46,7 +46,7 @@
                     <!--</table>-->
                     <!--<button id="change" v-on:click="send_new_info()">Change</button>-->
 
-        <form>
+        <div>
             <div class="form-group row">
                 <label for="phonenumber" class="col-sm-2 col-form-label">Phone Number</label>
                 <div class="col-sm-10">
@@ -88,28 +88,27 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-2">Report Method</div>
+                <div class="col-sm-2">Report</div>
                 <div class="col-sm-10">
                     <div class="form-check">
-                        <input class="report" type="checkbox" id="smsReport" name="sms_report"
-                            v-model="new_info.report.sms" v-on:change="new_info.report.sms = !new_info.report.sms">
-                        <label class="form-check-label" for="smsReport">
-                            SMS
-                        </label>
+                        <!--<input class="report" type="checkbox" id="smsReport" name="sms_report"-->
+                            <!--v-model="new_info.report.sms">-->
+                        <!--<label class="form-check-label" for="smsReport">-->
+                            <!--SMS-->
+                        <!--</label>-->
                     </div>
                     <div class="form-check">
-                        <input class="report" type="checkbox" id="tgReport" name="tg_report"
-                               v-model="new_info.report.telegram" v-on:change="new_info.report.telegram = !new_info.report.telegram">
+                        <input class="report" type="text" id="tgReport" name="tg_report" v-model="new_info.telegram_code">
                         <label class="form-check-label" for="tgReport">
                             Telegram
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="report" type="checkbox" id="emailReport" name="email_report"
-                               v-model="new_info.report.email" v-on:change="new_info.report.email = !new_info.report.email">
-                        <label class="form-check-label" for="emailReport">
-                            Email
-                        </label>
+                        <!--<input class="report" type="checkbox" id="emailReport" name="email_report"-->
+                               <!--v-model="new_info.report.email">-->
+                        <!--<label class="form-check-label" for="emailReport">-->
+                            <!--Email-->
+                        <!--</label>-->
                     </div>
                 </div>
             </div>
@@ -118,7 +117,7 @@
                     <button id="change" class="btn btn-outline-secondary" v-on:click="send_new_info()">Change</button>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 
 
@@ -142,11 +141,7 @@
                     password: '',
                     repass: '',
                     email: '',
-                    report: {
-                        sms: false,
-                        telegram: false,
-                        email: false
-                    }
+                    telegram_code: ''
                 }
 //                price: '',
 

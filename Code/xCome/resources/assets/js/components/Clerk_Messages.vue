@@ -43,7 +43,7 @@
         },
         mounted() {
             console.log(this.x_data.tables);
-            this.tables = this.x_data.messages;
+            this.messages = this.x_data.messages;
 //            this.transactions = this.x_data.transactions;
             this.type = this.x_data.type;
 //            this.csrf = this.csrf_field;

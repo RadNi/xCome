@@ -46451,7 +46451,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -46470,11 +46469,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: '',
                 repass: '',
                 email: '',
-                report: {
-                    sms: false,
-                    telegram: false,
-                    email: false
-                }
+                telegram_code: ''
                 //                price: '',
 
             } };
@@ -46514,7 +46509,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("form", [
+    _c("div", [
       _c("div", { staticClass: "form-group row" }, [
         _c(
           "label",
@@ -46709,67 +46704,10 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "form-group row" }, [
-        _c("div", { staticClass: "col-sm-2" }, [_vm._v("Report Method")]),
+        _c("div", { staticClass: "col-sm-2" }, [_vm._v("Report")]),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-10" }, [
-          _c("div", { staticClass: "form-check" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.report.sms,
-                  expression: "new_info.report.sms"
-                }
-              ],
-              staticClass: "report",
-              attrs: { type: "checkbox", id: "smsReport", name: "sms_report" },
-              domProps: {
-                checked: Array.isArray(_vm.new_info.report.sms)
-                  ? _vm._i(_vm.new_info.report.sms, null) > -1
-                  : _vm.new_info.report.sms
-              },
-              on: {
-                change: [
-                  function($event) {
-                    var $$a = _vm.new_info.report.sms,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(
-                            _vm.new_info.report,
-                            "sms",
-                            $$a.concat([$$v])
-                          )
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.new_info.report,
-                            "sms",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.new_info.report, "sms", $$c)
-                    }
-                  },
-                  function($event) {
-                    _vm.new_info.report.sms = !_vm.new_info.report.sms
-                  }
-                ]
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              { staticClass: "form-check-label", attrs: { for: "smsReport" } },
-              [_vm._v("\n                        SMS\n                    ")]
-            )
-          ]),
+          _c("div", { staticClass: "form-check" }),
           _vm._v(" "),
           _c("div", { staticClass: "form-check" }, [
             _c("input", {
@@ -46777,49 +46715,20 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.new_info.report.telegram,
-                  expression: "new_info.report.telegram"
+                  value: _vm.new_info.telegram_code,
+                  expression: "new_info.telegram_code"
                 }
               ],
               staticClass: "report",
-              attrs: { type: "checkbox", id: "tgReport", name: "tg_report" },
-              domProps: {
-                checked: Array.isArray(_vm.new_info.report.telegram)
-                  ? _vm._i(_vm.new_info.report.telegram, null) > -1
-                  : _vm.new_info.report.telegram
-              },
+              attrs: { type: "text", id: "tgReport", name: "tg_report" },
+              domProps: { value: _vm.new_info.telegram_code },
               on: {
-                change: [
-                  function($event) {
-                    var $$a = _vm.new_info.report.telegram,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(
-                            _vm.new_info.report,
-                            "telegram",
-                            $$a.concat([$$v])
-                          )
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.new_info.report,
-                            "telegram",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.new_info.report, "telegram", $$c)
-                    }
-                  },
-                  function($event) {
-                    _vm.new_info.report.telegram = !_vm.new_info.report.telegram
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
                   }
-                ]
+                  _vm.$set(_vm.new_info, "telegram_code", $event.target.value)
+                }
               }
             }),
             _vm._v(" "),
@@ -46834,71 +46743,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "form-check" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.new_info.report.email,
-                  expression: "new_info.report.email"
-                }
-              ],
-              staticClass: "report",
-              attrs: {
-                type: "checkbox",
-                id: "emailReport",
-                name: "email_report"
-              },
-              domProps: {
-                checked: Array.isArray(_vm.new_info.report.email)
-                  ? _vm._i(_vm.new_info.report.email, null) > -1
-                  : _vm.new_info.report.email
-              },
-              on: {
-                change: [
-                  function($event) {
-                    var $$a = _vm.new_info.report.email,
-                      $$el = $event.target,
-                      $$c = $$el.checked ? true : false
-                    if (Array.isArray($$a)) {
-                      var $$v = null,
-                        $$i = _vm._i($$a, $$v)
-                      if ($$el.checked) {
-                        $$i < 0 &&
-                          _vm.$set(
-                            _vm.new_info.report,
-                            "email",
-                            $$a.concat([$$v])
-                          )
-                      } else {
-                        $$i > -1 &&
-                          _vm.$set(
-                            _vm.new_info.report,
-                            "email",
-                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                          )
-                      }
-                    } else {
-                      _vm.$set(_vm.new_info.report, "email", $$c)
-                    }
-                  },
-                  function($event) {
-                    _vm.new_info.report.email = !_vm.new_info.report.email
-                  }
-                ]
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "label",
-              {
-                staticClass: "form-check-label",
-                attrs: { for: "emailReport" }
-              },
-              [_vm._v("\n                        Email\n                    ")]
-            )
-          ])
+          _c("div", { staticClass: "form-check" })
         ])
       ]),
       _vm._v(" "),
@@ -48563,7 +48408,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     mounted: function mounted() {
         console.log(this.x_data.tables);
-        this.tables = this.x_data.messages;
+        this.messages = this.x_data.messages;
         //            this.transactions = this.x_data.transactions;
         this.type = this.x_data.type;
         //            this.csrf = this.csrf_field;
