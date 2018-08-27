@@ -18,7 +18,7 @@ class AddClerk(unittest.TestCase):
                                                     "person_id=1234565987", "username=smjfas", "password=hello123",
                                                     "repass=hello123", "cellphone=09398604014", "income=100",
                                                     "address=21st number baker st.", "submit"])[10].click()
-        # todo assertion
+        assert "profile/clerks-table" in self.driver.current_url
 
     def tearDown(self):
         self.driver.close()

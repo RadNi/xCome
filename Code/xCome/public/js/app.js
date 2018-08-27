@@ -48156,15 +48156,19 @@ var render = function() {
           }),
           _c("br"),
           _vm._v(" "),
-          _c("input", {
-            staticClass: "btn-secondary",
-            attrs: {
-              id: "submit",
-              type: "submit",
-              "data-dismiss": "modal",
-              onclick: _vm.addClerk()
-            }
-          })
+          _c(
+            "button",
+            {
+              staticClass: "btn-secondary",
+              attrs: {
+                id: "submit",
+                type: "submit",
+                "data-dismiss": "modal",
+                onclick: _vm.addClerk()
+              }
+            },
+            [_vm._v("Add ")]
+          )
         ])
       ])
     ]),
