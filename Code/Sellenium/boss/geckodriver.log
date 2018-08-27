@@ -625,3 +625,18 @@ observe()@resource://gre/modules/addons/XPIProvider.jsm:1672
 1535355778719	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.u1bE6fwoaxRO"
 1535355781742	Marionette	INFO	Listening on port 41807
 1535355781827	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 31444, Gecko_IOThread] WARNING: pipe error (70): Connection reset by peer: file /build/firefox-oscv9o/firefox-61.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1535355813007	geckodriver	INFO	geckodriver 0.21.0
+1535355813011	geckodriver	INFO	Listening on 127.0.0.1:56361
+1535355814019	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.HYaIkUnt0ldT"
+1535355817323	Marionette	INFO	Listening on port 35011
+1535355817329	Marionette	WARN	TLS certificate errors will be ignored for this session
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1535355834406	geckodriver	INFO	geckodriver 0.21.0
+1535355834410	geckodriver	INFO	Listening on 127.0.0.1:36959
+1535355835417	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.pchjMUn1Kpnz"
+1535355838449	Marionette	INFO	Listening on port 44147
+1535355838568	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 32038, Gecko_IOThread] WARNING: pipe error (69): Connection reset by peer: file /build/firefox-oscv9o/firefox-61.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 353
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
