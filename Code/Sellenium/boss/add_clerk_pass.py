@@ -7,6 +7,11 @@ class AddClerk(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
+        self.driver.get(static_data.base_url + "login")
+        fields.get_components_by_name(self.driver, ["username=Radni", "password=testtest",
+                                                    "submit"])[2].click()
+        self.driver.get(static_data.base_url + "profile/clerks-table")
+        self.driver.find_element_by_id("addShow").click()
 
     def test_add_clerk_pass_mismatch(self):
         a = len(self.driver.find_elements_by_tag_name('tr'))

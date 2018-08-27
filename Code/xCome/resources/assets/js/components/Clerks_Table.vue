@@ -29,7 +29,7 @@
 
                 <!--<input id="search" name="searchbox" placeholder="Search here">-->
                 <div class="table-responsive">
-                    <table id="users-table" class="table table-striped table-bordered">
+                    <table id="clerks-table" class="table table-striped table-bordered">
                         <thead>
                         <tr >
                             <th class="col" v-for="th in table.ths">{{ th }}</th>

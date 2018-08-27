@@ -48210,13 +48210,6 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("td", { staticClass: "checkbox" }, [
-                    _c("input", {
-                      attrs: { type: "checkbox" },
-                      on: { click: function($event) {} }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "checkbox" }, [
                     _c(
                       "button",
                       {
