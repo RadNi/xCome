@@ -19,7 +19,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" aria-label="Payee Credit Card" name="payee-id" id="payee-id" placeholder="Payee Credit Card" v-model="payment.address">
                         <select class="custom-select" name="type" id="Curr_Type" v-model="payment.type">
-                            <option selected>Choose...</option>
+                            <option selected="" >Choose...</option>
                             <option value="rial">Rial</option>
                             <option value="dollar">Dollar</option>
                             <option value="euro" selected="">Euro</option>

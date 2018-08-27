@@ -1,84 +1,75 @@
 import unittest
+from time import sleep
 
 from selenium import webdriver
 
 from test_utility import static_data
+from test_utility import fields
 
 
 class Wallet(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Firefox()
-        self.address = "user/profile"
-
-    def test_wallet_address(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        assert driver.find_element_by_class_name("address").is_displayed()
+        self.driver.get(static_data.base_url + "login")
+        fields.get_components_by_name(self.driver, ["username=smjfas", "password=smjfas",
+                                                    "submit"])[2].click()
 
     def test_wallet_exchange_buy(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        inputs = driver.find_element_by_id("walletInfo").find_elements_by_tag_name("input")
-        inputs[0].send_keys("100")
-        inputs[1].click()
-        assert driver.find_element_by_id("successful") is not None
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        for i in range(0, len(trs)):
+            if trs[i].find_elements_by_tag_name('td')[0].text == "dollar":
+                desired_row = i
+                break
+        before = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("dollar").send_keys("10")
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("buydollar").click()
+        self.driver.get(static_data.base_url + "/profile")
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        after = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        assert (int(after) - int(before)) is 10
 
     def test_wallet_exchange_sell(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        inputs = driver.find_element_by_id("walletInfo").find_elements_by_tag_name("input")
-        inputs[2].send_keys("100")
-        inputs[3].click()
-        assert driver.find_element_by_id("successful") is not None
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        for i in range(0, len(trs)):
+            if trs[i].find_elements_by_tag_name('td')[0].text == "dollar":
+                desired_row = i
+                break
+        before = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("dollar").send_keys("10")
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("selldollar").click()
+        self.driver.get(static_data.base_url + "/profile")
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        after = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        assert (int(before) - int(after)) is 10
 
     def test_wallet_exchange_buy_too_much(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        inputs = driver.find_element_by_id("walletInfo").find_elements_by_tag_name("input")
-        inputs[0].send_keys("100000000000")
-        inputs[1].click()
-        assert driver.find_element_by_id("inValid") is not None
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        for i in range(0, len(trs)):
+            if trs[i].find_elements_by_tag_name('td')[0].text == "dollar":
+                desired_row = i
+                break
+        before = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("dollar").send_keys("10000000000000000")
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("buydollar").click()
+        self.driver.get(static_data.base_url + "/profile")
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        after = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        assert (int(after) - int(before)) is 0
 
     def test_wallet_exchange_sell_too_much(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        inputs = driver.find_element_by_id("walletInfo").find_elements_by_tag_name("input")
-        inputs[2].send_keys("1000000000000")
-        inputs[3].click()
-        assert driver.find_element_by_id("inValid") is not None
-
-    def test_wallet_exchange_buy_format(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        inputs = driver.find_element_by_id("walletInfo").find_elements_by_tag_name("input")
-        inputs[0].send_keys("a")
-        inputs[1].click()
-        assert driver.find_element_by_id("inValid") is not None
-
-    def test_wallet_exchange_sell_format(self):
-        driver = self.driver
-        driver.get(static_data.base_url + self.address)
-        driver.find_element_by_id("wallets-table").find_elements_by_class_name("wallet")[2].\
-            find_element_by_class_name("diagram").click()
-        inputs = driver.find_element_by_id("walletInfo").find_elements_by_tag_name("input")
-        inputs[2].send_keys("a")
-        inputs[3].click()
-        assert driver.find_element_by_id("inValid") is not None
-
-
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        for i in range(0, len(trs)):
+            if trs[i].find_elements_by_tag_name('td')[0].text == "dollar":
+                desired_row = i
+                break
+        before = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("dollar").send_keys("10000000000000000")
+        trs[desired_row].find_elements_by_tag_name('td')[3].find_element_by_id("selldollar").click()
+        self.driver.get(static_data.base_url + "/profile")
+        trs = self.driver.find_element_by_tag_name('tbody').find_elements_by_tag_name('tr')
+        after = trs[desired_row].find_elements_by_tag_name('td')[1].text
+        assert (int(after) - int(before)) is 0
 
     def tearDown(self):
         self.driver.close()

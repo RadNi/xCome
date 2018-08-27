@@ -21,7 +21,7 @@
                     </div>
 
 
-                    <form method="post" :action="this.buyExamURL">
+                    <form method="post" :action="this.buyExamURL" class="table table-striped">
                         <input type="hidden" name="_token" v-model="csrf"><br/>
                         <!-- TODO       the address should be dynamic -->
                         <table id="exams-table" class="table">
@@ -31,7 +31,7 @@
                                 <p class="exam-price">{{ exam.price }}</p>
                                 <p class="exam-fee">{{ exam.fee }}</p>
                                 <p class="exam-date">{{ exam.date }}</p>
-                                <input type="radio" name="exam" :value="exam.id"/>
+                                <input type="radio" name="exam" :value="exam.id" :id="exam.name"/>
                             </div>
                         </td>
                             <!--<div id="exam1" class="exam">-->
